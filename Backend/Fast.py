@@ -26,11 +26,12 @@ def upload_base64():
         with open(file_path, "wb") as image_file:
             image_file.write(image_bytes)
         barcode_info = BarcodeReader(file_path)
-        
+        result = dict(status="success",data=barcode_info)
         if isinstance(barcode_info, str):
-            return jsonify({"error": barcode_info}), 400
+            my_dict = dict(status="error", data=barcode_info)
+            return jsonify(my_dict), 400
         
-        return jsonify({"info": "Image processed successfully", "barcode_info": barcode_info})
+        return jsonify(result)
         #return jsonify({"info": f"Image saved at {file_path}"}), 200
     except Exception as e:
         # Ensure the f-string is properly closed
