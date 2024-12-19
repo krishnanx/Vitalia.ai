@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useRef } from 'react';
-import { Text, View, Button, StyleSheet,Image } from 'react-native';
+import { Text, View, Button, StyleSheet,Image,TouchableWithoutFeedback,TouchableHighlight } from 'react-native';
 // import { CameraView} from "expo-camera";
 import { CameraView, Camera } from "expo-camera";
 // import { Camera } from 'react-native-camera-kit';
@@ -7,8 +7,11 @@ import { CameraView, Camera } from "expo-camera";
 import sendBase64ToServer from '../components/SendPic'
 import convertToBase64 from '../components/Convert';
 //import saveBase64ToFile from '../components/Save';
-
+import torch from "../assets/flashlight.png"
+import torchW from "../assets/flashlightW.png"
 const Scanner = () => {
+  const [click,setClick] = useState(false);
+  const [flash,setFlash] = useState('off')
   const styles = StyleSheet.create({
       Main:{
           flex:1,
@@ -20,15 +23,15 @@ const Scanner = () => {
 
       },
       barcode:{
-          height:'97',
-          width:'352',
+          height:250,
+          width:250,
          // borderColor:'white',
           //borderStyle:'solid',
           //borderBottomwidth:'0.5',
       },
       barcodeView:{
-        height:'100',
-        width:'355',
+        height:255,
+        width:255,
         //borderTopWidth:1,
         borderWidth:1.5,
         borderColor:'white',
@@ -60,8 +63,45 @@ const Scanner = () => {
         height:'500',
         justifyContent:'space-around',
         alignItems:'center'      
-    },
-  })
+      },
+      torchView: {
+        width: 50,
+        height: 50,
+        backgroundColor:click?'yellow':'transparent',
+        borderStyle: 'solid',
+        borderRadius: 25, // Half of width/height for a perfect circle
+        position: 'relative', // Required for child absolute positioning
+        flexDirection:'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex:2,
+        borderWidth:1.5,
+        borderColor:'white',
+      },
+      Torch: {
+        position: 'absolute', // Required for zIndex to work
+        zIndex: 20,
+        width: 30, // Adjust size as needed
+        height: 30, // Adjust size as needed
+      },
+      PicContainer:{
+        height:350,
+        width:250,
+        flexDirection:'column',
+        justifyContent:'space-around'
+      },
+      torchFeedback:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        width: 60, // Adjust size as needed
+        height: 60,
+        //backgroundColor:'white',
+        zIndex:15,
+      },
+    
+    
+    })
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [state,setState] = useState(-1);
@@ -89,10 +129,16 @@ const Scanner = () => {
     
     
   },[hasPermission])
-
+  useEffect(()=>{
+    console.log(flash)
+  })
   console.log('Hello')
   const cameraRef = useRef(null);
   const [photoUri, setPhotoUri] = useState(null);
+  const handleTorch = () => {
+    click?(setClick(false),setFlash('off')):(setClick(true),setFlash('on'))
+    
+  }
   const takePicture = async () => {
     if (cameraRef.current) {
       try {
@@ -131,16 +177,38 @@ const Scanner = () => {
               style={styles.barcode}
             />*/}
             <View
-              style={styles.barcodeView}
+              style={styles.PicContainer}
             >
-              <CameraView 
-                ref={cameraRef} 
-                style={styles.barcode}
-                onCameraReady={() => console.log("Camera ready")} 
-                animateShutter={false}
 
-              />
+              <View
+                style={styles.torchView}
+              >
+                <TouchableHighlight
+                  style={styles.torchFeedback}
+                  onPress={handleTorch}
+                >
+                  {click?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
+                </TouchableHighlight>
+              </View>
+            
+              
+              <View
+                style={styles.barcodeView}
+              >
+              
+                <CameraView 
+                  ref={cameraRef} 
+                  style={styles.barcode}
+                  onCameraReady={() => console.log("Camera ready")} 
+                  animateShutter={false} 
+                  enableTorch={click}
+                  autofocus={'on'}
+                  //flash={'on'}
+                  
+                />
+              </View>
             </View>
+            
             {work?<Text
               style={styles.requestCamera}
             >Please scan again....</Text>

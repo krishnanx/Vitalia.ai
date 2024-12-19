@@ -22,5 +22,7 @@ def BarcodeReader(image_path):
                 "data": barcode.data.decode("utf-8"),
                 "type": barcode.type
             })
-        
+        #cv2.imshow("Barcode Detected",img)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows() 
         return barcode_data
