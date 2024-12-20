@@ -1,5 +1,6 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect,useRef,useContext } from 'react';
 import { Text, View, Button, StyleSheet,Image,TouchableWithoutFeedback,TouchableHighlight } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 // import { CameraView} from "expo-camera";
 import { CameraView, Camera } from "expo-camera";
 // import { Camera } from 'react-native-camera-kit';
@@ -9,6 +10,7 @@ import convertToBase64 from '../components/Convert';
 //import saveBase64ToFile from '../components/Save';
 import torch from "../assets/flashlight.png"
 import torchW from "../assets/flashlightW.png"
+import { bgContext } from '../Context/StateContext';
 const Scanner = () => {
   const [click,setClick] = useState(false);
   const [flash,setFlash] = useState('off')
@@ -17,7 +19,7 @@ const Scanner = () => {
           flex:1,
           backgroundColor: '#100E1B',
           width:'100%',
-          height:'700',
+          height:'750',
           justifyContent:'center',
           alignItems:'center'
 
@@ -60,7 +62,7 @@ const Scanner = () => {
       },
       Scanner:{
         width:'100%',
-        height:'500',
+        height:815,
         justifyContent:'space-around',
         alignItems:'center'      
       },
@@ -85,7 +87,7 @@ const Scanner = () => {
         height: 30, // Adjust size as needed
       },
       PicContainer:{
-        height:350,
+        height:500,
         width:250,
         flexDirection:'column',
         justifyContent:'space-around'
@@ -102,9 +104,11 @@ const Scanner = () => {
     
     
     })
+  const [bgcolor,setBackgroundColor] = useState("#100E1B");
+  
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [state,setState] = useState(-1);
+  const [state,setState] = useContext(bgContext);
   const [text,setText] = useState("");
   const [work,setWork] = useState(false);
   const [data,setData] = useState("");
@@ -119,12 +123,15 @@ const Scanner = () => {
   useEffect(()=>{
     if (hasPermission === null) {
       setState(-1);
+      setBackgroundColor("#100E1B");
     }
     if (hasPermission === false) {
       setState(0);
+      setBackgroundColor("#100E1B");
     }
     if (hasPermission === true) {
       setState(1);
+      setBackgroundColor("transparent")
     }
     
     
@@ -165,10 +172,12 @@ const Scanner = () => {
 
   return (
    <View style={styles.Main}>
+        <StatusBar style="light" backgroundColor={bgcolor} />
         {(state===1)?(
           <View
             style={styles.Scanner}
           >
+           
             {/*<CameraView
               onBarcodeScanned={handleBarcodeScanned}
               barcodeScannerSettings={{barcodeTypes: [
@@ -176,6 +185,16 @@ const Scanner = () => {
               ]}}
               style={styles.barcode}
             />*/}
+             <CameraView 
+                  ref={cameraRef} 
+                  style={StyleSheet.absoluteFillObject}
+                  onCameraReady={() => console.log("Camera ready")} 
+                  animateShutter={false} 
+                  enableTorch={click}
+                  autofocus={'on'}
+                  //flash={'on'}
+                  
+                />
             <View
               style={styles.PicContainer}
             >
@@ -190,23 +209,17 @@ const Scanner = () => {
                   {click?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
                 </TouchableHighlight>
               </View>
+              <View
+                  style={styles.barcodeView}
+              >
+
+              </View>
             
               
-              <View
-                style={styles.barcodeView}
-              >
+             
               
-                <CameraView 
-                  ref={cameraRef} 
-                  style={styles.barcode}
-                  onCameraReady={() => console.log("Camera ready")} 
-                  animateShutter={false} 
-                  enableTorch={click}
-                  autofocus={'on'}
-                  //flash={'on'}
-                  
-                />
-              </View>
+               
+              
             </View>
             
             {work?<Text

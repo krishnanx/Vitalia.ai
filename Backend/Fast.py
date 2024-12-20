@@ -2,11 +2,14 @@ import base64
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Add this import
 from Barcode import BarcodeReader
+from dotenv import load_dotenv
 import os
 from openai import OpenAI
-client = OpenAI(api_key="sk-proj-01234567890123456789012345678901")
 
 
+load_dotenv()
+api=os.getenv("api")
+client = OpenAI(api_key=api)
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 # Directory to save decoded images
@@ -29,8 +32,8 @@ def upload_base64():
         with open(file_path, "wb") as image_file:
             image_file.write(image_bytes)
         barcode_info = BarcodeReader(file_path)
-        ingredients = mock_get_ingredients(barcode_info)
-        generated_text = generate_openai_text(ingredients)
+        #ingredients = mock_get_ingredients(barcode_info)
+        #generated_text = generate_openai_text(ingredients)
         result = dict(status="success",data=barcode_info)
         if isinstance(barcode_info, str):
             my_dict = dict(status="error", data=barcode_info)
@@ -42,7 +45,7 @@ def upload_base64():
         # Ensure the f-string is properly closed
         return jsonify({"error": f"Failed to decode and save image: {str(e)}"}), 400
 
-def generate_openai_text(ingredients):
+'''def generate_openai_text(ingredients):
     try:
         prompt = f"""For the following ingredients: {', '.join(ingredients)}
         Please provide:
@@ -62,9 +65,9 @@ def generate_openai_text(ingredients):
         max_tokens=500)
         return openai_response.choices[0].message.content.strip()
     except Exception as e:
-        raise RuntimeError(f"OpenAI API Error: {str(e)}")
+        raise RuntimeError(f"OpenAI API Error: {str(e)}")'''
 
-def mock_get_ingredients(barcode_data):
+"""def mock_get_ingredients(barcode_data):
     try:
         url = f"https://world.openfoodfacts.net/api/v2/product/{barcode_data}"
         response = requests.get(url)
@@ -79,7 +82,7 @@ def mock_get_ingredients(barcode_data):
             return None
     except Exception as e:
         print(f"Error fetching ingredients: {str(e)}")
-        return None
+        return None"""
 
 
 
