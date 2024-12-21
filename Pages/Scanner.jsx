@@ -158,9 +158,10 @@ const Scanner = () => {
         setPhotoUri(photo.uri); // Save the photo URI
         console.log(photo.uri); // Log photo details
         const response = await convertToBase64(photo.uri);
+        console.log("response",response)
         const result = await sendBase64ToServer(response)
-        console.log("result",result.status)
-        setData(result.data[0].data)
+        console.log("result",result["data"])
+        setData(result["data"])
         result.status === "success"? setWork(false):setWork(true);
       } catch (error) {
         console.error("Error taking picture:", error);

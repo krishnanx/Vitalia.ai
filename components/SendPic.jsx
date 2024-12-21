@@ -15,7 +15,9 @@ const sendBase64ToServer = async (base64) => {
     // Parse the JSON response
     const result = JSON.parse(textResponse);
     console.log('Upload successful:', result);
-    return result
+    console.log('Data:', result);
+    return result;
+   
   } catch (error) {
     console.error('Error uploading Base64:', error);
   }
