@@ -21,7 +21,7 @@ const Footer = () => {
             alignItems: 'center',
             //justifyContent:"space-evenly",
             borderTopWidth:0.5,
-            borderTopColor:'white',
+            borderTopColor:'white'
             
 
         },
