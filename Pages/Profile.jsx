@@ -13,11 +13,13 @@ const Profile = () => {
        
     })
   return (
+    <>
    <View style={styles.Main}>
         <Text style={{color:'white'}}>
             Profile
         </Text>
    </View>
+   </>
   )
 }
 
