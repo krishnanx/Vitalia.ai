@@ -10,14 +10,14 @@ const SignupScreen = ({navigation}) => {
     const [passwordVisible , setPasswordVisible] = useState(false);
     const [helperText , setHelperText] = useState({value:"" , color:""});
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const [state,setState,Location,setLocation] = useContext(bgContext);
+    const [state,setState,Location,setLocation,size,setSize] = useContext(bgContext);
     const Navigation = useNavigation();
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
             //console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
-            state.routes[Index].name==="Signup" ? setLocation(0) : setLocation(1);
+            state.routes[Index].name==="Signup" ? (setLocation(0),setSize(0)) : (setLocation(1),setSize(60));
           } else {
             console.log("Navigation context is undefined");
           }

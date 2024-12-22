@@ -9,14 +9,14 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 export default function WelcomeScreen({ navigation }) {
-  const [state,setState,Location,setLocation] = useContext(bgContext);
+  const [state,setState,Location,setLocation,size,setSize] = useContext(bgContext);
    const Navigation = useNavigation();
       useEffect(() => {
           if (Navigation) {
               const state = Navigation.getState();
               //console.log("navigation state:", state.routes[0].name);
               const Index = state.index;
-              state.routes[Index].name==="Welcome" ? setLocation(0) : setLocation(1);
+              state.routes[Index].name==="Welcome" ? (setLocation(0),setSize(0)) : (setLocation(1),setSize(60));
             } else {
               console.log("Navigation context is undefined");
             }

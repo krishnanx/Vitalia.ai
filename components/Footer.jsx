@@ -13,7 +13,7 @@ import {
 
 const Footer = () => {
     //const [isVisible, setIsVisible] = useState(false);
-    const [state,setState,Location,setLocation] = useContext(bgContext);
+    const [state,setState,Location,setLocation,size,setSize] = useContext(bgContext);
     const navigation = useNavigation();
     useEffect(()=> {
         console.log("Location",Location)
@@ -87,7 +87,7 @@ const Footer = () => {
     }
     
   return (
-    <View style={[styles.footer, { height:Location,opacity:Location }]}>
+    <View style={[styles.footer, { height:size,opacity:Location }]}>
                 <View
                     style={styles.leftFooter}
                 >
