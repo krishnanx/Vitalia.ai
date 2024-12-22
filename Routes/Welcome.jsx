@@ -1,13 +1,29 @@
-import React from 'react';
+import React,{useEffect,useContext} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { TextInput , Button, IconButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import { bgContext } from '../Context/StateContext';
+import { StatusBar } from 'expo-status-bar';
+import {
+  useNavigation,
+} from '@react-navigation/native';
 export default function WelcomeScreen({ navigation }) {
+  const [state,setState,Location,setLocation] = useContext(bgContext);
+   const Navigation = useNavigation();
+      useEffect(() => {
+          if (Navigation) {
+              const state = Navigation.getState();
+              //console.log("navigation state:", state.routes[0].name);
+              const Index = state.index;
+              setLocation(state.routes[Index].name)
+            } else {
+              console.log("Navigation context is undefined");
+            }
+          }, [Navigation]);
   return (
     <View style={styles.container}>
-      
+      <StatusBar style="dark" backgroundColor={'#f5f5f5'} />
       <View style={styles.subContainerTop}>
         <Icon name="alien" size={200} color="#007bff" />
         <Text style={styles.title}>Welcome!</Text>

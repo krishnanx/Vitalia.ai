@@ -1,20 +1,24 @@
-import React from 'react'
+import React, { useState,useEffect,useContext } from 'react'
 import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
 import HomeIcon from "../assets/house.png";
 import Fav from "../assets/bookmark.png";
 import Scan from "../assets/Scan.png";
 import Profile from "../assets/Profile.png";
-
+import { bgContext } from '../Context/StateContext';
+import { useNavigationState,useRoute } from '@react-navigation/native';
 import {
     createStaticNavigation,
     useNavigation,
   } from '@react-navigation/native';
 
 const Footer = () => {
+    const [isVisible, setIsVisible] = useState(false);
+    const [state,setState,Location,setLocation] = useContext(bgContext);
     const navigation = useNavigation();
+    
     const styles = StyleSheet.create({
         footer:{
-            height:'60',
+            height:60,
             //paddingHorizontal:30,
             backgroundColor: '#100E1B',
             flexDirection:"row",
@@ -78,8 +82,12 @@ const Footer = () => {
     const handleSave = () => {
         navigation.navigate('Saved')
     }
+    const handleHEIGHT = () => {
+        const footerHeight = Location==="Welcome" || Location==="Login" || Location==="Signup" ? 0 : 60;
+        return footerHeight;
+    }
   return (
-    <View style={styles.footer}>
+    <View style={[styles.footer, { height: handleHEIGHT() }]}>
                 <View
                     style={styles.leftFooter}
                 >

@@ -1,17 +1,31 @@
 // screens/LoginScreen.js
-import React, { useState } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { TextInput , Button, IconButton } from 'react-native-paper';
-
-
+import {
+  useNavigation,
+} from '@react-navigation/native';
+import { bgContext } from '../Context/StateContext';
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [helperText , setHelperText] = useState({value:"" , color:""});
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
+  const [state,setState,Location,setLocation] = useContext(bgContext);
+  const Navigation = useNavigation();
+  useEffect(() => {
+      if (Navigation) {
+          const state = Navigation.getState();
+          //console.log("navigation state:", state.routes[0].name);
+          const Index = state.index;
+          setLocation(state.routes[Index].name)
+          //console.log(state.routes[Index].name)
+        } else {
+          console.log("Navigation context is undefined");
+        }
+    }, [Navigation]);
   const handleChangePassword = (text)=>{
     setPassword(text);
 }

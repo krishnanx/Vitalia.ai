@@ -10,13 +10,13 @@ const Home = () => {
             flex: 1,
             flexDirection: 'column', // Main axis is vertical
             paddingTop:40,
-            backgroundColor: '#100E1B',
+            backgroundColor: '#f5f5f5',
             justifyContent:"space-between"
         },
         header:{
             //marginTop:40,
             height:'50', // Fixed height
-            backgroundColor: '#100E1B',
+            backgroundColor: '#f5f5f5',
             alignItems: 'center',
             borderBottomWidth:0.5,
             borderBottomColor:'white',
@@ -106,13 +106,6 @@ const Home = () => {
                     </ScrollView>
                 </View>
            </View>
-           
-                   
-        
-                   
-                
-                    
-            
         </View>
        
   )

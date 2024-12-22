@@ -1,67 +1,33 @@
-import React, { useEffect, useState,useContext } from 'react'
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,SafeAreaView } from 'react-native';
-import Home from './Pages/Home';
-import { NavigationContainer } from '@react-navigation/native';
 import HomeStack from './Routes/HomeStack';
 import Footer from './components/Footer';
 import StateContext from './Context/StateContext';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Text, View,SafeAreaView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import { bgContext } from './Context/StateContext';
 import LoginScreen from './Routes/LoginScreen';
 import SignupScreen from './Routes/SignupScreen';
 import Welcome from './Routes/Welcome';
 import { Provider as PaperProvider } from 'react-native-paper';
-
-
-// const App = () => {
-   
-//     const styles = StyleSheet.create({
-//         container: {
-//           flex: 1,
-//           backgroundColor: '#100E1B',
-//         },
-//       });
-     
-//   return (
-    
-//       <SafeAreaView style={styles.container}>
-//         <StateContext>
-          
-          
-//           <NavigationContainer>
-//             {/* <HomeStack />
-//             <Footer/> */}
-//             {/* <LoginScreen/> */}
-//             {/* <SignupScreen/> */}
-//             <Welcome/>
-//           </NavigationContainer>
-      
-
-    
-//           </StateContext>
-//       </SafeAreaView>
-    
-//   )
-// }
-
-// export default App
-
-
-const Stack = createStackNavigator();
+import { useNavigationState } from '@react-navigation/native';
+import React from 'react';
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#100E1B',
+      backgroundColor: '#f5f5f5',
     },
   });
+
 
   return (
     <PaperProvider>
     <SafeAreaView style={styles.container}>
       <StateContext>
+        <StatusBar style="light" backgroundColor={'#f5f5f5'} />
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Welcome">
             <Stack.Screen
@@ -82,8 +48,11 @@ const App = () => {
             <Stack.Screen name="Home"
              component={HomeStack} 
              options={{ headerShown: false }} />
+           
           </Stack.Navigator>
+          <Footer/>
         </NavigationContainer>
+       
       </StateContext>
     </SafeAreaView>
     </PaperProvider>
@@ -91,4 +60,3 @@ const App = () => {
 };
 
 export default App;
-

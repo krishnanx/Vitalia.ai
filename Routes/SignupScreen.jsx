@@ -1,16 +1,27 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React ,{useState} from 'react'
+import React ,{useState,useEffect,useContext} from 'react'
 import { TouchableOpacity } from 'react-native'
 import { TextInput , Button, IconButton, HelperText } from 'react-native-paper';
-
-
+import { bgContext } from '../Context/StateContext';
+import { useNavigation } from '@react-navigation/native';
 const SignupScreen = ({navigation}) => {
     const [email , setEmail] = useState('');
     const [password , setPassword] = useState('');
     const [passwordVisible , setPasswordVisible] = useState(false);
     const [helperText , setHelperText] = useState({value:"" , color:""});
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
+    const [state,setState,Location,setLocation] = useContext(bgContext);
+    const Navigation = useNavigation();
+    useEffect(() => {
+        if (Navigation) {
+            const state = Navigation.getState();
+            //console.log("navigation state:", state.routes[0].name);
+            const Index = state.index;
+            setLocation(state.routes[Index].name)
+          } else {
+            console.log("Navigation context is undefined");
+          }
+    }, [Navigation]);
     const handleChangePassword = (text)=>{
         setPassword(text);
         if(text.length<6){
