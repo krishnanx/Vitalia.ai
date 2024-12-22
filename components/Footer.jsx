@@ -12,20 +12,22 @@ import {
   } from '@react-navigation/native';
 
 const Footer = () => {
-    const [isVisible, setIsVisible] = useState(false);
+    //const [isVisible, setIsVisible] = useState(false);
     const [state,setState,Location,setLocation] = useContext(bgContext);
     const navigation = useNavigation();
-    
+    useEffect(()=> {
+        console.log("Location",Location)
+    })
     const styles = StyleSheet.create({
         footer:{
-            height:60,
+            //height:60,
             //paddingHorizontal:30,
-            backgroundColor: '#100E1B',
+            backgroundColor: '#f5f5f5',
             flexDirection:"row",
             alignItems: 'center',
             //justifyContent:"space-evenly",
-            borderTopWidth:0.5,
-            borderTopColor:'white'
+            borderTopWidth:1,
+            borderTopColor:'black'
             
 
         },
@@ -35,6 +37,7 @@ const Footer = () => {
             width:'140',
             height:'40',
             paddingLeft:'30',
+            
         },
         middleFooter:{
             flexDirection:'row',
@@ -82,12 +85,9 @@ const Footer = () => {
     const handleSave = () => {
         navigation.navigate('Saved')
     }
-    const handleHEIGHT = () => {
-        const footerHeight = Location==="Welcome" || Location==="Login" || Location==="Signup" ? 0 : 60;
-        return footerHeight;
-    }
+    
   return (
-    <View style={[styles.footer, { height: handleHEIGHT() }]}>
+    <View style={[styles.footer, { height:Location,opacity:Location }]}>
                 <View
                     style={styles.leftFooter}
                 >

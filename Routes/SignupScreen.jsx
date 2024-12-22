@@ -17,7 +17,7 @@ const SignupScreen = ({navigation}) => {
             const state = Navigation.getState();
             //console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
-            setLocation(state.routes[Index].name)
+            state.routes[Index].name==="Signup" ? setLocation(0) : setLocation(1);
           } else {
             console.log("Navigation context is undefined");
           }

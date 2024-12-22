@@ -1,10 +1,24 @@
-import React from 'react'
+import React,{useEffect,useContext} from 'react'
+import { bgContext } from '../Context/StateContext';
 import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
 import trial from "../assets/trial.png";
-
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
-    
+    const Navigation = useNavigation();
+    const [state,setState,Location,setLocation] = useContext(bgContext);
+    useEffect(() => {
+        if (Navigation) {
+            const state = Navigation.getState();
+            //console.log("navigation state:", state.routes[0].name);
+            const Index = state.index;
+            const location = state.routes[Index].name;
+            location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? setLocation(1) : setLocation(0);
+            //console.log(state.routes[Index].name)
+          } else {
+            console.log("Navigation context is undefined");
+          }
+      }, [Navigation]);
     const styles = StyleSheet.create({
         container: {
             flex: 1,

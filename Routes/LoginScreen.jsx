@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
           const state = Navigation.getState();
           //console.log("navigation state:", state.routes[0].name);
           const Index = state.index;
-          setLocation(state.routes[Index].name)
+          state.routes[Index].name==="Login" ? setLocation(0) : setLocation(1);
           //console.log(state.routes[Index].name)
         } else {
           console.log("Navigation context is undefined");

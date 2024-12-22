@@ -11,7 +11,22 @@ import convertToBase64 from '../components/Convert';
 import torch from "../assets/flashlight.png"
 import torchW from "../assets/flashlightW.png"
 import { bgContext } from '../Context/StateContext';
+import { useNavigation } from '@react-navigation/native';
 const Scanner = () => {
+  const [state,setState,Location,setLocation] = useContext(bgContext);
+  const Navigation = useNavigation();
+  useEffect(() => {
+      if (Navigation) {
+          const state = Navigation.getState();
+          //console.log("navigation state:", state.routes[0].name);
+          const Index = state.index;
+          const location = state.routes[Index].name;
+          location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? setLocation(1) : setLocation(0);
+          //console.log(state.routes[Index].name)
+        } else {
+          console.log("Navigation context is undefined");
+        }
+    }, [Navigation]);
   const [click,setClick] = useState(false);
   const [flash,setFlash] = useState('off')
   const styles = StyleSheet.create({
@@ -108,7 +123,7 @@ const Scanner = () => {
   
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [state,setState] = useContext(bgContext);
+  
   const [text,setText] = useState("");
   const [work,setWork] = useState(false);
   const [data,setData] = useState("");
