@@ -10,7 +10,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 const HomeStack = () => {
-    const Stack = createNativeStackNavigator();
     
    
   return (

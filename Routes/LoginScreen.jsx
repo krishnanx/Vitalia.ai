@@ -3,6 +3,7 @@ import React, { useState,useEffect,useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { TextInput , Button, IconButton } from 'react-native-paper';
+import useLogin from '../firebaseHooks/useLogin';
 import {
   useNavigation,
 } from '@react-navigation/native';
@@ -13,7 +14,10 @@ export default function LoginScreen({ navigation }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [helperText , setHelperText] = useState({value:"" , color:""});
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const {login , loading , error} = useLogin();
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
+
   const Navigation = useNavigation();
   useEffect(() => {
       if (Navigation) {
@@ -27,11 +31,13 @@ export default function LoginScreen({ navigation }) {
           console.log("Navigation context is undefined");
         }
     }, [Navigation]);
+
+
   const handleChangePassword = (text)=>{
     setPassword(text);
 }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if(email.length === 0 || password.length === 0){
       setHelperText({value:"Please fill all fields" , color:"red"});
     }
@@ -42,9 +48,16 @@ export default function LoginScreen({ navigation }) {
         setHelperText({value:"Invalid email" , color:"red"});
     }
     else{
-        setHelperText({value:"Logged In" , color:"green"});
-        console.log("Email: " , email , "Password: " , password);
-        navigation.navigate("home");
+        try {
+          const user = await login(email , password);
+          if(!user){
+            alert("Invalid email or password");
+            return;
+          }
+          navigation.navigate("home");
+        } catch (error) {
+          console.log("Failed to login");
+        }
   }
 
     
@@ -52,6 +65,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      {/* {error? alert(error):""} */}
       <Text style={styles.title}>Welcome Back</Text>
       <View style={styles.card}>
         <View id='top container' style={{width:"100%" ,  marginLeft:30 }}>
@@ -101,7 +115,7 @@ export default function LoginScreen({ navigation }) {
         </Text>
 
         <View style={{width:"100%" , alignItems:"center"}}> 
-          <Button icon="login" textColor='#fff' mode="elevated" style={styles.button} onPress={handleLogin}>
+          <Button icon="login" textColor='#fff' mode="elevated" style={styles.button} onPress={handleLogin} loading={loading}>
           Login
           </Button>
           <Button textColor='black'>Forgot passsword?</Button>

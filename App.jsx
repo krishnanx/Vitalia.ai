@@ -17,10 +17,13 @@ import { bgContext } from './Context/StateContext';
 import LoginScreen from './Routes/LoginScreen';
 import SignupScreen from './Routes/SignupScreen';
 import Welcome from './Routes/Welcome';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { Provider as PaperProvider , DefaultTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import Header from './components/Header';
 import React,{useRef} from 'react';
+import { AuthProvider, useAuth } from './Context/AuthProvider';
+import AppNavigator from './Routes/AppNavigator';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -41,62 +44,31 @@ const App = () => {
     },
   });
 
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#007bff', // Change this to your desired primary color
+      accent: '#f1c40f',  // Optional: Customize accent color
+    },
+  };
 
   return (
-    <PaperProvider>
+    <AuthProvider>
+    <PaperProvider theme={theme}>
     <SafeAreaView style={styles.container}>
       <StateContext>
         <StatusBar style="light" backgroundColor={'#f5f5f5'} />
         <NavigationContainer>
           <Header/>
-          <Stack.Navigator initialRouteName="Welcome"
-             //initialRouteName="home"
-             screenOptions={({route,navigation})=>{
-             const currentIndex = screens.findIndex((screen) => screen.name === route.name);
-             const nextIndex = previousIndex.current;
-             previousIndex.current = currentIndex;
-             const animation=currentIndex>nextIndex?'slide_from_right':'slide_from_left';
-             return {
-                 animation, // Pass the animation dynamically
-                 headerShown: false,
-               };
-           }}
-          >
-            <Stack.Screen
-              name="Welcome"
-              component={Welcome}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Signup"
-              component={SignupScreen}
-              options={{ headerShown: false }}
-            />
-            
-          
-            {screens.map((screen) => (
-                <Stack.Screen
-                  key={screen.name}
-                  name={screen.name}
-                  component={screen.component}
-                  //options={{animation:animation}}
-                />
-              ))}
-            
-      
-           
-          </Stack.Navigator>
+          <AppNavigator/>
           <Footer/>
         </NavigationContainer>
        
       </StateContext>
     </SafeAreaView>
     </PaperProvider>
+    </AuthProvider>
   );
 };
 

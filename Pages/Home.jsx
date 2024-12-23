@@ -1,10 +1,16 @@
 import React,{useEffect,useContext} from 'react'
 import { bgContext } from '../Context/StateContext';
 import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
+import { Button, IconButton } from 'react-native-paper';
 import trial from "../assets/trial.png";
+import useLogOut from '../firebaseHooks/useLogOut';
 import { useNavigation } from '@react-navigation/native';
 
+
 const Home = () => {
+
+    const {logout , loading , error} = useLogOut();
+    const navigation = useNavigation();
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
     useEffect(() => {
@@ -33,7 +39,9 @@ const Home = () => {
             backgroundColor: '#f5f5f5',
             alignItems: 'center',
             borderBottomWidth:0.5,
+            justifyContent:"space-around",
             borderBottomColor:'white',
+            flexDirection:"row"
         },
        
         image: {
@@ -81,18 +89,41 @@ const Home = () => {
         trial:{
             marginHorizontal: 10,
         },
+        button:{
+            width: '10%',
+            backgroundColor: '#007bff',
+            marginTop: 10,
+          },
         
     });
+
+    const handleLogOut = async()=> {
+        try {
+            await logout();
+            navigation.navigate("Welcome")
+        } catch (error) {
+            console.log("Failed to log out")
+        }
+    }
     
     
 
       
   return (
        <View style={styles.container}>
+        {error? alert(error):""}
            <View style={styles.header}>
                 <Text style={styles.text}>
                     Jane Doe
                 </Text>
+                <IconButton 
+                    icon="logout"
+                    iconColor={"#007bff"}
+                    size={30}
+                    mode='contained'
+                    loading={loading}
+                    onPress={handleLogOut}
+                    />
            </View>
            <View style={styles.hero}>
                 <View style={styles.HeroTop}>
