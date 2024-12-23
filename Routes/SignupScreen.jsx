@@ -4,12 +4,16 @@ import { TouchableOpacity } from 'react-native'
 import { TextInput , Button, IconButton, HelperText } from 'react-native-paper';
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
+import { auth } from '../firebasefile/firebase';
+import { fetchSignInMethodsForEmail } from 'firebase/auth';
+
 const SignupScreen = ({navigation}) => {
     const [email , setEmail] = useState('');
     const [password , setPassword] = useState('');
     const [passwordVisible , setPasswordVisible] = useState(false);
     const [helperText , setHelperText] = useState({value:"" , color:""});
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
     const [state,setState,Location,setLocation,size,setSize] = useContext(bgContext);
     const Navigation = useNavigation();
     useEffect(() => {
@@ -42,11 +46,30 @@ const SignupScreen = ({navigation}) => {
         else if(emailRegex.test(email) === false){
             setHelperText({value:"Invalid email" , color:"red"});
         }
+        else if(checkIfEmailRegistered(email)){
+          setHelperText({value:"Account with this email already exists" , color:"red"});
+        }
         else{
-            setHelperText({value:"Account created successfully" , color:"green"});
             console.log("Email: " , email , "Password: " , password);
+            navigation.navigate("Details", {email , password});
     }
 }
+
+const checkIfEmailRegistered = async (email) => {
+
+  try {
+    const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+
+    if (signInMethods.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error checking email registration:", error.message);
+    throw error;
+  }
+};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
