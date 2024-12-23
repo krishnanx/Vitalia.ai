@@ -1,7 +1,13 @@
 import React,{useEffect,useContext} from 'react'
-import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity,TouchableHighlight} from 'react-native';
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native-paper';
+import next from "../assets/next.png"
+import dashboard from "../assets/dashboard.png"
+import info from "../assets/info.png"
+import contact from "../assets/contact.png"
+import terms from "../assets/terms.png"
 const Profile = () => {
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
@@ -23,17 +29,122 @@ const Profile = () => {
             backgroundColor: '#f5f5f5',
             width:'100%',
             height:'700',
-            justifyContent:'center'
+            //justifyContent:'space-around',
+            //marginVertical:10,
+            paddingTop:50,
+            alignItems:'center'
 
         },
+        dashboardButton:{
+          width:340,
+          height:50,
+          backgroundColor:"#dddddd",
+          marginVertical:5,
+          //opacity:"0.5"
+          borderRadius:20,
+          justifyContent:'center',
+          //alignItems:'center',
+          paddingHorizontal:5,
+          borderWidth:1.5,
+          borderColor:'black',
+        
+        },
+        touchView:{
+          width:"100%",
+          height:50,
+          flexDirection:'row',
+          
+          justifyContent:'space-between',
+          alignItems:'center'
+        },
+        next:{
+          width:10,
+          height:10,
+
+        },
+        text:{
+          width:250,
+          height:20,
+          //textAlign:'center',
+          alignItems:'center'
+        },
+
        
     })
   return (
     <>
-   <View style={styles.Main}>
-        
-   </View>
-   </>
+      <View style={styles.Main}>
+        <TouchableHighlight
+            style={styles.dashboardButton}
+            underlayColor="gray" // Color when the button is pressed
+            onPress={() => console.log('Button Pressed')}
+        >
+          <View
+            style={styles.touchView}
+          >
+            <Image source={dashboard}/>
+            <Text
+              style={styles.text}
+            >
+              Dashboard
+            </Text>
+            <Image source={next} />
+          </View>
+          
+        </TouchableHighlight>
+        <TouchableHighlight
+            style={styles.dashboardButton}
+            underlayColor="gray" // Color when the button is pressed
+            onPress={() => console.log('Button Pressed')}
+        >
+         <View
+            style={styles.touchView}
+          >
+            <Image source={info}/>
+            <Text
+              style={styles.text}
+            >
+              About
+            </Text>
+            <Image source={next} />
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+            style={styles.dashboardButton}
+            underlayColor="gray" // Color when the button is pressed
+            onPress={() => console.log('Button Pressed')}
+        >
+         <View
+            style={styles.touchView}
+          >
+            <Image source={contact}/>
+            <Text
+              style={styles.text}
+            >
+              Contact
+            </Text>
+            <Image source={next} />
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+            style={styles.dashboardButton}
+            underlayColor="gray" // Color when the button is pressed
+            onPress={() => console.log('Button Pressed')}
+        >
+         <View
+            style={styles.touchView}
+          >
+            <Image source={terms}/>
+            <Text
+              style={styles.text}
+            >
+              Terms & Conditions
+            </Text>
+            <Image source={next} />
+          </View>
+        </TouchableHighlight>
+      </View>
+    </>
   )
 }
 
