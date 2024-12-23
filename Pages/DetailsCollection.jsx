@@ -41,7 +41,7 @@ const DetailsCollection = ({route,navigation}) => {
             const user = await register(email , password , userDetails);
             console.log(user)
             if(user){
-                navigation.navigate('Home');
+                navigation.navigate('home');
             }
         } catch (error) {
             alert(error.message);

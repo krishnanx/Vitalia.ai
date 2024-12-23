@@ -16,7 +16,7 @@ export default function LoginScreen({ navigation }) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const {login , loading , error} = useLogin();
-  const [state,setState,Location,setLocation,size,setSize] = useContext(bgContext);
+  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
 
   const Navigation = useNavigation();
   useEffect(() => {
@@ -24,7 +24,8 @@ export default function LoginScreen({ navigation }) {
           const state = Navigation.getState();
           //console.log("navigation state:", state.routes[0].name);
           const Index = state.index;
-          state.routes[Index].name==="Login" ? (setLocation(0),setSize(0)) : (setLocation(1),setSize(60));
+          const location = state.routes[Index].name;
+          location==="Login" ? (setLocation(location),setSize(0),setOpacity(0)) : (setLocation(location),setSize(60),setOpacity(1));
           //console.log(state.routes[Index].name)
         } else {
           console.log("Navigation context is undefined");
@@ -53,7 +54,7 @@ export default function LoginScreen({ navigation }) {
             alert("Invalid email or password");
             return;
           }
-          navigation.navigate("Home");
+          navigation.navigate("home");
         } catch (error) {
           console.log("Failed to login");
         }
