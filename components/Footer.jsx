@@ -10,14 +10,24 @@ import {
     createStaticNavigation,
     useNavigation,
   } from '@react-navigation/native';
+import { Screen } from 'react-native-screens';
 
 const Footer = () => {
     //const [isVisible, setIsVisible] = useState(false);
-    const [state,setState,Location,setLocation,size,setSize] = useContext(bgContext);
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes] = useContext(bgContext);
+    
     const navigation = useNavigation();
     useEffect(()=> {
-        console.log("Location",Location)
-    })
+        console.log("Location",Location)    
+        const routes = navigation.getState();
+        //console.log("routes",routes)
+        if(routes){
+        setRoutes(routes.routes);
+        console.log("routes",routes.routes)
+        
+    }},[Location]);
+
+
     const styles = StyleSheet.create({
         footer:{
             //height:60,
@@ -27,7 +37,7 @@ const Footer = () => {
             alignItems: 'center',
             //justifyContent:"space-evenly",
             borderTopWidth:1,
-            borderTopColor:'black'
+            borderTopColor:'#979797'
             
 
         },
@@ -70,11 +80,27 @@ const Footer = () => {
             alignItems:'center'
         },
     })
-    const handlePress = () => {
-        navigation.navigate('Profile')
+    const handlePress = (screenName) => {
+        //console.log("routes",routes)
+        //if(ro)
+        /*route.forEach((item) => {
+            console.log("item",item)
+            if(screenName===item.name){
+                navigation.navigate(screenName);
+            }
+            else{
+                navigation.navigate(screenName);
+            }
+        })
+        console.log("screenName",screenName)*/
+        
+        // Navigate to the screen
+        navigation.navigate(screenName);
+        
     }
     const handleHome = () => {
-        navigation.navigate('Home')
+
+        navigation.navigate('home')
     }
     const handleScan = () => {
         navigation.navigate('Scan')
@@ -87,15 +113,15 @@ const Footer = () => {
     }
     
   return (
-    <View style={[styles.footer, { height:size,opacity:Location }]}>
+    <View style={[styles.footer, { height:size,opacity:opacity }]}>
                 <View
                     style={styles.leftFooter}
                 >
-                    <TouchableOpacity onPress={handleHome} activeOpacity={0.5} style={styles.Touchable}>
+                    <TouchableOpacity onPress={()=>handlePress('home')} activeOpacity={0.5} style={styles.Touchable}>
                         <Image source={HomeIcon}/>
                         
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={handleJane} activeOpacity={0.5} style={styles.Touchable}>
+                    <TouchableOpacity onPress={()=>handlePress('jane')} activeOpacity={0.5} style={styles.Touchable}>
                         <Image source={Fav}/>
                         
                     </TouchableOpacity>
@@ -106,7 +132,7 @@ const Footer = () => {
                     style={styles.middleFooter}
                 >
                     
-                    <TouchableOpacity onPress={handleScan} activeOpacity={0.5} style={styles.Scannable}>
+                    <TouchableOpacity onPress={()=>handlePress('Scan')} activeOpacity={0.5} style={styles.Scannable}>
                         <Image source={Scan}/>
                     </TouchableOpacity>
                     
@@ -115,11 +141,11 @@ const Footer = () => {
                     style={styles.rightFooter}
                 >
                     
-                    <TouchableOpacity onPress={handleSave} activeOpacity={0.5} style={styles.Touchable}>
+                    <TouchableOpacity onPress={()=>handlePress('Saved')} activeOpacity={0.5} style={styles.Touchable}>
                         <Image source={Fav}/> 
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={handlePress} activeOpacity={0.5} style={styles.Touchable}>
+                    <TouchableOpacity onPress={()=>handlePress('Profile')} activeOpacity={0.5} style={styles.Touchable}>
                         <Image source={Profile}/>   
                     </TouchableOpacity>
                    

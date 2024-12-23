@@ -13,7 +13,7 @@ import torchW from "../assets/flashlightW.png"
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 const Scanner = () => {
-  const [state,setState,Location,setLocation,size,setSize] = useContext(bgContext);
+  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
   const Navigation = useNavigation();
   useEffect(() => {
       if (Navigation) {
@@ -21,7 +21,7 @@ const Scanner = () => {
           //console.log("navigation state:", state.routes[0].name);
           const Index = state.index;
           const location = state.routes[Index].name;
-          location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation(1),setSize(60)) : (setLocation(0),setSize(0));
+          location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation(location),setSize(60),setOpacity(1)) : (setLocation(location),setSize(0),setOpacity(0));
           //console.log(state.routes[Index].name)
         } else {
           console.log("Navigation context is undefined");
@@ -32,7 +32,7 @@ const Scanner = () => {
   const styles = StyleSheet.create({
       Main:{
           flex:1,
-          backgroundColor: '#100E1B',
+          backgroundColor: '#f5f5f5',
           width:'100%',
           height:'750',
           justifyContent:'center',
@@ -138,11 +138,11 @@ const Scanner = () => {
   useEffect(()=>{
     if (hasPermission === null) {
       setState(-1);
-      setBackgroundColor("#100E1B");
+      setBackgroundColor("#f5f5f5");
     }
     if (hasPermission === false) {
       setState(0);
-      setBackgroundColor("#100E1B");
+      setBackgroundColor("#f5f5f5");
     }
     if (hasPermission === true) {
       setState(1);
