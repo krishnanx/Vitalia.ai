@@ -1,6 +1,6 @@
 import base64
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # Add this import
+from flask_cors import CORS
 from Barcode import BarcodeReader
 from dotenv import load_dotenv
 import os
@@ -8,18 +8,22 @@ from openai import OpenAI
 from PIL import Image
 from io import BytesIO
 import requests
+
+# Load environment variables
 load_dotenv()
-api=os.getenv("api")
-client = OpenAI(api_key=api)
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
 # Directory to save decoded images
-# Directory to save uploaded images
 UPLOAD_DIR = "./uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 UPLOAD_DIRS = "./uploaded_images"
 os.makedirs(UPLOAD_DIRS, exist_ok=True)
+
 def crop_image(file_path):
     """Crops the image into a square centered on the image."""
     with Image.open(file_path) as img:
@@ -38,9 +42,6 @@ def crop_image(file_path):
 
     return cropped_file_path
 
-
-
-
 @app.route("/upload-base64", methods=["POST"])
 def upload_base64():
     try:
@@ -56,22 +57,36 @@ def upload_base64():
         # Save the decoded image
         with open(file_path, "wb") as image_file:
             image_file.write(image_bytes)
-        cropped_file_path = crop_image(file_path)
-        barcode_info = BarcodeReader(cropped_file_path)
-        #print("hello:",barcode_info.data)
-        #ingredients = mock_get_ingredients(barcode_info)
-        #generated_text = generate_openai_text(ingredients)
-       
-        result = dict(status="success",data=barcode_info)
-        print("hello:",result["data"])
-        if barcode_info == "error:barcode not detected":
-            my_dict = dict(status="error", data=barcode_info)
-            return jsonify(my_dict), 400
         
-        return jsonify(result)
-        #return jsonify({"info": f"Image saved at {file_path}"}), 200
+        # Crop the image
+        cropped_file_path = crop_image(file_path)
+        
+        # Read the barcode from the cropped image
+        barcode_info = BarcodeReader(cropped_file_path)
+        
+        if barcode_info == "error:barcode not detected":
+            return jsonify({"status": "error", "message": "Barcode not detected"}), 400
+        
+        # Get ingredients from the barcode
+        ingredients = mock_get_ingredients(barcode_info)
+        if not ingredients:
+            return jsonify({"status": "error", "message": "Failed to fetch ingredients"}), 400
+
+        # Generate OpenAI response based on ingredients
+        generated_text = generate_openai_text(ingredients)
+        
+        result = {
+            "status": "success",
+            "barcode_info": barcode_info,
+            "ingredients": ingredients,
+            "openai_response": generated_text
+        }
+
+        # Return the result as JSON
+        return jsonify(result), 200
+
     except Exception as e:
-        # Ensure the f-string is properly closed
+        # Catch any other exceptions and return an error message
         return jsonify({"error": f"Failed to decode and save image: {str(e)}"}), 400
 
 def generate_openai_text(ingredients):
@@ -87,18 +102,21 @@ def generate_openai_text(ingredients):
         
         Format the response in clear sections for easy reading."""
 
-        openai_response = client.chat.completions.create(model="gpt-4o-mini",
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=500)
+        openai_response = client.chat.completions.create(
+            model="gpt-3.5",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=500
+        )
         return openai_response.choices[0].message.content.strip()
     except Exception as e:
         raise RuntimeError(f"OpenAI API Error: {str(e)}")
 
 def mock_get_ingredients(barcode_data):
     try:
-        url = f"https://world.openfoodfacts.net/api/v2/product/{barcode_data}"
+        # Replace this URL with a dynamic URL using barcode_data if needed
+        url = f"https://world.openfoodfacts.net/api/v2/product/3017624010701"
         response = requests.get(url)
         response.raise_for_status()  
 
@@ -113,8 +131,5 @@ def mock_get_ingredients(barcode_data):
         print(f"Error fetching ingredients: {str(e)}")
         return None
 
-
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
-

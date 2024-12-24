@@ -7,7 +7,11 @@ import SignupScreen from './SignupScreen';
 import Welcome from './Welcome';
 import DetailsCollection from '../Pages/DetailsCollection';
 import Home from '../Pages/Home';
-
+import Saved from '../Pages/Saved';
+import Scanner from '../Pages/Scanner';
+import Jane from '../Pages/Jane';
+import Profile from '../Pages/Profile';
+import Dashboard from '../Pages/Dashboard';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -20,34 +24,49 @@ const AppNavigator = () => {
         animationEnabled: true, // Enable animation for transition
       }}
     >
-        {!user?
-        <>
-      <Stack.Screen
-        name="Welcome"
-        component={Welcome}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Signup"
-        component={SignupScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="Details"
-       component={DetailsCollection} 
-       options={{ headerShown: false }} />
-       </>:
-
-      <Stack.Screen name="home"
-       component={Home} 
-       options={{ headerShown: false }} />
-
-       
-        }
+      {user?
+      <>
+        <Stack.Screen
+          name="Welcome"
+          component={Welcome}
+          //options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          //options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={SignupScreen}
+          //options={{ headerShown: false }}
+        />
+        <Stack.Screen name="Details"
+        component={DetailsCollection}
+        />
+      </>:
+      <>
+        <Stack.Screen name="Home"
+          component={Home} 
+       />
+        <Stack.Screen name="jane"
+          component={Jane} 
+       />
+        <Stack.Screen name="Scan"
+          component={Scanner} 
+       />
+        <Stack.Screen name="Saved"
+          component={Saved} 
+       />
+        <Stack.Screen name="Profile"
+          component={Profile} 
+       />
+        <Stack.Screen name="Dashboard"
+          component={Dashboard} 
+       />
+      </>
+     
+      }
     </Stack.Navigator>
   )
 }

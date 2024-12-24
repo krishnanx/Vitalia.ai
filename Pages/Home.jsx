@@ -19,7 +19,7 @@ const Home = () => {
             //console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
             const location = state.routes[Index].name;
-            location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation(location),setSize(60),setOpacity(1)) : (setLocation(location),setSize(0),setOpacity(0));
+            location==="Home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation((prev) => [...prev, location]),setSize(60),setOpacity(1)) : (setLocation((prev) => [...prev, location]),setSize(0),setOpacity(0));
             //console.log(state.routes[Index].name)
           } else {
             console.log("Navigation context is undefined");
@@ -36,7 +36,7 @@ const Home = () => {
         header:{
             //marginTop:40,
             height:'50', // Fixed height
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#D6F1FF',
             alignItems: 'center',
             borderBottomWidth:0.5,
             justifyContent:"space-around",

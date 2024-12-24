@@ -17,16 +17,16 @@ const Profile = () => {
             //console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
             const location = state.routes[Index].name;
-            location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation(location),setSize(60),setOpacity(1)) : (setLocation(location),setSize(0),setOpacity(0));
+            location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation((prev) => [...prev, location]),setSize(60),setOpacity(1)) : (setLocation((prev) => [...prev, location]),setSize(0),setOpacity(0));
             //console.log(state.routes[Index].name)
           } else {
             console.log("Navigation context is undefined");
           }
-      }, [Navigation]);
+      },[Navigation]);
     const styles = StyleSheet.create({
         Main:{
             flex:1,
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#D6F1FF',
             width:'100%',
             height:'700',
             //justifyContent:'space-around',
@@ -38,7 +38,7 @@ const Profile = () => {
         dashboardButton:{
           width:340,
           height:50,
-          backgroundColor:"#dddddd",
+          backgroundColor:"#EBF8FF",
           marginVertical:5,
           //opacity:"0.5"
           borderRadius:20,
@@ -71,13 +71,16 @@ const Profile = () => {
 
        
     })
+    const handleDashboard = () => {
+      Navigation.navigate('Dashboard')
+    };
   return (
     <>
       <View style={styles.Main}>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="gray" // Color when the button is pressed
-            onPress={() => console.log('Button Pressed')}
+            underlayColor="#ADE2FF" // Color when the button is pressed
+            onPress={() => handleDashboard()}
         >
           <View
             style={styles.touchView}
@@ -94,7 +97,7 @@ const Profile = () => {
         </TouchableHighlight>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="gray" // Color when the button is pressed
+            underlayColor="#ADE2FF" // Color when the button is pressed
             onPress={() => console.log('Button Pressed')}
         >
          <View
@@ -111,7 +114,7 @@ const Profile = () => {
         </TouchableHighlight>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="gray" // Color when the button is pressed
+            underlayColor="#ADE2FF"// Color when the button is pressed
             onPress={() => console.log('Button Pressed')}
         >
          <View
@@ -128,7 +131,7 @@ const Profile = () => {
         </TouchableHighlight>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="gray" // Color when the button is pressed
+            underlayColor="#ADE2FF"// Color when the button is pressed
             onPress={() => console.log('Button Pressed')}
         >
          <View

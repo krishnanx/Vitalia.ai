@@ -11,7 +11,7 @@ const Saved = () => {
             //console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
             const location = state.routes[Index].name;
-            location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation(location),setSize(60),setOpacity(1)) : (setLocation(location),setSize(0),setOpacity(0));
+            location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation((prev) => [...prev, location]),setSize(60),setOpacity(1)) : (setLocation((prev) => [...prev, location]),setSize(0),setOpacity(0));
             //console.log(state.routes[Index].name)
           } else {
             console.log("Navigation context is undefined");
@@ -20,7 +20,7 @@ const Saved = () => {
     const styles = StyleSheet.create({
         Main:{
             flex:1,
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#D6F1FF',
             width:'100%',
             height:'700',
             justifyContent:'center'

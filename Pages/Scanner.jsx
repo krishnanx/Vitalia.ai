@@ -21,7 +21,7 @@ const Scanner = () => {
           //console.log("navigation state:", state.routes[0].name);
           const Index = state.index;
           const location = state.routes[Index].name;
-          location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation(location),setSize(60),setOpacity(1)) : (setLocation(location),setSize(0),setOpacity(0));
+          location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation((prev) => [...prev, location]),setSize(60),setOpacity(1)) : (setLocation((prev) => [...prev, location]),setSize(0),setOpacity(0));
           //console.log(state.routes[Index].name)
         } else {
           console.log("Navigation context is undefined");
@@ -32,7 +32,7 @@ const Scanner = () => {
   const styles = StyleSheet.create({
       Main:{
           flex:1,
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#D6F1FF',
           width:'100%',
           height:'750',
           justifyContent:'center',
@@ -119,7 +119,7 @@ const Scanner = () => {
     
     
     })
-  const [bgcolor,setBackgroundColor] = useState("#100E1B");
+  const [bgcolor,setBackgroundColor] = useState('#D6F1FF');
   
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -138,11 +138,11 @@ const Scanner = () => {
   useEffect(()=>{
     if (hasPermission === null) {
       setState(-1);
-      setBackgroundColor("#f5f5f5");
+      setBackgroundColor("#D6F1FF");
     }
     if (hasPermission === false) {
       setState(0);
-      setBackgroundColor("#f5f5f5");
+      setBackgroundColor("#D6F1FF");
     }
     if (hasPermission === true) {
       setState(1);
@@ -154,7 +154,7 @@ const Scanner = () => {
   useEffect(()=>{
     console.log(flash)
   })
-  console.log('Hello')
+  //console.log('Hello')
   const cameraRef = useRef(null);
   const [photoUri, setPhotoUri] = useState(null);
   const handleTorch = () => {
@@ -177,6 +177,9 @@ const Scanner = () => {
         const result = await sendBase64ToServer(response)
         console.log("result",result["data"])
         setData(result["data"])
+        if(result.status === "success"){
+          Navigation.navigate("Dashboard")
+        }
         result.status === "success"? setWork(false):setWork(true);
       } catch (error) {
         console.error("Error taking picture:", error);
@@ -245,7 +248,7 @@ const Scanner = () => {
             <Text
               style={styles.requestCamera}
             > 
-              {data} 
+              {""}
             </Text>}
             <Button title="Scan Me!" onPress={takePicture} />
             {/*<Image source={{ uri:`${photoUri}` }} style={{ width: 200, height: 200 }} />*/}

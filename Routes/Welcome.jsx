@@ -17,7 +17,7 @@ export default function WelcomeScreen({ navigation }) {
               //console.log("navigation state:", state.routes[0].name);
               const Index = state.index;
               const location =  state.routes[Index].name
-              location==="Welcome" ? (setLocation(location),setSize(0),setOpacity(0)) : (setLocation(1),setSize(60),setOpacity(1));
+              location==="Welcome" ? (setSize(0),setOpacity(0)) : (setSize(60),setOpacity(1));
             } else {
               console.log("Navigation context is undefined");
             }

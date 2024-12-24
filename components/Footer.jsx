@@ -18,7 +18,7 @@ const Footer = () => {
     
     const navigation = useNavigation();
     useEffect(()=> {
-        console.log("Location",Location)    
+        //console.log("Location",Location)    
         const routes = navigation.getState();
         //console.log("routes",routes)
         if(routes){
@@ -32,7 +32,7 @@ const Footer = () => {
         footer:{
             //height:60,
             //paddingHorizontal:30,
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#D6F1FF',
             flexDirection:"row",
             alignItems: 'center',
             //justifyContent:"space-evenly",
@@ -117,7 +117,7 @@ const Footer = () => {
                 <View
                     style={styles.leftFooter}
                 >
-                    <TouchableOpacity onPress={()=>handlePress('home')} activeOpacity={0.5} style={styles.Touchable}>
+                    <TouchableOpacity onPress={()=>handlePress('Home')} activeOpacity={0.5} style={styles.Touchable}>
                         <Image source={HomeIcon}/>
                         
                     </TouchableOpacity>

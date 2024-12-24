@@ -23,11 +23,12 @@ import Header from './components/Header';
 import React,{useRef} from 'react';
 import { AuthProvider, useAuth } from './Context/AuthProvider';
 import AppNavigator from './Routes/AppNavigator';
-
+import Config from 'react-native-config';
 const Stack = createStackNavigator();
 
 const App = () => {
-  
+  console.log('Firebase API Key:', Config.API_KEY);
+
   const screens = [
     { name: 'home', component: Home, index: 1 },
     { name:'jane', component: Jane, index:2 },
@@ -40,7 +41,7 @@ const App = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#f5f5f5',
+      backgroundColor: '#D6F1FF',
     },
   });
 
@@ -58,7 +59,7 @@ const App = () => {
     <PaperProvider theme={theme}>
     <SafeAreaView style={styles.container}>
       <StateContext>
-        <StatusBar style="light" backgroundColor={'#f5f5f5'} />
+        <StatusBar style="light" backgroundColor={'#D6F1FF'} />
         <NavigationContainer>
           <Header/>
           <AppNavigator/>
