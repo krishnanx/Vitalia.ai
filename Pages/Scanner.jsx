@@ -13,7 +13,7 @@ import torchW from "../assets/flashlightW.png"
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 const Scanner = () => {
-  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
+  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData] = useContext(bgContext);
   const Navigation = useNavigation();
   useEffect(() => {
       if (Navigation) {
@@ -126,7 +126,7 @@ const Scanner = () => {
   
   const [text,setText] = useState("");
   const [work,setWork] = useState(false);
-  const [data,setData] = useState("");
+  
   useEffect(() => {
     const getCameraPermissions = async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -173,10 +173,10 @@ const Scanner = () => {
         setPhotoUri(photo.uri); // Save the photo URI
         console.log(photo.uri); // Log photo details
         const response = await convertToBase64(photo.uri);
-        console.log("response",response)
+        //console.log("response",response)
         const result = await sendBase64ToServer(response)
-        console.log("result",result["data"])
-        setData(result["data"])
+        //console.log("result",result["data"])
+        setData(result)
         if(result.status === "success"){
           Navigation.navigate("Dashboard")
         }

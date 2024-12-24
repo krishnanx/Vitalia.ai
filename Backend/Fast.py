@@ -68,18 +68,21 @@ def upload_base64():
             return jsonify({"status": "error", "message": "Barcode not detected"}), 400
         
         # Get ingredients from the barcode
-        ingredients = mock_get_ingredients(barcode_info)
+        ingredients,name,image,nutrients = mock_get_ingredients(barcode_info)
         if not ingredients:
             return jsonify({"status": "error", "message": "Failed to fetch ingredients"}), 400
 
         # Generate OpenAI response based on ingredients
-        generated_text = generate_openai_text(ingredients)
+        #generated_text = generate_openai_text(ingredients)
         
         result = {
             "status": "success",
             "barcode_info": barcode_info,
+            "Name":name,
             "ingredients": ingredients,
-            "openai_response": generated_text
+            #"openai_response": generated_text,
+            "Image":image,
+            "Nutrients":nutrients
         }
 
         # Return the result as JSON
@@ -93,21 +96,15 @@ def generate_openai_text(ingredients):
     try:
         prompt = f"""For the following ingredients: {', '.join(ingredients)}
         Please provide:
-        1. A detailed explanation of each ingredient
-        2. Potential toxicity concerns and safe consumption limits
-        3. Common allergies or sensitivities
-        4. Nutritional benefits and health considerations
-        5. Safe storage recommendations
-        6. Common culinary uses and substitutes
-        
-        Format the response in clear sections for easy reading."""
+        1. A detailed explanation of each ingredients
+        """
 
         openai_response = client.chat.completions.create(
-            model="gpt-3.5",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=500
+            max_tokens=100
         )
         return openai_response.choices[0].message.content.strip()
     except Exception as e:
@@ -116,15 +113,19 @@ def generate_openai_text(ingredients):
 def mock_get_ingredients(barcode_data):
     try:
         # Replace this URL with a dynamic URL using barcode_data if needed
-        url = f"https://world.openfoodfacts.net/api/v2/product/3017624010701"
+        url = f"https://world.openfoodfacts.net/api/v2/product/{barcode_data}"
         response = requests.get(url)
         response.raise_for_status()  
 
         data = response.json()
         if data["status"] == 1: 
             ingredients_text = data["product"]["ingredients_text"]
+            print(data["product"])
+            image=data["product"]["image_small_url"]
+            nutrients= data["product"]["nutriments"]
+            print("nutrients:",nutrients)
             ingredients_list = [ing.strip() for ing in ingredients_text.split(",")]
-            return ingredients_list
+            return ingredients_list,data["product"]["brands"],image,nutrients
         else:
             return None
     except Exception as e:
