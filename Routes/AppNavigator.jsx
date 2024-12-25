@@ -24,7 +24,7 @@ const AppNavigator = () => {
         animationEnabled: true, // Enable animation for transition
       }}
     >
-      {user?
+      {!user?
       <>
         <Stack.Screen
           name="Welcome"

@@ -8,6 +8,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
+import Auth from '../firebasefile/Auth';
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,9 +55,18 @@ export default function LoginScreen({ navigation }) {
             alert("Invalid email or password");
             return;
           }
-          navigation.navigate("home");
+          if(user){
+            try{
+              const response = Auth();
+              console.log(response)
+            }catch(e){
+              console.log("catch",e);
+            }
+            navigation.navigate("Home");
+          }
+         
         } catch (error) {
-          console.log("Failed to login");
+          console.log("Failed to login:",error);
         }
   }
 

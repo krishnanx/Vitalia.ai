@@ -2,6 +2,7 @@ import { View, Text , StyleSheet, Imag } from 'react-native'
 import React,{useState} from 'react'
 import { TextInput , Button, IconButton, Menu, Avatar } from 'react-native-paper';
 import useRegister from '../firebaseHooks/useRegister';
+import Auth from '../firebasefile/Auth';
 
 const DetailsCollection = ({route,navigation}) => {
 
@@ -41,7 +42,13 @@ const DetailsCollection = ({route,navigation}) => {
             const user = await register(email , password , userDetails);
             console.log(user)
             if(user){
-                navigation.navigate('home');
+              try{
+                const response = Auth();
+                console.log(response)
+              }catch(e){
+                console.log(e);
+              }
+                navigation.navigate('Home');
             }
         } catch (error) {
             alert(error.message);

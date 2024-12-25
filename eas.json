@@ -6,13 +6,26 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "SUPABASE_URL": "@SUPABASE_URL",
+        "SUPABASE_KEY": "@SUPABASE_API"
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "SUPABASE_URL": "@SUPABASE_URL",
+        "SUPABASE_KEY": "@SUPABASE_API"
+      }
+
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "env": {
+        "SUPABASE_URL": "@SUPABASE_URL",
+        "SUPABASE_KEY": "@SUPABASE_API"
+      }
     }
   },
   "submit": {

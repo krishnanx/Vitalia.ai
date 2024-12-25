@@ -6,7 +6,7 @@ import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebasefile/firebase';
 import { fetchSignInMethodsForEmail } from 'firebase/auth';
-
+import Auth from '../firebasefile/Auth';
 const SignupScreen = ({navigation}) => {
     const [email , setEmail] = useState('');
     const [password , setPassword] = useState('');
@@ -37,7 +37,7 @@ const SignupScreen = ({navigation}) => {
         }
     }
 
-    const handleSignup = ()=>{
+    const handleSignup = async()=>{
         if(email.length === 0 || password.length === 0){
             setHelperText({value:"Please fill all fields" , color:"red"});
         }
@@ -47,10 +47,11 @@ const SignupScreen = ({navigation}) => {
         else if(emailRegex.test(email) === false){
             setHelperText({value:"Invalid email" , color:"red"});
         }
-        else if(checkIfEmailRegistered(email)){
+        /*else if(checkIfEmailRegistered(email)){
           setHelperText({value:"Account with this email already exists" , color:"red"});
-        }
+        }*/
         else{
+            
             console.log("Email: " , email , "Password: " , password);
             navigation.navigate("Details", {email , password});
     }

@@ -5,6 +5,7 @@ import { Button, IconButton } from 'react-native-paper';
 import trial from "../assets/trial.png";
 import useLogOut from '../firebaseHooks/useLogOut';
 import { useNavigation } from '@react-navigation/native';
+import Auth from '../firebasefile/Auth';
 
 
 const Home = () => {
