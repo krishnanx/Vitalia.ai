@@ -316,7 +316,7 @@ const Dashboard = () => {
                         style={styles.saveTouch}
                         onPress={()=>handleFav()}
                     >
-                       {click?<Image source={Fav2} style={{width:20,height:30}}/>: <Image source={Fav} style={{width:20,height:30}}/>}
+                       {data.Name?click?<Image source={Fav2} style={{width:20,height:30}}/>: <Image source={Fav} style={{width:20,height:30}}/>:<></>}
                     </TouchableOpacity>
                 </View>
                

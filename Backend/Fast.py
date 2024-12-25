@@ -8,7 +8,7 @@ from openai import OpenAI
 from PIL import Image
 from io import BytesIO
 import requests
-
+import re
 # Load environment variables
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -71,9 +71,7 @@ def upload_base64():
         ingredients,brand,name,image,nutrients = mock_get_ingredients(barcode_info)
         
 
-        # Generate OpenAI response based on ingredients
-        #generated_text = generate_openai_text(ingredients)
-        
+      
         result = {
             "status": "success",
             "barcode_info": barcode_info,
@@ -86,6 +84,23 @@ def upload_base64():
             "HealthScore":50
         }
 
+        if not result["ingredients"]:  # This checks if the list is empty
+            ingredientsText = generate_openai_text(result["Name"])
+            ingredients = extract_ingredients(ingredientsText)
+            print("ingredients:", ingredients)
+            result = {
+                "status": "success",
+                "barcode_info": barcode_info,
+                "Brand": brand,
+                "Name": name,
+                "ingredients": ingredients,
+                #"openai_response": generated_text,
+                "Image": image,
+                "Nutrients": nutrients,
+                "HealthScore": 50
+            }
+
+            return jsonify(result),200
         # Return the result as JSON
         return jsonify(result), 200
 
@@ -93,11 +108,11 @@ def upload_base64():
         # Catch any other exceptions and return an error message
         return jsonify({"error": f"Failed to decode and save image: {str(e)}"}), 400
 
-def generate_openai_text(ingredients):
+def generate_openai_text(name):
     try:
-        prompt = f"""For the following ingredients: {', '.join(ingredients)}
+        prompt = f"""For the Product name: {', '.join(name)}
         Please provide:
-        1. A detailed explanation of each ingredients
+        1. All ingredients used to create the product,Dont leave out any!,return with the ingredients enclosed with "[]"
         """
 
         openai_response = client.chat.completions.create(
@@ -121,7 +136,6 @@ def mock_get_ingredients(barcode_data):
         data = response.json()
         if data["status"] == 1: 
             value = data["product"].get("ingredients_text", [])
-
             print(data["product"])
             image = data["product"].get("image_small_url", "No image available")
             nutrients_text = data["product"].get("nutriments", {})
@@ -149,6 +163,15 @@ def mock_get_ingredients(barcode_data):
     except Exception as e:
         print(f"Error fetching ingredients: {str(e)}")
         return None
-
+def extract_ingredients(ingredient_string):
+    # Regular expression to find the ingredients inside square brackets
+    match = re.search(r'\[(.*?)\]', ingredient_string)
+    
+    if match:
+        # Extract the ingredients and split them by commas
+        ingredients = match.group(1).split(', ')
+        return ingredients
+    else:
+        return []
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
