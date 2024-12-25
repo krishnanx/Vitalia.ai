@@ -1,5 +1,6 @@
-import React,{ useEffect,useContext, useState, use } from 'react'
-import { View,StyleSheet,Text,Image,TouchableOpacity, ScrollView, TouchableHighlight} from 'react-native'
+import React,{ useEffect,useContext, useState } from 'react'
+import { View,StyleSheet,Text,Image,TouchableOpacity, ScrollView, TouchableHighlight,} from 'react-native'
+import { DataTable } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
 import Fav from "../assets/Fav.png";
@@ -14,7 +15,7 @@ const Dashboard = () => {
     const [IngredientsColor,setIngredientsColor] = useState('#ADE2FF');
     const [NutrientsColor,setNutrientsColor] = useState('transparent');
     const [view,setView] = useState("Ingredients")
-    const Num = 50;
+    
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
@@ -29,10 +30,11 @@ const Dashboard = () => {
       
         }, [Navigation]);
     useEffect(() => { 
-        console.log(data);
-        if(data){
-            Num<50?setBackgroundColor('#FF0000'):Num>80?setBackgroundColor('#01ff01'):setBackgroundColor('#f5f501');
-            console.log("data",data);
+        console.log(data.HealthScore);
+        if(data.HealthScore!=undefined){
+           
+            data.HealthScore<50?setBackgroundColor('#FF0000'):data.HealthScore>80?setBackgroundColor('#01ff01'):setBackgroundColor('#f5f501');
+            console.log("data",data.HealthScore);
             console.log("bgColor",bgcolor);
         }
       }, [data]);
@@ -240,6 +242,47 @@ const Dashboard = () => {
     const handleFav = () => {
         click?setClicked(false):setClicked(true);
     }
+
+
+    const [page, setPage] = useState(0);
+    const [numberOfItemsPerPageList] = useState([4,5,6]);
+    const [itemsPerPage, onItemsPerPageChange] = useState(
+    numberOfItemsPerPageList[0]
+  );
+
+    const [items] = useState([
+        {
+          key: 1,
+          name: 'Cupcake',
+          calories: 356,
+          fat: 16,
+        },
+        {
+          key: 2,
+          name: 'Eclair',
+          calories: 262,
+          fat: 16,
+        },
+        {
+          key: 3,
+          name: 'Frozen yogurt',
+          calories: 159,
+          fat: 6,
+        },
+        {
+          key: 4,
+          name: 'Gingerbread',
+          calories: 305,
+          fat: 3.7,
+        },
+       ]);
+     
+       const from = page * itemsPerPage;
+       const to = Math.min((page + 1) * itemsPerPage, items.length);
+     
+        useEffect(() => {
+         setPage(0);
+       }, [itemsPerPage]);
     return (
     <ScrollView
         style={styles.Main}
@@ -258,7 +301,7 @@ const Dashboard = () => {
                     <Text
                         style={{fontSize:15}}
                     >
-                        Brand
+                        {data.Brand}
                     </Text>
                     <Text
                         style={{fontSize:25,width:250}}
@@ -293,7 +336,7 @@ const Dashboard = () => {
                         <Text
                             style={{fontSize:50,fontWeight:'400',color:bgcolor}}
                         >
-                            {Num}
+                            {data.HealthScore}
                         </Text>
                     </View>
                 </View>
@@ -355,7 +398,22 @@ const Dashboard = () => {
             <View
             style={styles.Nutrients}
             >
-                
+                <DataTable>
+                    <DataTable.Header>
+                        <DataTable.Title>Typical Values</DataTable.Title>
+                        <DataTable.Title numeric>Per 100g</DataTable.Title>
+                        {/*<DataTable.Title numeric>per portion (15g)</DataTable.Title>*/}
+                    </DataTable.Header>
+
+                    {data && data.Nutrients && data.Nutrients.map((item) => (
+                        <DataTable.Row key={item.key}>
+                        <DataTable.Cell>{item.name}</DataTable.Cell>
+                        <DataTable.Cell numeric>{item.value}</DataTable.Cell>
+                        </DataTable.Row>
+                    ))}
+
+                   
+                </DataTable>
             </View>}
         </View>
     </ScrollView>

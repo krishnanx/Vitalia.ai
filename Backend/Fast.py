@@ -68,9 +68,8 @@ def upload_base64():
             return jsonify({"status": "error", "message": "Barcode not detected"}), 400
         
         # Get ingredients from the barcode
-        ingredients,name,image,nutrients = mock_get_ingredients(barcode_info)
-        if not ingredients:
-            return jsonify({"status": "error", "message": "Failed to fetch ingredients"}), 400
+        ingredients,brand,name,image,nutrients = mock_get_ingredients(barcode_info)
+        
 
         # Generate OpenAI response based on ingredients
         #generated_text = generate_openai_text(ingredients)
@@ -78,11 +77,13 @@ def upload_base64():
         result = {
             "status": "success",
             "barcode_info": barcode_info,
+            "Brand":brand,
             "Name":name,
             "ingredients": ingredients,
             #"openai_response": generated_text,
             "Image":image,
-            "Nutrients":nutrients
+            "Nutrients":nutrients,
+            "HealthScore":50
         }
 
         # Return the result as JSON
@@ -119,13 +120,30 @@ def mock_get_ingredients(barcode_data):
 
         data = response.json()
         if data["status"] == 1: 
-            ingredients_text = data["product"]["ingredients_text"]
+            value = data["product"].get("ingredients_text", [])
+
             print(data["product"])
-            image=data["product"]["image_small_url"]
-            nutrients= data["product"]["nutriments"]
-            print("nutrients:",nutrients)
-            ingredients_list = [ing.strip() for ing in ingredients_text.split(",")]
-            return ingredients_list,data["product"]["brands"],image,nutrients
+            image = data["product"].get("image_small_url", "No image available")
+            nutrients_text = data["product"].get("nutriments", {})
+            name = data["product"].get("product_name","")
+          
+            nutrients = [
+                {"name": "energy", "value": f'{nutrients_text.get("energy-kcal_100g", 0)} Kcal'},
+                {"name": "Fat", "value": f'{nutrients_text.get("fat_100g", 0)} g'},
+                {"name": "Carbohydrates", "value": f'{nutrients_text.get("carbohydrates_100g", 0)} g'},
+                {"name": "Fruits&vegetables&nuts", "value": nutrients_text.get("fruits-vegetables-nuts-estimate-from-ingredients_100g", 0)},
+                {"name": "Proteins", "value": f'{nutrients_text.get("proteins_100g", 0)} g'},
+                {"name": "Saturated Fat", "value": f'{nutrients_text.get("saturated-fat_100g", 0)} g'},
+                {"name": "Sodium", "value": f'{nutrients_text.get("sodium_100g", 0)} g'},
+                {"name": "Sugar", "value": f'{nutrients_text.get("sugars_100g", 0)} g'}
+            ]
+
+            print("nutrients:",nutrients)           
+            if value:  # Check if value is not an empty list
+                ingredients_list = [ing.strip() for ing in value.split(",")]
+            else:
+                ingredients_list = []
+            return ingredients_list,data["product"]["brands"],name,image,nutrients
         else:
             return None
     except Exception as e:
