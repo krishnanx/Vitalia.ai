@@ -6,10 +6,10 @@ import { bgContext } from '../Context/StateContext';
 import Fav from "../assets/Fav.png";
 import Fav2 from "../assets/Fav2.png"
 import Profile from './Profile';
-import onSave from '../components/functions/onSave';
+import onSave from '../functions/onSave';
 import { AuthContext } from '../Context/AuthProvider';
-import checkSave from '../components/functions/checkSave';
-import onDelete from '../components/functions/onDelete';
+import checkSave from '../functions/checkSave';
+import onDelete from '../functions/onDelete';
 const Dashboard = () => {
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData,click,setClicked] = useContext(bgContext);
@@ -40,10 +40,16 @@ const Dashboard = () => {
             console.log("data",data.HealthScore);
             console.log("bgColor",bgcolor);
         }
-        if(data.barcode_info){
-            const response = checkSave(data.barcode_info)
-            setClicked(response)
+        if(data && data.barcode_info!=undefined){
+            console.log(data.barcode_info)
+            const check = async() =>{
+                const response = await checkSave(data.barcode_info, user);
+                console.log("response", response);
+                setClicked(response);
+            }
+            check()
         }
+
       }, [data]);
 
     const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-import { supabase } from "../../Supabase/supabase"
+import { supabase } from "../Supabase/supabase"
 const onDelete = async(user) => {
     const uid = user.uid
     try{

@@ -1,4 +1,4 @@
-import { supabase } from "../../Supabase/supabase"
+import { supabase } from "../Supabase/supabase"
 import React, { useContext } from 'react'
 
 const onSave = async(user,data) => {
