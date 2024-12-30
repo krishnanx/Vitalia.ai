@@ -7,8 +7,10 @@ const StateContext = ({children}) => {
     const [opacity,setOpacity] = useState(0)
     const [routes,setRoutes] = useState([]);
     const [data ,setData] = useState([]);
+    const [code,setCode] = useState(null);
+    const [click,setClicked] = useState(false)
   return (
-    <bgContext.Provider value={[state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData]}>
+    <bgContext.Provider value={[state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData,code,setCode,click,setClicked]}>
         {children}
     </bgContext.Provider>
   )

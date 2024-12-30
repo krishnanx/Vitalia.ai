@@ -85,6 +85,7 @@ def upload_base64():
         }
 
         if not result["ingredients"]:  # This checks if the list is empty
+            print("OPEN AI RESULT")
             ingredientsText = generate_openai_text(result["Name"])
             ingredients = extract_ingredients(ingredientsText)
             print("ingredients:", ingredients)

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../firebasefile/firebase"; // Import firebase auth
 
 // Create an AuthContext
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 // AuthProvider component that provides the context value
 export const AuthProvider = ({ children }) => {

@@ -6,16 +6,19 @@ import { bgContext } from '../Context/StateContext';
 import Fav from "../assets/Fav.png";
 import Fav2 from "../assets/Fav2.png"
 import Profile from './Profile';
-
+import onSave from '../components/functions/onSave';
+import { AuthContext } from '../Context/AuthProvider';
+import checkSave from '../components/functions/checkSave';
+import onDelete from '../components/functions/onDelete';
 const Dashboard = () => {
     const Navigation = useNavigation();
-    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData] = useContext(bgContext);
-    const [click,setClicked] = useState(false)
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData,click,setClicked] = useContext(bgContext);
+   
     const [bgcolor,setBackgroundColor] = useState('#EBF8FF');
     const [IngredientsColor,setIngredientsColor] = useState('#ADE2FF');
     const [NutrientsColor,setNutrientsColor] = useState('transparent');
     const [view,setView] = useState("Ingredients")
-    
+    const {user} = useContext(AuthContext);
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
@@ -36,6 +39,10 @@ const Dashboard = () => {
             data.HealthScore<50?setBackgroundColor('#FF0000'):data.HealthScore>80?setBackgroundColor('#01ff01'):setBackgroundColor('#f5f501');
             console.log("data",data.HealthScore);
             console.log("bgColor",bgcolor);
+        }
+        if(data.barcode_info){
+            const response = checkSave(data.barcode_info)
+            setClicked(response)
         }
       }, [data]);
 
@@ -240,7 +247,7 @@ const Dashboard = () => {
 
 }
     const handleFav = () => {
-        click?setClicked(false):setClicked(true);
+        const response = click?(setClicked(false),onDelete(user)):(setClicked(true),onSave(user,data));
     }
 
 

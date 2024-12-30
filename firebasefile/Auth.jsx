@@ -1,8 +1,9 @@
-import react, { useState } from "react";
+import react, { useState,useContext } from "react";
 import { auth } from "./firebase";
 import { supabase } from "../Supabase/supabase";
+import { bgContext } from "../Context/StateContext";
 const Auth = async() => {
-  
+    //const [code,setCode] = useContext(bgContext);
     const user = auth.currentUser;
     //console.log("Bye:",user);
     if (user) {
@@ -18,6 +19,13 @@ const Auth = async() => {
         .from('Users')
         .select('userId')
         console.log("Dattttaa:",Users)
+        /*                                                               */
+
+
+       
+
+
+        /*                                                               */ 
         for(const item of Users){
           if(item.userId===userId){
             //setUnique(false);
