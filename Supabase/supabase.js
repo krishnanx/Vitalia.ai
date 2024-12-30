@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import Config from 'react-native-config';
+
 import Constants from 'expo-constants';
 const SUPABASE_URL = Constants.expoConfig.extra.SUPABASE_URL;
 const SUPABASE_KEY = Constants.expoConfig.extra.SUPABASE_KEY;

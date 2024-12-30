@@ -9,7 +9,16 @@
       "distribution": "internal",
       "env": {
         "SUPABASE_URL": "@SUPABASE_URL",
-        "SUPABASE_KEY": "@SUPABASE_API"
+        "SUPABASE_API": "@SUPABASE_API",
+        "API_KEY": "@API_KEY",
+        "AUTH_DOMAIN": "@AUTH_DOMAIN",
+        "PROJECT_ID": "@PROJECT_ID",
+        "STORAGE_BUCKET": "@STORAGE_BUCKET",
+        "MESSAGING_SENDER_ID": "@MESSAGING_SENDER_ID",
+        "APP_ID": "@APP_ID",
+        "MEASUREMENT_ID": "@MEASUREMENT_ID",
+        "OPEN_AI_KEY":"@OPENAI_API_KEY"
+
       }
     },
     "preview": {

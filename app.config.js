@@ -25,6 +25,8 @@ export default {
         },
       ],
       "expo-secure-store",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/app"
     ],
     android: {
       adaptiveIcon: {
@@ -47,6 +49,14 @@ export default {
       },
       SUPABASE_URL: process.env.SUPABASE_URL,
       SUPABASE_KEY: process.env.SUPABASE_API,
+      API_KEY: process.env.API_KEY,
+      AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+      PROJECT_ID: process.env.PROJECT_ID,
+      STORAGE_BUCKET: process.env.STORAGE_BUCKET,
+      MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
+      APP_ID: process.env.APP_ID,
+      MEASUREMENT_ID: process.env.MEASUREMENT_ID,
+      OPEN_AI_KEY:process.env.OPEN_AI_KEY
     },
   },
 };

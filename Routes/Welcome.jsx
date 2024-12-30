@@ -1,8 +1,7 @@
 import React,{useEffect,useContext} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { TextInput , Button, IconButton } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
 import { bgContext } from '../Context/StateContext';
 import { StatusBar } from 'expo-status-bar';
 import {

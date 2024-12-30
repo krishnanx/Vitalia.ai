@@ -2,12 +2,7 @@ import React,{useContext,useEffect} from 'react'
 import { StyleSheet, Text, View,Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
-import donut from "../assets/donut.gif";
-import pic from "../assets/icon.png";
-import FastImage from 'react-native-fast-image';
-import Gif from 'react-native-gif';
-import Video from 'react-native-video';
-import donutVid from "../assets/donut.mp4";
+
 import back from "../assets/back.png";
 import profilePic from "../assets/ProfilePic.png";
 const Header = () => {

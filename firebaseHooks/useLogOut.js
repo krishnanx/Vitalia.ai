@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { auth } from '../firebasefile/firebase'; // Import your Firebase auth instance
-import { signOut } from 'firebase/auth';
+import { signOut } from "firebase/auth";
 
 const useLogOut = () => {
   const [loading, setLoading] = useState(false);

@@ -5,7 +5,7 @@ import { TextInput , Button, IconButton, HelperText } from 'react-native-paper';
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebasefile/firebase';
-import { fetchSignInMethodsForEmail } from 'firebase/auth';
+import { fetchSignInMethodsForEmail } from "firebase/auth";
 import Auth from '../firebasefile/Auth';
 const SignupScreen = ({navigation}) => {
     const [email , setEmail] = useState('');

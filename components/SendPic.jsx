@@ -1,6 +1,6 @@
 const sendBase64ToServer = async (base64) => {
   try {
-    const response = await fetch('http://192.168.1.47:5000/upload-base64', {
+    const response = await fetch('http://192.168.1.37:5000/upload-base64', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
