@@ -9,7 +9,7 @@ const Header = () => {
        const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
         const navigation = useNavigation();
         useEffect(()=> {
-            console.log("Location",Location[Location.length - 1])   
+            //console.log("Location",Location[Location.length - 1])   
         })
     const styles = StyleSheet.create({
         header:{

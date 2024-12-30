@@ -36,17 +36,17 @@ const DetailsCollection = ({route,navigation}) => {
             alert("Please fill the required fields")
             return;
         }
-        console.log(email , password)
-        console.log(userDetails);
+        //console.log(email , password)
+        //console.log(userDetails);
         try {
             const user = await register(email , password , userDetails);
-            console.log(user)
+            //console.log(user)
             if(user){
               try{
                 const response = Auth();
-                console.log(response)
+                //console.log(response)
               }catch(e){
-                console.log(e);
+                //console.log(e);
               }
                 navigation.navigate('Home');
             }

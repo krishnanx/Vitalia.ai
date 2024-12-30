@@ -10,10 +10,10 @@ const useLogOut = () => {
     try {
       setLoading(true);
       await signOut(auth); // Firebase signOut method
-      console.log('User logged out successfully');
+      //console.log('User logged out successfully');
     } catch (err) {
       setError(err.message); // Handle any errors
-      console.log('Error logging out:', err.message);
+      //console.log('Error logging out:', err.message);
     } finally {
       setLoading(false);
     }

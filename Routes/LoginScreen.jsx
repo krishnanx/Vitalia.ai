@@ -23,13 +23,13 @@ export default function LoginScreen({ navigation }) {
   useEffect(() => {
       if (Navigation) {
           const state = Navigation.getState();
-          //console.log("navigation state:", state.routes[0].name);
+          ////console.log("navigation state:", state.routes[0].name);
           const Index = state.index;
           const location = state.routes[Index].name;
           location==="Login" ? (setSize(0),setOpacity(0)) : (setSize(60),setOpacity(1));
-          //console.log(state.routes[Index].name)
+          ////console.log(state.routes[Index].name)
         } else {
-          console.log("Navigation context is undefined");
+          //console.log("Navigation context is undefined");
         }
     }, [Navigation]);
 
@@ -58,15 +58,15 @@ export default function LoginScreen({ navigation }) {
           if(user){
             try{
               const response = Auth();
-              console.log(response)
+              //console.log(response)
             }catch(e){
-              console.log("catch",e);
+              //console.log("catch",e);
             }
             navigation.navigate("Home");
           }
          
         } catch (error) {
-          console.log("Failed to login:",error);
+          //console.log("Failed to login:",error);
         }
   }
 

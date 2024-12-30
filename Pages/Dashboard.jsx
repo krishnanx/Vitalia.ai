@@ -22,36 +22,38 @@ const Dashboard = () => {
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
-            //console.log("navigation state:", state.routes[0].name);
+            ////console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
             const location = state.routes[Index].name;
             location==="Dashboard"?(setLocation((prev) => [...prev, location]),setSize(60),setOpacity(1)) : (setLocation((prev) => [...prev, location]),setSize(0),setOpacity(0));
-            //console.log(state.routes[Index].name)
+            ////console.log(state.routes[Index].name)
             } else {
-            console.log("Navigation context is undefined");
+            //console.log("Navigation context is undefined");
             }
       
         }, [Navigation]);
     useEffect(() => { 
-        console.log(data.HealthScore);
-        if(data.HealthScore!=undefined){
+        //console.log(data.HealthScore);
+        if(data && data.HealthScore!=undefined){
            
             data.HealthScore<50?setBackgroundColor('#FF0000'):data.HealthScore>80?setBackgroundColor('#01ff01'):setBackgroundColor('#f5f501');
-            console.log("data",data.HealthScore);
-            console.log("bgColor",bgcolor);
+            //console.log("data",data.HealthScore);
+            //console.log("bgColor",bgcolor);
         }
         if(data && data.barcode_info!=undefined){
-            console.log(data.barcode_info)
+            //console.log(data.barcode_info)
             const check = async() =>{
                 const response = await checkSave(data.barcode_info, user);
-                console.log("response", response);
+                //console.log("response", response);
                 setClicked(response);
             }
             check()
         }
 
       }, [data]);
-
+    useEffect(()=>{
+        console.log("mydata",data)
+    },)
     const styles = StyleSheet.create({
         Main:{
             flex:1,
@@ -252,9 +254,14 @@ const Dashboard = () => {
         setView("Nutrients")
 
 }
-    const handleFav = () => {
-        const response = click?(setClicked(false),onDelete(user)):(setClicked(true),onSave(user,data));
-    }
+    const handleFav = async() => {
+        const response = click?(setClicked(false),await onDelete(user,data)):(setClicked(true),await onSave(user,data));
+        console.log(response)
+        setData(response)
+        }
+     
+   
+    
 
 
     const [page, setPage] = useState(0);
@@ -314,12 +321,12 @@ const Dashboard = () => {
                     <Text
                         style={{fontSize:15}}
                     >
-                        {data.Brand}
+                        {data && data.Brand}
                     </Text>
                     <Text
                         style={{fontSize:25,width:250}}
                     >
-                        {data.Name}
+                        {data && data.Name}
                     </Text>
                 </View>
                 <View
@@ -329,7 +336,7 @@ const Dashboard = () => {
                         style={styles.saveTouch}
                         onPress={()=>handleFav()}
                     >
-                       {data.Name?click?<Image source={Fav2} style={{width:20,height:30}}/>: <Image source={Fav} style={{width:20,height:30}}/>:<></>}
+                       {data && data.Name?click?<Image source={Fav2} style={{width:20,height:30}}/>: <Image source={Fav} style={{width:20,height:30}}/>:<></>}
                     </TouchableOpacity>
                 </View>
                
@@ -349,14 +356,14 @@ const Dashboard = () => {
                         <Text
                             style={{fontSize:50,fontWeight:'400',color:bgcolor}}
                         >
-                            {data.HealthScore}
+                            {data && data.HealthScore}
                         </Text>
                     </View>
                 </View>
                 <View
                     style={styles.picContainer}
                 >
-                    <Image source={{ uri: data.Image }} style={styles.image} />
+                   {data && <Image source={{ uri: data.Image }} style={styles.image} />}
                 </View>
             </View>
         </View>

@@ -29,10 +29,10 @@ const useRegister = () => {
                     createdAt: serverTimestamp(),
                 });
             setUser(user);
-            console.log("User created sucessfully")
+            //console.log("User created sucessfully")
             return user;
         } catch (error) {
-            console.log("ERROR IN USEREGISTER HOOK: "+error.message);
+            //console.log("ERROR IN USEREGISTER HOOK: "+error.message);
             setError(error.message);
             
         }finally{

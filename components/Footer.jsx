@@ -18,12 +18,12 @@ const Footer = () => {
     
     const navigation = useNavigation();
     useEffect(()=> {
-        //console.log("Location",Location)    
+        ////console.log("Location",Location)    
         const routes = navigation.getState();
-        //console.log("routes",routes)
+        ////console.log("routes",routes)
         if(routes){
         setRoutes(routes.routes);
-        console.log("routes",routes.routes)
+        //console.log("routes",routes.routes)
         
     }},[Location]);
 
@@ -81,10 +81,10 @@ const Footer = () => {
         },
     })
     const handlePress = (screenName) => {
-        //console.log("routes",routes)
+        ////console.log("routes",routes)
         //if(ro)
         /*route.forEach((item) => {
-            console.log("item",item)
+            //console.log("item",item)
             if(screenName===item.name){
                 navigation.navigate(screenName);
             }
@@ -92,7 +92,7 @@ const Footer = () => {
                 navigation.navigate(screenName);
             }
         })
-        console.log("screenName",screenName)*/
+        //console.log("screenName",screenName)*/
         
         // Navigate to the screen
         navigation.navigate(screenName);

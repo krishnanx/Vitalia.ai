@@ -2,8 +2,9 @@ import { supabase } from "../Supabase/supabase"
 import React, { useContext } from 'react'
 
 const onSave = async(user,data) => {
-    console.log("user:",user.uid);
-    console.log("data:",data)
+    console.log("onSave")
+    //console.log("user:",user.uid);
+    //console.log("data:",data)
     try{
     const uid = user.uid
 
@@ -14,16 +15,16 @@ const onSave = async(user,data) => {
     ])
     .select()
     if(error){
-        console.log(error)
-        return
+        //console.log(error)
+        return data
     }
     else{
-        console.log("saved!!!",value)
-        return
+        //console.log("saved!!!",value)
+        return data
     }
     }catch(e){
-        console.log("error:",e);
-        return
+        //console.log("error:",e);
+        return data
     }
 }
 

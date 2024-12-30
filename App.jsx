@@ -27,7 +27,7 @@ import Config from 'react-native-config';
 const Stack = createStackNavigator();
 
 const App = () => {
-  console.log('Firebase API Key:', Config.API_KEY);
+  //console.log('Firebase API Key:', Config.API_KEY);
 
   const screens = [
     { name: 'home', component: Home, index: 1 },

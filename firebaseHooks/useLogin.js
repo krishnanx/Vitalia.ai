@@ -13,13 +13,13 @@ const useLogin = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       setUser(user);
-      console.log('User logged in successfully', user);
+      //console.log('User logged in successfully', user);
 
       return user;
 
     } catch (err) {
       setError(err.message); // Handle any errors
-      console.log('Error logging in:', err.message);
+      //console.log('Error logging in:', err.message);
 
     } finally {
       setLoading(false);

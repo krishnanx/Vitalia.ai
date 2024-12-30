@@ -18,13 +18,13 @@ const SignupScreen = ({navigation}) => {
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
-            //console.log("navigation state:", state.routes[0].name);
+            ////console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
             const location = state.routes[Index].name;
            
             location==="Signup" ? (setSize(0),setOpacity(0)) : (setSize(60),setOpacity(1));
           } else {
-            console.log("Navigation context is undefined");
+            //console.log("Navigation context is undefined");
           }
     }, [Navigation]);
     const handleChangePassword = (text)=>{
@@ -52,7 +52,7 @@ const SignupScreen = ({navigation}) => {
         }*/
         else{
             
-            console.log("Email: " , email , "Password: " , password);
+            //console.log("Email: " , email , "Password: " , password);
             navigation.navigate("Details", {email , password});
     }
 }

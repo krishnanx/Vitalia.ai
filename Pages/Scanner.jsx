@@ -18,13 +18,13 @@ const Scanner = () => {
   useEffect(() => {
       if (Navigation) {
           const state = Navigation.getState();
-          //console.log("navigation state:", state.routes[0].name);
+          ////console.log("navigation state:", state.routes[0].name);
           const Index = state.index;
           const location = state.routes[Index].name;
           location==="home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation((prev) => [...prev, location]),setSize(60),setOpacity(1)) : (setLocation((prev) => [...prev, location]),setSize(0),setOpacity(0));
-          //console.log(state.routes[Index].name)
+          ////console.log(state.routes[Index].name)
         } else {
-          console.log("Navigation context is undefined");
+          //console.log("Navigation context is undefined");
         }
     }, [Navigation]);
   const [click,setClick] = useState(false);
@@ -152,9 +152,9 @@ const Scanner = () => {
     
   },[hasPermission])
   useEffect(()=>{
-    console.log(flash)
+    //console.log(flash)
   })
-  //console.log('Hello')
+  ////console.log('Hello')
   const cameraRef = useRef(null);
   const [photoUri, setPhotoUri] = useState(null);
   const handleTorch = () => {
@@ -171,11 +171,11 @@ const Scanner = () => {
         };
         const photo = await cameraRef.current.takePictureAsync(options);
         setPhotoUri(photo.uri); // Save the photo URI
-        console.log(photo.uri); // Log photo details
+        //console.log(photo.uri); // Log photo details
         const response = await convertToBase64(photo.uri);
-        //console.log("response",response)
+        ////console.log("response",response)
         const result = await sendBase64ToServer(response)
-        //console.log("result",result["data"])
+        ////console.log("result",result["data"])
         setData(result)
         if(result.status === "success"){
           Navigation.navigate("Dashboard")

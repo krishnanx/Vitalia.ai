@@ -9,8 +9,9 @@ const StateContext = ({children}) => {
     const [data ,setData] = useState([]);
     const [code,setCode] = useState(null);
     const [click,setClicked] = useState(false)
+    const [value,setValue] = useState([])
   return (
-    <bgContext.Provider value={[state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData,code,setCode,click,setClicked]}>
+    <bgContext.Provider value={[state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData,code,setCode,click,setClicked,value,setValue]}>
         {children}
     </bgContext.Provider>
   )

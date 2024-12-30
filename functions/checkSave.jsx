@@ -3,6 +3,7 @@ const checkSave = async(num,user) => {
     
     try{
         const uid = user.uid
+        console.log("check Save")
         const { data, error } = await supabase
         .from('Saved')            // Specify the table you want to query (saved)
         .select('code')              // Select all columns from the saved table
@@ -10,20 +11,23 @@ const checkSave = async(num,user) => {
         if (error) {
             console.error('Error fetching saved data:', error);
         } else {
-            console.log('Saved data for user:', data)
+            //console.log('Saved data for user:', data)
         //setCode(data);
         }
         if(data.length>0){
-            console.log("hi")
+            //console.log("hi")
+
             for(const item of data){
-                if(item.code === num){
+                //console.log(item)
+                if(item.code == num){
+                    //console.log("truee??")
                     return true
                 }
-            
             }
+            //console.log("false??")
             return false
         }else{
-            console.log("bye")
+            //console.log("bye")
             return false
         }
       
@@ -31,7 +35,7 @@ const checkSave = async(num,user) => {
 
     }
     catch(e){
-        console.log("saved check:",e)
+        //console.log("saved check:",e)
 
     }
    
