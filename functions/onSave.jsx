@@ -11,7 +11,7 @@ const onSave = async(user,data) => {
     const {value, error } = await supabase
     .from('Saved')
     .insert([
-    {user_id:uid,code:data.barcode_info,brandName:data.Brand,name:data.Name,image:data.Image,ingredients:data.ingredients,nutrients:data.Nutrients },
+    {user_id:uid,code:data.barcode_info,brandName:data.Brand,name:data.Name,image:data.Image,ingredients:data.ingredients,nutrients:data.Nutrients,score:data.HealthScore },
     ])
     .select()
     if(error){

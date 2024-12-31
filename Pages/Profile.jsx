@@ -8,6 +8,7 @@ import dashboard from "../assets/dashboard.png"
 import info from "../assets/info.png"
 import contact from "../assets/contact.png"
 import terms from "../assets/terms.png"
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
 const Profile = () => {
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
@@ -26,7 +27,7 @@ const Profile = () => {
     const styles = StyleSheet.create({
         Main:{
             flex:1,
-            backgroundColor: '#D6F1FF',
+            backgroundColor: 'black',
             width:'100%',
             height:'700',
             //justifyContent:'space-around',
@@ -38,7 +39,7 @@ const Profile = () => {
         dashboardButton:{
           width:340,
           height:50,
-          backgroundColor:"#EBF8FF",
+          backgroundColor:"#1c1d1f",
           marginVertical:5,
           //opacity:"0.5"
           borderRadius:20,
@@ -66,7 +67,8 @@ const Profile = () => {
           width:250,
           height:20,
           //textAlign:'center',
-          alignItems:'center'
+          alignItems:'center',
+          color:'white'
         },
 
        
@@ -79,71 +81,71 @@ const Profile = () => {
       <View style={styles.Main}>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="#ADE2FF" // Color when the button is pressed
+            underlayColor="#1c1d1f" // Color when the button is pressed
             onPress={() => handleDashboard()}
         >
           <View
             style={styles.touchView}
           >
-            <Image source={dashboard}/>
+            <Icon name="view-dashboard-outline" size={25} color="white" />
             <Text
               style={styles.text}
             >
               Dashboard
             </Text>
-            <Image source={next} />
+            <Icon name="chevron-right" size={25} color="white" />
           </View>
           
         </TouchableHighlight>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="#ADE2FF" // Color when the button is pressed
+            underlayColor="#1c1d1f" // Color when the button is pressed
             onPress={() => console.log('Button Pressed')}
         >
          <View
             style={styles.touchView}
           >
-            <Image source={info}/>
+            <Icon name="information" size={25} color="white" />
             <Text
               style={styles.text}
             >
               About
             </Text>
-            <Image source={next} />
+            <Icon name="chevron-right" size={25} color="white" />
           </View>
         </TouchableHighlight>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="#ADE2FF"// Color when the button is pressed
+            underlayColor="#1c1d1f"// Color when the button is pressed
             onPress={() => console.log('Button Pressed')}
         >
          <View
             style={styles.touchView}
           >
-            <Image source={contact}/>
+            <Icon name="phone" size={25} color="white" />
             <Text
               style={styles.text}
             >
               Contact
             </Text>
-            <Image source={next} />
+            <Icon name="chevron-right" size={25} color="white" />
           </View>
         </TouchableHighlight>
         <TouchableHighlight
             style={styles.dashboardButton}
-            underlayColor="#ADE2FF"// Color when the button is pressed
+            underlayColor="#1c1d1f"// Color when the button is pressed
             onPress={() => console.log('Button Pressed')}
         >
          <View
             style={styles.touchView}
           >
-            <Image source={terms}/>
+           <Icon name="book-account" size={25} color="white" />
             <Text
               style={styles.text}
             >
               Terms & Conditions
             </Text>
-            <Image source={next} />
+            <Icon name="chevron-right" size={25} color="white" />
           </View>
         </TouchableHighlight>
       </View>

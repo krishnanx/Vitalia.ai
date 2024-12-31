@@ -23,10 +23,10 @@ export default function WelcomeScreen({ navigation }) {
           }, [Navigation]);
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" backgroundColor={'#f5f5f5'} />
+      {/*<StatusBar style="dark" backgroundColor={'#0C090A'} />*/}
       <View style={styles.subContainerTop}>
         <Icon name="alien" size={200} color="#007bff" />
-        <Text style={styles.title}>Welcome!</Text>
+        <Text style={styles.title}>Nutrigen</Text>
       </View>
       
       <View style={styles.subContainerBottom}>
@@ -74,7 +74,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'black',
+   //height:900,
+    width:'100%',
+    margin:0,
+    padding:0
+   
   },
     subContainerTop:{
         width:'100%',
@@ -83,8 +88,10 @@ const styles = StyleSheet.create({
         marginTop: 50,
     },
   title: {
-    fontSize: 32,
+    fontSize:35,
     fontWeight: 'bold',
+    color:'white',
+    //fontFamily:'Cochin'
   },
   button:{
     width: '90%',

@@ -17,6 +17,8 @@ const Dashboard = () => {
     const [bgcolor,setBackgroundColor] = useState('#EBF8FF');
     const [IngredientsColor,setIngredientsColor] = useState('#ADE2FF');
     const [NutrientsColor,setNutrientsColor] = useState('transparent');
+    const [textColorN,setColorN] = useState('white');
+    const [textColorI,setColorI] = useState('black');
     const [view,setView] = useState("Ingredients")
     const {user} = useContext(AuthContext);
     useEffect(() => {
@@ -57,7 +59,7 @@ const Dashboard = () => {
     const styles = StyleSheet.create({
         Main:{
             flex:1,
-            backgroundColor: '#D6F1FF',
+            backgroundColor: 'black',
             width:'100%',
             height:'700',
             //justifyContent:'space-around',
@@ -192,7 +194,7 @@ const Dashboard = () => {
             //padding:10,
             justifyContent:'center',
             //backgroundColor:"black"
-            borderColor:"black",
+            borderColor:"white",
             borderWidth:1.5,
             borderRadius:9,
 
@@ -202,6 +204,7 @@ const Dashboard = () => {
             height:47.5,
             justifyContent:'center',
             alignItems:'center',
+            //color:'white',
             //backgroundColor:"#EBF8FF",
             //borderRadius:9,
             //marginHorizontal:0
@@ -228,6 +231,7 @@ const Dashboard = () => {
             marginVertical:20,
             borderRadius:20,
             flexDirection: "column",
+           
         },
         ingredientsView: {
             width: "100%",
@@ -246,12 +250,19 @@ const Dashboard = () => {
         setNutrientsColor("transparent")
         setIngredientsColor("#ADE2FF")
         setView("Ingredients")
+        setColorI("black")
+        setColorN("white")
+
 
     }
     const handleNutrients = () => { 
         setNutrientsColor("#ADE2FF")
         setIngredientsColor("transparent")
         setView("Nutrients")
+        setColorI("white")
+        setColorN("black")
+
+
 
 }
     const handleFav = async() => {
@@ -375,22 +386,22 @@ const Dashboard = () => {
             >
                <TouchableHighlight
                     onPress={()=>handleIngredients()}
-                    underlayColor="#EBF8FF"
+                    //underlayColor="#EBF8FF"
                     style={[styles.TouchHeading, {borderTopLeftRadius:10, borderBottomLeftRadius:10,backgroundColor:IngredientsColor}]}
                >
                     <Text
-                        style={{fontSize:15,fontWeight:500}}
+                        style={{fontSize:15,fontWeight:500,color:textColorI}}
                     >
                         Ingredients
                     </Text>
                </TouchableHighlight>
                <TouchableHighlight
-                    underlayColor="#EBF8FF"
+                    //underlayColor="#EBF8FF"
                     onPress={()=>handleNutrients()}
                     style={[styles.TouchHeading,{borderBottomRightRadius:10, borderTopRightRadius:10,backgroundColor:NutrientsColor}]}
                >
                     <Text
-                         style={{fontSize:15,fontWeight:500}}
+                         style={{fontSize:15,fontWeight:500,color:textColorN}}
                     >
                         Nutrition
                     </Text>
@@ -420,15 +431,23 @@ const Dashboard = () => {
             >
                 <DataTable>
                     <DataTable.Header>
-                        <DataTable.Title>Typical Values</DataTable.Title>
-                        <DataTable.Title numeric>Per 100g</DataTable.Title>
+                        <DataTable.Title
+                            textStyle={{ color:'white'}}
+                        >
+                            Typical Values
+                        </DataTable.Title>
+                        <DataTable.Title numeric 
+                            textStyle={{ color:'white'}}
+                        >
+                            Per 100g    
+                        </DataTable.Title>
                         {/*<DataTable.Title numeric>per portion (15g)</DataTable.Title>*/}
                     </DataTable.Header>
 
                     {data && data.Nutrients && data.Nutrients.map((item) => (
                         <DataTable.Row key={item.key}>
-                        <DataTable.Cell>{item.name}</DataTable.Cell>
-                        <DataTable.Cell numeric>{item.value}</DataTable.Cell>
+                        <DataTable.Cell textStyle={{ color:'white'}}>{item.name}</DataTable.Cell>
+                        <DataTable.Cell numeric textStyle={{ color:'white'}}>{item.value}</DataTable.Cell>
                         </DataTable.Row>
                     ))}
 

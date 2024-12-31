@@ -34,13 +34,10 @@ const Saved = () => {
   const styles = StyleSheet.create({
       Main:{
           flex:1,
-          backgroundColor: '#D6F1FF',
+          backgroundColor: 'black',
           width:'100%',
           height:700,
           padding:20,
-         
-          
-
       },
       blocks:{
         width:'85%',
@@ -163,7 +160,7 @@ const Saved = () => {
                   <Text
                       style={{fontSize:50,fontWeight:'400',color:bgcolor}}
                   >
-                      {item.HealthScore}
+                      {item.score}
                   </Text>
               </View>
             </View>

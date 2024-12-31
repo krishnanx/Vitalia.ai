@@ -41,7 +41,7 @@ const App = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#D6F1FF',
+      backgroundColor: 'black',
     },
   });
 
@@ -59,7 +59,7 @@ const App = () => {
     <PaperProvider theme={theme}>
     <SafeAreaView style={styles.container}>
       <StateContext>
-        <StatusBar style="light" backgroundColor={'#D6F1FF'} />
+        <StatusBar style="light" backgroundColor={'black'} />
         <NavigationContainer>
           <Header/>
           <AppNavigator/>

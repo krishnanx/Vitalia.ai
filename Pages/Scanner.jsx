@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useRef,useContext } from 'react';
-import { Text, View, Button, StyleSheet,Image,TouchableWithoutFeedback,TouchableHighlight } from 'react-native';
+import { Text, View, Button, StyleSheet,Image,TouchableWithoutFeedback,TouchableHighlight, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 // import { CameraView} from "expo-camera";
 import { CameraView, Camera } from "expo-camera";
@@ -12,6 +12,7 @@ import torch from "../assets/flashlight.png"
 import torchW from "../assets/flashlightW.png"
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Scanner = () => {
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData] = useContext(bgContext);
   const Navigation = useNavigation();
@@ -27,12 +28,12 @@ const Scanner = () => {
           //console.log("Navigation context is undefined");
         }
     }, [Navigation]);
-  const [click,setClick] = useState(false);
+  const [Torch,setTorch] = useState(false);
   const [flash,setFlash] = useState('off')
   const styles = StyleSheet.create({
       Main:{
           flex:1,
-          backgroundColor: '#D6F1FF',
+          backgroundColor: 'black',
           width:'100%',
           height:'750',
           justifyContent:'center',
@@ -84,7 +85,7 @@ const Scanner = () => {
       torchView: {
         width: 50,
         height: 50,
-        backgroundColor:click?'yellow':'transparent',
+        backgroundColor:Torch?'yellow':'transparent',
         borderStyle: 'solid',
         borderRadius: 25, // Half of width/height for a perfect circle
         position: 'relative', // Required for child absolute positioning
@@ -116,10 +117,26 @@ const Scanner = () => {
         //backgroundColor:'white',
         zIndex:15,
       },
+      TakePic:{
+        width:80,
+        height:80,
+        backgroundColor:'white',
+        borderRadius:50
+      },
+      TakePicView:{
+        width:85,
+        height:85,
+        //backgroundColor:'white',
+        borderRadius:50,
+        borderWidth:1,
+        borderColor:'white',
+        justifyContent:'center',
+        alignItems:'center'
+      },
     
     
     })
-  const [bgcolor,setBackgroundColor] = useState('#D6F1FF');
+  const [bgcolor,setBackgroundColor] = useState('black');
   
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -138,11 +155,11 @@ const Scanner = () => {
   useEffect(()=>{
     if (hasPermission === null) {
       setState(-1);
-      setBackgroundColor("#D6F1FF");
+      setBackgroundColor("black");
     }
     if (hasPermission === false) {
       setState(0);
-      setBackgroundColor("#D6F1FF");
+      setBackgroundColor("black");
     }
     if (hasPermission === true) {
       setState(1);
@@ -158,11 +175,13 @@ const Scanner = () => {
   const cameraRef = useRef(null);
   const [photoUri, setPhotoUri] = useState(null);
   const handleTorch = () => {
-    click?(setClick(false),setFlash('off')):(setClick(true),setFlash('on'))
+    Torch?(setTorch(false),setFlash('off')):(setTorch(true),setFlash('on'))
     
   }
   const takePicture = async () => {
     if (cameraRef.current) {
+      console.log("pic taken")
+      setWork(false)
       try {
         const options = {
           quality: 1,
@@ -180,7 +199,7 @@ const Scanner = () => {
         if(result.status === "success"){
           Navigation.navigate("Dashboard")
         }
-        result.status === "success"? setWork(false):setWork(true);
+        result.status === "success"?(setWork(false),setState(2)):setWork(true);
       } catch (error) {
         console.error("Error taking picture:", error);
       }
@@ -191,7 +210,7 @@ const Scanner = () => {
 
   return (
    <View style={styles.Main}>
-        <StatusBar style="light" backgroundColor={bgcolor} />
+        <StatusBar style="light" backgroundColor={bgcolor}/>
         {(state===1)?(
           <View
             style={styles.Scanner}
@@ -209,7 +228,7 @@ const Scanner = () => {
                   style={StyleSheet.absoluteFillObject}
                   onCameraReady={() => console.log("Camera ready")} 
                   animateShutter={false} 
-                  enableTorch={click}
+                  enableTorch={Torch}
                   autofocus={'on'}
                   //flash={'on'}
                   
@@ -221,24 +240,18 @@ const Scanner = () => {
               <View
                 style={styles.torchView}
               >
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.torchFeedback}
                   onPress={handleTorch}
+
                 >
-                  {click?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
-                </TouchableHighlight>
+                  {Torch?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
+                </TouchableOpacity>
               </View>
               <View
                   style={styles.barcodeView}
               >
-
               </View>
-            
-              
-             
-              
-               
-              
             </View>
             
             {work?<Text
@@ -250,7 +263,17 @@ const Scanner = () => {
             > 
               {""}
             </Text>}
-            <Button title="Scan Me!" onPress={takePicture} />
+            <View
+              style={styles.TakePicView}
+            >
+              <TouchableOpacity
+                onPress={()=>takePicture()}
+                style={styles.TakePic}
+                activeOpacity={0.5}
+              >
+
+              </TouchableOpacity>
+            </View>
             {/*<Image source={{ uri:`${photoUri}` }} style={{ width: 200, height: 200 }} />*/}
             
           </View>
@@ -268,7 +291,7 @@ const Scanner = () => {
             >Try Again</Text>
           </View>
 
-        ):(
+        ):(state===-1)?(
           <View
             style={styles.viewPermission}
           >
@@ -277,7 +300,7 @@ const Scanner = () => {
             > Waiting For Permisions..... </Text>
           </View>
           
-        )}
+        ):(<></>)}
         
    </View>
   )

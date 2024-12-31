@@ -140,18 +140,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: 'black',
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 20,
+    color:'white'
   },
   card: {
     width: '90%',
     height: 400,
     gap:30,
-    backgroundColor: '#fff',
+    //backgroundColor: '#4B3B40',
     borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: {
@@ -163,7 +164,9 @@ const styles = StyleSheet.create({
     elevation: 5,
     display: 'flex',
     alignItems:"center",
-    justifyContent:"center"
+    justifyContent:"center",
+    borderWidth:1.5,
+    borderColor:'white'
   },
   inputContainer:{
     width: '100%',

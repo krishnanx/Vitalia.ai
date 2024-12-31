@@ -6,6 +6,8 @@ import Scan from "../assets/Scan.png";
 import Profile from "../assets/Profile.png";
 import { bgContext } from '../Context/StateContext';
 import { useNavigationState,useRoute } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';  
 import {
     createStaticNavigation,
     useNavigation,
@@ -15,7 +17,7 @@ import { Screen } from 'react-native-screens';
 const Footer = () => {
     //const [isVisible, setIsVisible] = useState(false);
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes] = useContext(bgContext);
-    
+    const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation();
     useEffect(()=> {
         ////console.log("Location",Location)    
@@ -32,7 +34,7 @@ const Footer = () => {
         footer:{
             //height:60,
             //paddingHorizontal:30,
-            backgroundColor: '#D6F1FF',
+            backgroundColor: 'black',
             flexDirection:"row",
             alignItems: 'center',
             //justifyContent:"space-evenly",
@@ -79,9 +81,45 @@ const Footer = () => {
             justifyContent:'center',
             alignItems:'center'
         },
+        loaderContainer: {
+            position: 'absolute',
+            top:-400,
+            left:200,
+            transform: [{ translateX: -25 }, { translateY: -25 }],
+            zIndex: 10,
+
+            
+        },
+        temp:{
+            width:'100%',
+            backgroundColor:'black',
+            borderWIdth:1.5,
+            borderColor:'white',
+            height:100,
+            position:'absoulute',
+            top:-500
+            
+        }
     })
     const handlePress = (screenName) => {
+        /*setIsLoading(true); // Start loading
         ////console.log("routes",routes)
+        try {
+            // Navigate to the target screen
+            setTimeout(() => setIsLoading(false),3000);
+            
+          } finally {
+            // Stop loading after a short delay (optional for UX purposes)
+            if(!isLoading){
+                navigation.navigate(screenName);
+            }
+          }
+        */
+        if(screenName!=="Scan"){
+            setState(2)
+        }
+        navigation.navigate(screenName);
+        
         //if(ro)
         /*route.forEach((item) => {
             //console.log("item",item)
@@ -95,7 +133,7 @@ const Footer = () => {
         //console.log("screenName",screenName)*/
         
         // Navigate to the screen
-        navigation.navigate(screenName);
+        
         
     }
     const handleHome = () => {
@@ -113,16 +151,17 @@ const Footer = () => {
     }
     
   return (
-    <View style={[styles.footer, { height:size,opacity:opacity }]}>
+    <View style={[styles.footer, { height:size,opacity:opacity,position:'relative' }]}>
+              
                 <View
                     style={styles.leftFooter}
                 >
                     <TouchableOpacity onPress={()=>handlePress('Home')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Image source={HomeIcon}/>
+                        <Icon name="home-outline" size={35} color="white" />
                         
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>handlePress('jane')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Image source={Fav}/>
+                        <Icon name="bookmark-outline" size={35} color="white" />
                         
                     </TouchableOpacity>
                    
@@ -133,7 +172,7 @@ const Footer = () => {
                 >
                     
                     <TouchableOpacity onPress={()=>handlePress('Scan')} activeOpacity={0.5} style={styles.Scannable}>
-                        <Image source={Scan}/>
+                        <Icon name="barcode-scan" size={45} color="white" />
                     </TouchableOpacity>
                     
                 </View>
@@ -142,11 +181,11 @@ const Footer = () => {
                 >
                     
                     <TouchableOpacity onPress={()=>handlePress('Saved')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Image source={Fav}/> 
+                        <Icon name="bookmark-outline" size={35} color="white" />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={()=>handlePress('Profile')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Image source={Profile}/>   
+                        <Icon name="account" size={35} color="white" />
                     </TouchableOpacity>
                    
                 </View>
