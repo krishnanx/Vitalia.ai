@@ -2,7 +2,7 @@ import React, { useState,useEffect,useContext } from 'react'
 import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
 import HomeIcon from "../assets/house.png";
 import Fav from "../assets/bookmark.png";
-import Scan from "../assets/Scan.png";
+//import Scan from "../assets/Scan.png";
 import Profile from "../assets/Profile.png";
 import { bgContext } from '../Context/StateContext';
 import { useNavigationState,useRoute } from '@react-navigation/native';

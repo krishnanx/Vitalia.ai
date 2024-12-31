@@ -9,6 +9,8 @@ import {
 } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
 import Auth from '../firebasefile/Auth';
+
+
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
