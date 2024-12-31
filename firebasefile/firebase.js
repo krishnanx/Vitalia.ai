@@ -9,13 +9,13 @@ import Constants from "expo-constants";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: Constants.expoConfig.extra.API_KEY || "AIzaSyC3aUKwPUlqWmlMQH7E__gzcFqECshJMZE",
-  authDomain: Constants.expoConfig.extra.AUTH_DOMAIN || "nutrigen-5a799.firebaseapp.com",
-  projectId: Constants.expoConfig.extra.PROJECT_ID || "nutrigen-5a799",
-  storageBucket: Constants.expoConfig.extra.STORAGE_BUCKET || "nutrigen-5a799.firebasestorage.app",
-  messagingSenderId: Constants.expoConfig.extra.MESSAGING_SENDER_ID || "88146310673",
-  appId: Constants.expoConfig.extra.APP_ID || "1:88146310673:web:52e0bbf433727d5fdd63b0",
-  measurementId: Constants.expoConfig.extra.MEASUREMENT_ID || "G-FBL817H359",
+  apiKey: Constants.expoConfig.extra.API_KEY,
+  authDomain: Constants.expoConfig.extra.AUTH_DOMAIN,
+  projectId: Constants.expoConfig.extra.PROJECT_ID,
+  storageBucket: Constants.expoConfig.extra.STORAGE_BUCKET,
+  messagingSenderId: Constants.expoConfig.extra.MESSAGING_SENDER_ID,
+  appId: Constants.expoConfig.extra.APP_ID,
+  measurementId: Constants.expoConfig.extra.MEASUREMENT_ID,
 };
 
 console.log("check",firebaseConfig);
