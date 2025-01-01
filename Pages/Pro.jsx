@@ -62,7 +62,7 @@ const Pro = () => {
             flexDirection:"row",
         },
         pricing:{
-            height:"48%",
+            height:"50%",
             backgroundColor:'black',
             width:"100%",
             borderTopStartRadius:30,

@@ -6,12 +6,13 @@ const StateContext = ({children}) => {
     const [size,setSize] = useState(0)
     const [opacity,setOpacity] = useState(0)
     const [routes,setRoutes] = useState([]);
-    const [data ,setData] = useState([]);
+    const [info ,setInfo] = useState([]);
     const [code,setCode] = useState(null);
     const [click,setClicked] = useState(false)
     const [value,setValue] = useState([])
+    const [bookmarks, setBookmarks] = useState({});
   return (
-    <bgContext.Provider value={[state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData,code,setCode,click,setClicked,value,setValue]}>
+    <bgContext.Provider value={[state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks]}>
         {children}
     </bgContext.Provider>
   )

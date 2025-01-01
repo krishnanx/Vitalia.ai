@@ -20,7 +20,7 @@ const Jane = () => {
     const styles = StyleSheet.create({
         Main:{
             flex:1,
-            backgroundColor: '#D6F1FF',
+            backgroundColor: 'black',
             width:'100%',
             height:'700',
             justifyContent:'center'

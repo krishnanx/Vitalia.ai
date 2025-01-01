@@ -56,7 +56,8 @@ export default {
       MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
       APP_ID: process.env.APP_ID,
       MEASUREMENT_ID: process.env.MEASUREMENT_ID,
-      OPEN_AI_KEY:process.env.OPEN_AI_KEY
+      OPEN_AI_KEY:process.env.OPEN_AI_KEY,
+      SERVER:process.env.SERVER
     },
   },
 };

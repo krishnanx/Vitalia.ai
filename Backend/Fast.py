@@ -15,7 +15,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, origins="https://nutrigen.myprojects.studio")  # Enable CORS for all routes
 
 # Directory to save decoded images
 UPLOAD_DIR = "./uploads"
@@ -84,7 +84,7 @@ def upload_base64():
             "HealthScore":50
         }
 
-        if not result["ingredients"]:  # This checks if the list is empty
+        '''if not result["ingredients"]:  # This checks if the list is empty
             print("OPEN AI RESULT")
             ingredientsText = generate_openai_text(result["Name"])
             ingredients = extract_ingredients(ingredientsText)
@@ -100,8 +100,8 @@ def upload_base64():
                 "Nutrients": nutrients,
                 "HealthScore": 50
             }
-
-            return jsonify(result),200
+        '''
+        return jsonify(result),200
         # Return the result as JSON
         return jsonify(result), 200
 

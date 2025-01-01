@@ -17,7 +17,8 @@
         "MESSAGING_SENDER_ID": "@MESSAGING_SENDER_ID",
         "APP_ID": "@APP_ID",
         "MEASUREMENT_ID": "@MEASUREMENT_ID",
-        "OPEN_AI_KEY":"@OPENAI_API_KEY"
+        "OPEN_AI_KEY":"@OPENAI_API_KEY",
+        "SERVER":"@SERVER"
 
       }
     },

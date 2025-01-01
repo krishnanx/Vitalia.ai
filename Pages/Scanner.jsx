@@ -14,7 +14,7 @@ import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Scanner = () => {
-  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData] = useContext(bgContext);
+  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo] = useContext(bgContext);
   const Navigation = useNavigation();
   useEffect(() => {
       if (Navigation) {
@@ -195,7 +195,7 @@ const Scanner = () => {
         ////console.log("response",response)
         const result = await sendBase64ToServer(response)
         ////console.log("result",result["data"])
-        setData(result)
+        setInfo(result)
         if(result.status === "success"){
           Navigation.navigate("Dashboard")
         }

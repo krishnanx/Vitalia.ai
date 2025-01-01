@@ -31,7 +31,7 @@ const Home = () => {
             flex: 1,
             flexDirection: 'column', // Main axis is vertical
             paddingTop:40,
-            backgroundColor: '#f5f5f5',
+            backgroundColor: 'black',
             justifyContent:"space-between"
         },
         header:{
@@ -98,34 +98,13 @@ const Home = () => {
         
     });
 
-    const handleLogOut = async()=> {
-        try {
-            await logout();
-            navigation.navigate("Welcome")
-        } catch (error) {
-            //console.log("Failed to log out")
-        }
-    }
+   
     
     
 
       
   return (
        <View style={styles.container}>
-        {error? alert(error):""}
-           <View style={styles.header}>
-                <Text style={styles.text}>
-                    Jane Doe
-                </Text>
-                <IconButton 
-                    icon="logout"
-                    iconColor={"#007bff"}
-                    size={30}
-                    mode='contained'
-                    loading={loading}
-                    onPress={handleLogOut}
-                    />
-           </View>
            <View style={styles.hero}>
                 <View style={styles.HeroTop}>
                     <Text style={styles.textHero}>

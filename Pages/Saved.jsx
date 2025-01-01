@@ -4,11 +4,33 @@ import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../Context/AuthProvider';
 import handlePull from '../functions/handlePull';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import onDelete from '../functions/onDelete';
+import checkSave from '../functions/checkSave';
+import { useRoute } from '@react-navigation/native';
+
 const Saved = () => {
   const {user} = useContext(AuthContext)
+
   const Navigation = useNavigation();
-  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,data,setData,value,setValue,click,setClicked] = useContext(bgContext);
-  const [bgcolor,setBackgroundColor] = useState('pink');
+  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,info,setInfo,value,setValue] = useContext(bgContext);
+  const [bgcolor,setBackgroundColor] = useState('#ADE2FF');
+  const route = useRoute();
+  console.log("Route Object in Saved:", route);
+  const { bookmarks: routeBookmarks } = route.params || {};
+  const object = routeBookmarks["_j"]
+  const [bookmarks, setBookmarks] = useState(object);
+  useEffect(()=>{
+    console.log(bookmarks)
+  },[bookmarks])
+  console.log("Route Bookmarks:", routeBookmarks['_j']);
+  const toggleBookmark = async (item) => {
+    await onDelete(user, item.code, []);
+    check();
+    
+    
+  };
+  
   useEffect(() => {
       if (Navigation) {
           const state = Navigation.getState();
@@ -21,35 +43,46 @@ const Saved = () => {
           //console.log("Navigation context is undefined");
         }
   }, [Navigation]);
-  useEffect(()=>{
-    const check = async() =>{
+  /*useEffect(()=>{
+    const checkK = async() =>{
       const response = await handlePull(user);
-
-      ////console.log(response)
+      console.log("value:",response)
       setValue(response);
     }
-    check()
+    checkK()
   
-  },[click])
+},[fav])*/
+
+  const check = async() => {
+    const response = await handlePull(user);
+    console.log("footer response:",response);
+    setValue(response);
+  }
+  const [fav,setFav] = useState(true)
+  /*useEffect(()=>{
+    console.log("saved value:",value)
+
+  },[value])*/
   const styles = StyleSheet.create({
       Main:{
-          flex:1,
-          backgroundColor: 'black',
-          width:'100%',
-          height:700,
-          padding:20,
+        flex:1,
+        backgroundColor: 'black', 
+        width:'100%',
+        height:700,
+        padding:10,
       },
       blocks:{
-        width:'85%',
-        height:350,
+        width:'100%',
+        height:200,
         backgroundColor:'#ADE2FF',
         justifyContent:'center',
         alignItems:'center',
-        margin:20,
-        borderRadius:20,
-        borderWidth:1.5,
-        borderColor:'black',
-        flexDirection:'column'
+        marginTop:30,
+        borderRadius:15,
+        //borderWidth:1.5,
+        //borderColor:'pink',
+        flexDirection:'row',
+        padding:0,
 
       },
       image:{
@@ -66,27 +99,20 @@ const Saved = () => {
       },
       Level:{
         //backgroundColor:'black',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        width: 100,
-        height: 100,
+        width: 70,
+        height: 70,
         marginLeft:20,
         margintop:20,
-      },
-      name:{
-        width:'100%',
-        height:50,
+        flexDirection:'row',
+        
       },
       product:{
         //backgroundColor:'black',
         width:'100%',
         height:250,
         flexDirection:'row'
-      },
-      info:{
-        width:150,
-        justifyContent:'center',
-        alignItems:'center',
       },
       corner: {
         width: 20,
@@ -95,30 +121,90 @@ const Saved = () => {
         //backgroundColor:bgcolor,
       },
       topLeft: {
-          top: 1,
-          left:-5,
+        top: 1,
+        left:-5,
       },
       topRight: {
-          top: 1,
-          right: -5,
+        top: 1,
+        right: -5,
       },
       bottomLeft: {
-          bottom:-9,
-          left: -5,
+        bottom:-9,
+        left: -5,
       },
       bottomRight: {
-          bottom: -9,
-          right: -5,
+        bottom: -9,
+        right: -5,
       },
       viewSquare: {
-        width: 100,
-        height: 100,
+        width:70,
+        height:70,
         backgroundColor: '#ADE2FF',
         position: 'relative',
         marginTop:10,
         justifyContent: 'center',
         alignItems: 'center',   
-    },
+        //backgroundColor:'black'
+      },
+      info:{    
+        width:'70%',
+        height:200,
+        justifyContent:'center',
+        alignItems:'center',
+        //borderWidth:1.5,
+        //borderColor:'pink',
+        flexDirection:'row',
+
+      },
+      Score:{
+        width:'30%',
+        height:200,
+        justifyContent:'space-between',
+        alignItems:'center',
+        //borderWidth:1,
+        //borderColor:'black',
+
+      },
+      imageContainer:{
+        width:100,
+        height:150,
+        //borderWidth:1.5,
+        //borderColor:'pink',
+        justifyContent:'center',
+        alignItems:'center',
+      },
+      name:{
+        width:150,
+        height:200,
+        //orderWidth:1.5,
+        //borderColor:'pink',
+        justifyContent:'center'
+      },
+      scoreView:{
+        width:'100%',
+        height:150,
+        //backgroundColor:'black',
+        justifyContent:'flex-start',
+        paddingTop:20
+
+
+      },
+      save:{
+        width:"100%",
+        height:50,
+        //backgroundColor:'pink',
+        justifyContent:'flex-end',
+        flexDirection:'row',
+        alignItems:'center',
+        padding:10
+      },
+      saveFunc:{
+        //backgroundColor:'black',
+        width:30,
+        height:40,
+        justifyContent:'center',
+        alignItems:'center'
+      }
 
   })
   return (
@@ -126,58 +212,105 @@ const Saved = () => {
     style={styles.Main}
     contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
   >
-    {value.length > 0 ? 
+    {Array.isArray(value) && value.length > 0 ? 
     
     (value.map((item,index)=>{
-      
+      //console.log('Item Code:', item.code);
+      //console.log('Bookmark Status:', bookmarks[`${item.code}`]);
+      //console.log('Bookmarks Object:', bookmarks);
+
+
       return(
       <View
         style={styles.blocks}
+        key={item.code}
       >
         <View
-          style={styles.name}
-        >
-          <Text
-            style={{textAlign:'center',fontSize:25}}
-          >
-            {item.name}
-          </Text>
-        </View>
-        <View
-          style={styles.product}
+          style={styles.info}
         >
           <View
-            style={styles.info}
+            style={styles.imageContainer}
+          >
+           <Image source={{uri: item.image}} style={styles.image}/>
+          </View>
+          <View
+            style={styles.name}
+          >
+            <Text
+               style={{textAlign:'center',fontSize:22}}
+            >
+              {item.brandName}
+            </Text>
+            <Text
+              style={{textAlign:'center',fontSize:20}}
+            >
+              {item.name}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={styles.Score}
+        >
+          <View
+            style={styles.save}
+          >
+            <TouchableOpacity
+              style={styles.saveFunc}
+              onPress={() => toggleBookmark(item)} // Correct usage
+              activeOpacity={0.5}
+            >
+                <Icon
+                  name="trash-can-outline"
+                  size={30}
+                  color="black"
+                />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={styles.scoreView}
           >
             <View
-              style={styles.Level}
-            >
-              <View style={[styles.corner, styles.topLeft,{backgroundColor:bgcolor}]} />
-              <View style={[styles.corner, styles.topRight,{backgroundColor:bgcolor}]} />
-              <View style={[styles.corner, styles.bottomLeft,{backgroundColor:bgcolor}]} />
-              <View style={[styles.corner, styles.bottomRight,{backgroundColor:bgcolor}]} />
-              <View style={styles.viewSquare}>
-                  <Text
-                      style={{fontSize:50,fontWeight:'400',color:bgcolor}}
-                  >
-                      {item.score}
-                  </Text>
+                style={styles.Level}
+              >
+                <View style={[styles.corner, styles.topLeft,{ backgroundColor:
+                                                              item.HealthScore < 50
+                                                                ? '#FF0000'
+                                                                : item.HealthScore > 80
+                                                                ? '#01ff01'
+                                                                : '#f5f501',}]} />
+                <View style={[styles.corner, styles.topRight,{ backgroundColor:
+                                                                item.HealthScore < 50
+                                                                  ? '#FF0000'
+                                                                  : item.HealthScore > 80
+                                                                  ? '#01ff01'
+                                                                  : '#f5f501',}]} />
+                <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
+                                                                item.HealthScore < 50
+                                                                  ? '#FF0000'
+                                                                  : item.HealthScore > 80
+                                                                  ? '#01ff01'
+                                                                  : '#f5f501',}]} />
+                <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
+                                                                item.HealthScore < 50
+                                                                  ? '#FF0000'
+                                                                  : item.HealthScore > 80
+                                                                  ? '#01ff01'
+                                                                  : '#f5f501',}]} />
+                <View style={styles.viewSquare}>
+                    <Text
+                        style={{fontSize:50,fontWeight:'400',color:
+                          item.HealthScore < 50
+                            ? '#FF0000'
+                            : item.HealthScore > 80
+                            ? '#01ff01'
+                            : '#f5f501',}}
+                    >
+                        {item.score}
+                    </Text>
               </View>
             </View>
           </View>
-         
-          <View
-            style={styles.imageView}
-          >
-            <Image source={{ uri: item.image }} style={styles.image}/>
-          </View>
-          
-
-
         </View>
-       
-
-        
       </View>
     )}))
     :

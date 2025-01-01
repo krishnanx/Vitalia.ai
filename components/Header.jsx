@@ -1,16 +1,28 @@
 import React,{useContext,useEffect, useState} from 'react'
-import { StyleSheet, Text, View,Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,Image, TouchableHighlight, TouchableOpacity,TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  import { Button, IconButton } from 'react-native-paper';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import {IconButton } from 'react-native-paper';
+import useLogOut from '../firebaseHooks/useLogOut';
 import back from "../assets/back.png";
 import profilePic from "../assets/ProfilePic.png";
 const Header = () => {
-        const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData] = useContext(bgContext);
-        const navigation = useNavigation();
-        const [bgcolor,setColor] = useState("black")
-       
+    const {logout , loading , error} = useLogOut();
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData] = useContext(bgContext);
+    const navigation = useNavigation();
+    const [bgcolor,setColor] = useState("black")
+     const handleLogOut = async()=> {
+            try {
+                await logout();
+                navigation.navigate("Welcome")
+            } catch (error) {
+                //console.log("Failed to log out")
+            }
+        }
+    useEffect(()=>{
+        console.log(Location[Location.length-1]);
+    })
     const styles = StyleSheet.create({
         header:{
             //height:60,
@@ -52,13 +64,23 @@ const Header = () => {
         style={[styles.header, {height:(size+30),opacity:opacity,backgroundColor:bgcolor}]}
 
         > 
+        {error? alert(error):""}
         {Location[Location.length-1]!=="Home"?
         <TouchableOpacity onPress={()=>handlePress()} activeOpacity={0.5} style={{width:40}}>
             <Icon name="arrow-left" size={25} color="white" />
         </TouchableOpacity>
-        :<TouchableOpacity  activeOpacity={0.5}>
-              <Icon name="arrow-left" size={25} color="white" />
-        </TouchableOpacity>}
+        :
+        <TouchableWithoutFeedback>
+            <IconButton 
+                icon="logout"
+                iconColor="white"
+                size={30}
+                mode='contained'
+                loading={loading}
+                onPress={handleLogOut}
+                style={{backgroundColor:'black'}}
+            />
+        </TouchableWithoutFeedback>}
         <Text style={{color:'white',width:'180',fontSize:20,textAlign:'center'}}>
             {Location[Location.length-1]}
         </Text>

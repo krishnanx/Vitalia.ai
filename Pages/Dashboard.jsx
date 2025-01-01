@@ -10,10 +10,11 @@ import onSave from '../functions/onSave';
 import { AuthContext } from '../Context/AuthProvider';
 import checkSave from '../functions/checkSave';
 import onDelete from '../functions/onDelete';
+
 const Dashboard = () => {
     const Navigation = useNavigation();
-    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,data,setData,click,setClicked] = useContext(bgContext);
-   
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,click,setClicked,value,setValue] = useContext(bgContext);
+    const [fav,setFav] = useState(true)
     const [bgcolor,setBackgroundColor] = useState('#EBF8FF');
     const [IngredientsColor,setIngredientsColor] = useState('#ADE2FF');
     const [NutrientsColor,setNutrientsColor] = useState('transparent');
@@ -34,28 +35,34 @@ const Dashboard = () => {
             }
       
         }, [Navigation]);
+
+   
     useEffect(() => { 
         //console.log(data.HealthScore);
-        if(data && data.HealthScore!=undefined){
+        if(info && info.HealthScore!=undefined){
            
-            data.HealthScore<50?setBackgroundColor('#FF0000'):data.HealthScore>80?setBackgroundColor('#01ff01'):setBackgroundColor('#f5f501');
-            //console.log("data",data.HealthScore);
+            info.HealthScore<50?setBackgroundColor('#FF0000'):info.HealthScore>80?setBackgroundColor('#01ff01'):setBackgroundColor('#f5f501');
+            //console.log("info",info.HealthScore);
             //console.log("bgColor",bgcolor);
         }
-        if(data && data.barcode_info!=undefined){
-            //console.log(data.barcode_info)
+        if(info && info.barcode_info!=undefined){
+            //console.log(info.barcode_info)
             const check = async() =>{
-                const response = await checkSave(data.barcode_info, user);
+                const response = await checkSave(info.barcode_info, user);
                 //console.log("response", response);
                 setClicked(response);
-            }
+            }   
             check()
         }
 
-      }, [data]);
+      }, [info]);
     useEffect(()=>{
-        console.log("mydata",data)
-    },)
+        console.log("click",click)
+        console.log("")
+        console.log("mydataaa",info)
+        console.log("")
+        console.log("value:",value)
+    },[click,info])
     const styles = StyleSheet.create({
         Main:{
             flex:1,
@@ -266,15 +273,10 @@ const Dashboard = () => {
 
 }
     const handleFav = async() => {
-        const response = click?(setClicked(false),await onDelete(user,data)):(setClicked(true),await onSave(user,data));
-        console.log(response)
-        setData(response)
-        }
-     
-   
-    
-
-
+        const response = click?(setClicked(false),await onDelete(user,info.barcode_info,info)):(setClicked(true),await onSave(user,info));
+        console.log("info",response)
+        setInfo(response)
+    };
     const [page, setPage] = useState(0);
     const [numberOfItemsPerPageList] = useState([4,5,6]);
     const [itemsPerPage, onItemsPerPageChange] = useState(
@@ -332,12 +334,12 @@ const Dashboard = () => {
                     <Text
                         style={{fontSize:15}}
                     >
-                        {data && data.Brand}
+                        {info && info.Brand}
                     </Text>
                     <Text
                         style={{fontSize:25,width:250}}
                     >
-                        {data && data.Name}
+                        {info && info.Name}
                     </Text>
                 </View>
                 <View
@@ -347,7 +349,7 @@ const Dashboard = () => {
                         style={styles.saveTouch}
                         onPress={()=>handleFav()}
                     >
-                       {data && data.Name?click?<Image source={Fav2} style={{width:20,height:30}}/>: <Image source={Fav} style={{width:20,height:30}}/>:<></>}
+                       {info && info.Name?click?<Image source={Fav2} style={{width:20,height:30}}/>: <Image source={Fav} style={{width:20,height:30}}/>:<></>}
                     </TouchableOpacity>
                 </View>
                
@@ -367,14 +369,14 @@ const Dashboard = () => {
                         <Text
                             style={{fontSize:50,fontWeight:'400',color:bgcolor}}
                         >
-                            {data && data.HealthScore}
+                            {info && info.HealthScore}
                         </Text>
                     </View>
                 </View>
                 <View
                     style={styles.picContainer}
                 >
-                   {data && <Image source={{ uri: data.Image }} style={styles.image} />}
+                   {info && <Image source={{ uri: info.Image }} style={styles.image} />}
                 </View>
             </View>
         </View>
@@ -411,7 +413,7 @@ const Dashboard = () => {
             <View
                 style={styles.Ingredients}
             >
-                {data && data.ingredients && data.ingredients.map((item,index)=>(
+                {info && info.ingredients && info.ingredients.map((item,index)=>(
                     <View
                         style={styles.ingredientsView}
                         key={item}
@@ -429,7 +431,7 @@ const Dashboard = () => {
             <View
             style={styles.Nutrients}
             >
-                <DataTable>
+                <DataTable> 
                     <DataTable.Header>
                         <DataTable.Title
                             textStyle={{ color:'white'}}
@@ -444,7 +446,7 @@ const Dashboard = () => {
                         {/*<DataTable.Title numeric>per portion (15g)</DataTable.Title>*/}
                     </DataTable.Header>
 
-                    {data && data.Nutrients && data.Nutrients.map((item) => (
+                    {info && info.Nutrients && info.Nutrients.map((item) => (
                         <DataTable.Row key={item.key}>
                         <DataTable.Cell textStyle={{ color:'white'}}>{item.name}</DataTable.Cell>
                         <DataTable.Cell numeric textStyle={{ color:'white'}}>{item.value}</DataTable.Cell>

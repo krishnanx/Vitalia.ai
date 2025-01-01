@@ -13,10 +13,13 @@ import {
     useNavigation,
   } from '@react-navigation/native';
 import { Screen } from 'react-native-screens';
+import handlePull from '../functions/handlePull';
+import { AuthContext } from '../Context/AuthProvider';
 
 const Footer = () => {
     //const [isVisible, setIsVisible] = useState(false);
-    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes] = useContext(bgContext);
+    const {user} = useContext(AuthContext)
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes,value,setValue,bookmarks,setBookmarks] = useContext(bgContext);
     const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation();
     useEffect(()=> {
@@ -101,41 +104,34 @@ const Footer = () => {
             
         }
     })
-    const handlePress = (screenName) => {
-        /*setIsLoading(true); // Start loading
-        ////console.log("routes",routes)
-        try {
-            // Navigate to the target screen
-            setTimeout(() => setIsLoading(false),3000);
-            
-          } finally {
-            // Stop loading after a short delay (optional for UX purposes)
-            if(!isLoading){
-                navigation.navigate(screenName);
-            }
-          }
-        */
-        if(screenName!=="Scan"){
-            setState(2)
+    const handlePress = async (screenName) => {
+        if (screenName !== "Scan") {
+            setState(2);
         }
-        navigation.navigate(screenName);
-        
-        //if(ro)
-        /*route.forEach((item) => {
-            //console.log("item",item)
-            if(screenName===item.name){
-                navigation.navigate(screenName);
-            }
-            else{
-                navigation.navigate(screenName);
-            }
-        })
-        //console.log("screenName",screenName)*/
-        
-        // Navigate to the screen
-        
-        
-    }
+    
+        if (screenName === "Saved") {
+            const check = async () => {
+                const response = await handlePull(user);
+                console.log("footer response:", response);
+                setValue(response);
+    
+                const initialBookmarks = {};
+                response.forEach((item) => {
+                    initialBookmarks[item.code] = true; // Set to true for filled icon
+                });
+    
+                setBookmarks(initialBookmarks);
+                return initialBookmarks; // Return the bookmarks object
+            };
+    
+            // Wait for the `check` function to complete before navigating
+            const initialBookmarks = check();
+            navigation.navigate(screenName, { bookmarks: initialBookmarks });
+        } else {
+            navigation.navigate(screenName);
+        }
+    };
+    
     const handleHome = () => {
 
         navigation.navigate('home')
