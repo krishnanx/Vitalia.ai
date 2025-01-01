@@ -1,8 +1,8 @@
 export default {
   expo: {
-    name: "Mobile-App",
+    name: "Nutrigen",
     slug: "Mobile-App",
-    version: "1.0.0",
+    version: "1.1.0",
     orientation: "portrait",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
@@ -37,7 +37,7 @@ export default {
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
       ],
-      package: "com.skynet.FoodFact",
+      package: "com.meclab.nutrigen",
       versionCode: 1,
       googleServicesFile: "./assets/google-services.json"
     },
