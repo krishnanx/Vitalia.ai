@@ -39,6 +39,7 @@ export default {
       ],
       package: "com.skynet.FoodFact",
       versionCode: 1,
+      googleServicesFile: "./google-services.json"
     },
     web: {
       favicon: "./assets/favicon.png",
