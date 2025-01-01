@@ -2,7 +2,8 @@ import React,{useContext,useEffect, useState} from 'react'
 import { StyleSheet, Text, View,Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  import { Button, IconButton } from 'react-native-paper';
+
 import back from "../assets/back.png";
 import profilePic from "../assets/ProfilePic.png";
 const Header = () => {
@@ -42,6 +43,9 @@ const Header = () => {
         setLocation((prev) => prev.slice(0, prev.length - 1));
         navigation.goBack();
     }
+    const handleProPress = ()=>{
+        navigation.navigate("Pro")
+    }
   return state!==1?(
     
         <View
@@ -58,13 +62,24 @@ const Header = () => {
         <Text style={{color:'white',width:'180',fontSize:20,textAlign:'center'}}>
             {Location[Location.length-1]}
         </Text>
-        <TouchableOpacity
-            style={{height:40,width:40,justifyContent:'center',alignItems:'center'}}
+        <View
+            style={{height:40,width:40,justifyContent:'center',alignItems:'center', flexDirection:"row" , marginRight:30}}
         >
-              <Icon name="account-circle-outline" size={35} color="white" />
-        </TouchableOpacity>
+            <TouchableOpacity style={{width:60 , height: 35 , borderBlockColor:"white" , borderWidth:1, borderRadius:30 , justifyContent:"center", paddingLeft:3}} onPress={handleProPress}>
+                <Text style={{color:"white"}}>Go Pro</Text>
+            </TouchableOpacity>
+            <IconButton
+              icon="account"
+              size={20}
+              mode="outlined"
+              containerColor='white'
+              style={{marginRight:10}}
+            />
+        </View>
             
-    </View>):(<></>)
+        </View>
+            
+    ):(<></>)
 
 
   
