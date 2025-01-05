@@ -1,8 +1,8 @@
 // Import the Firebase SDKs
 import { initializeApp} from "firebase/app";
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import { initializeAuth, getReactNativePersistence, getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+
 
 // Import Expo Constants for secure environment variables
 import Constants from "expo-constants";
@@ -24,9 +24,7 @@ console.log("check",firebaseConfig);
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-});
+const auth = getAuth(app)
 const firestore = getFirestore(app);
 
 // Export Firebase instances

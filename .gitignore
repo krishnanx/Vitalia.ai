@@ -72,3 +72,4 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 #env
+google-services.json

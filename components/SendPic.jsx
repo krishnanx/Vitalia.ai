@@ -1,6 +1,7 @@
 import Constants from 'expo-constants';
 const sendBase64ToServer = async (base64) => {
   try {
+    console.log("gug",Constants.expoConfig.extra.SERVER)
     const response = await fetch(`${Constants.expoConfig.extra.SERVER}`, {
       method: 'POST',
       headers: {
@@ -11,7 +12,7 @@ const sendBase64ToServer = async (base64) => {
 
     // Log the raw response
     const textResponse = await response.text();
-    //console.log('Raw Response:', textResponse);
+    //console.log('Raw Response:', textResponse); 
 
     // Parse the JSON response
     const result = JSON.parse(textResponse);

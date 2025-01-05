@@ -1,3 +1,27 @@
+const fs = require('fs');
+const path = require('path');
+
+function convertBase64ToJson(base64Data, directory) {
+    try {
+        // Decode Base64 to string
+        const jsonString = atob(base64Data);
+        // Parse string to JSON
+        const jsonObject = JSON.parse(jsonString);
+
+        // Specify the file path
+        const filePath = path.join(directory, 'google-services.json');
+
+        // Write the JSON object to the file
+        fs.writeFileSync(filePath, JSON.stringify(jsonObject, null, 2), 'utf8');
+
+        console.log(`File created successfully at ${filePath}`);
+        return filePath;
+    } catch (error) {
+        console.error("Error processing Base64 or writing to file:", error);
+    }
+}
+
+
 export default {
   expo: {
     name: "Nutrigen",
@@ -39,7 +63,7 @@ export default {
       ],
       package: "com.meclab.nutrigen",
       versionCode: 1,
-      googleServicesFile: "./assets/google-services.json"
+      googleServicesFile: convertBase64ToJson(process.env.GOOGLE_FIREBASE,'./')
     },
     web: {
       favicon: "./assets/favicon.png",

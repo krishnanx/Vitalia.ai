@@ -15,12 +15,12 @@ import {
 import { Screen } from 'react-native-screens';
 import handlePull from '../functions/handlePull';
 import { AuthContext } from '../Context/AuthProvider';
-
+import search from "../assets/shopping-search-outline-custom.png"
 const Footer = () => {
     //const [isVisible, setIsVisible] = useState(false);
     const {user} = useContext(AuthContext)
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes,value,setValue,bookmarks,setBookmarks] = useContext(bgContext);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation();
     useEffect(()=> {
         ////console.log("Location",Location)    
@@ -153,11 +153,11 @@ const Footer = () => {
                     style={styles.leftFooter}
                 >
                     <TouchableOpacity onPress={()=>handlePress('Home')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Icon name="home-outline" size={35} color="white" />
-                        
+                        {Location[Location.length-1]==="Home"?<Icon name="home" size={35} color="white" />:<Icon name="home-outline" size={35} color="white" />}
+
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>handlePress('jane')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Icon name="bookmark-outline" size={35} color="white" />
+                        {Location[Location.length-1]==="jane"?<Icon name="clipboard-search" size={35} color="white" />:<Icon name="clipboard-search-outline" size={35} color="white" />}
                         
                     </TouchableOpacity>
                    
@@ -177,11 +177,11 @@ const Footer = () => {
                 >
                     
                     <TouchableOpacity onPress={()=>handlePress('Saved')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Icon name="bookmark-outline" size={35} color="white" />
+                        {Location[Location.length-1]==="Saved"?<Icon name="bookmark" size={35} color="white" />:<Icon name="bookmark-outline" size={35} color="white" />}
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={()=>handlePress('Profile')} activeOpacity={0.5} style={styles.Touchable}>
-                        <Icon name="account" size={35} color="white" />
+                        {Location[Location.length-1]==="Profile"?<Icon name="account" size={35} color="white" />:<Icon name="account-outline" size={35} color="white" />}
                     </TouchableOpacity>
                    
                 </View>
