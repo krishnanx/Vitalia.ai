@@ -74,7 +74,7 @@ const Saved = () => {
       blocks:{
         width:'100%',
         height:200,
-        backgroundColor:'#ADE2FF',
+        backgroundColor:'#1c1d1f',
         justifyContent:'center',
         alignItems:'center',
         marginTop:30,
@@ -139,7 +139,7 @@ const Saved = () => {
       viewSquare: {
         width:70,
         height:70,
-        backgroundColor: '#ADE2FF',
+        backgroundColor: '#1c1d1f',
         position: 'relative',
         marginTop:10,
         justifyContent: 'center',
@@ -157,7 +157,7 @@ const Saved = () => {
 
       },
       Score:{
-        width:'30%',
+        width:'25%',
         height:200,
         justifyContent:'space-between',
         alignItems:'center',
@@ -174,9 +174,9 @@ const Saved = () => {
         alignItems:'center',
       },
       name:{
-        width:150,
+        width:160,
         height:200,
-        //orderWidth:1.5,
+        //borderWidth:1.5,
         //borderColor:'pink',
         justifyContent:'center'
       },
@@ -237,12 +237,12 @@ const Saved = () => {
             style={styles.name}
           >
             <Text
-               style={{textAlign:'center',fontSize:22}}
+               style={{textAlign:'center',fontSize:22,color:'white'}}
             >
               {item.brandName}
             </Text>
             <Text
-              style={{textAlign:'center',fontSize:20}}
+              style={{textAlign:'center',fontSize:20,color:'white'}}
             >
               {item.name}
             </Text>
@@ -262,7 +262,7 @@ const Saved = () => {
                 <Icon
                   name="trash-can-outline"
                   size={30}
-                  color="black"
+                  color="white"
                 />
             </TouchableOpacity>
           </View>

@@ -88,7 +88,7 @@ const Header = () => {
             style={{height:40,width:40,justifyContent:'center',alignItems:'center', flexDirection:"row" , marginRight:30}}
         >
             <TouchableOpacity style={{width:60 , height: 35 , borderBlockColor:"white" , borderWidth:1, borderRadius:30 , justifyContent:"center", paddingLeft:3}} onPress={handleProPress}>
-                <Text style={{color:"white"}}>Go Pro</Text>
+                <Text style={{color:"white",padding:5}}>Go Pro</Text>
             </TouchableOpacity>
             <IconButton
               icon="account"
