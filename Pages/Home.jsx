@@ -3,10 +3,11 @@ import { bgContext } from '../Context/StateContext';
 import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
 import trial from "../assets/trial.png";
+import Burger from "../assets/burger.png"
 import useLogOut from '../firebaseHooks/useLogOut';
 import { useNavigation } from '@react-navigation/native';
 import Auth from '../firebasefile/Auth';
-
+import Card from '../components/Card';
 
 const Home = () => {
 
@@ -30,7 +31,7 @@ const Home = () => {
         container: {
             flex: 1,
             flexDirection: 'column', // Main axis is vertical
-            paddingTop:40,
+            paddingTop:10,
             backgroundColor: 'black',
             justifyContent:"space-between"
         },
@@ -111,11 +112,37 @@ const Home = () => {
                         SCANNED HISTORY
                     </Text>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.ScrollView}>
+                        {/* <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
-                        <Image source={trial} style={styles.trial}/>
-                        <Image source={trial} style={styles.trial}/>
+                        <Image source={trial} style={styles.trial}/> */}
+
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
+                       
                     </ScrollView>
                 </View>
                 <View  style={styles.HeroBottom}>
@@ -123,11 +150,35 @@ const Home = () => {
                         RECOMMENDER FOR YOU
                     </Text>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.ScrollView}>
+                        {/* <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
-                        <Image source={trial} style={styles.trial}/>
-                        <Image source={trial} style={styles.trial}/>
+                        <Image source={trial} style={styles.trial}/> */}
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
+                        <Card
+                            title="American Burger"
+                            image={Burger}
+                            score={50}
+                            onPress={() => alert('Learn More Pressed!')}
+                        />
                     </ScrollView>
                 </View>
            </View>

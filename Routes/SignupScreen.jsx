@@ -92,16 +92,13 @@ const checkIfEmailRegistered = async (email) => {
               mode="outlined"
               left={<TextInput.Icon name="email" icon={"email"}/>}
               onChangeText={setEmail}
-              theme={{
-                colors: {
-                  primary: '#007bff', // Change the focused outline color
-                },
-              }}
+              textColor='white'
             />
             <TextInput
               style={styles.input}
               label="Password"
               value={password}  
+              textColor='white'
               onChangeText={handleChangePassword}
               mode='outlined'
               secureTextEntry = {!passwordVisible}
@@ -110,11 +107,7 @@ const checkIfEmailRegistered = async (email) => {
                 icon={passwordVisible ? "eye-off" : "eye"} // Icon changes dynamically
                 onPress={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
               />}
-              theme={{
-                colors: {
-                  primary: '#007bff', // Change the focused outline color
-                },
-              }}
+              
             />
             <Text style={{marginTop:-20 , color:helperText.color }}>
                 {helperText.value}
@@ -184,6 +177,7 @@ const styles = StyleSheet.create({
     width: '90%',
     borderColor:"#007bff",
     marginBottom: 5,
+    backgroundColor:"black",
   },
   button:{
     width: '90%',
