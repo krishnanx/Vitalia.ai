@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
+import ScoreView from './ScoreView';
 
 const Card = ({ title, image, imageURL, score, onPress }) => {
     const styles = StyleSheet.create({
@@ -14,21 +15,21 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
           elevation: 4,
           margin: 10,
           overflow: 'hidden',
-          width:200
+          width:250
         },
         imageContainer:{
           flexDirection:"row",
           alignContent:"center",
         },
         image: {
-          width: '60%',
+          width: '40%',
           height: 100,
         },
         content: {
           marginTop:20,
           padding: 0,
           flexDirection:"row",
-          gap:12
+          justifyContent:"space-between"
         },
         title: {
           fontSize: 15,
@@ -52,15 +53,7 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
           fontWeight: 'bold',
         },
         box: {
-          marginTop:30,
-          marginLeft:10,
-          width: 50,
-          height: 50,
-          borderRadius:10,
-          borderWidth: 2, // Border width for corners
-          alignContent:"center",
-          justifyContent:"center",
-          borderColor:(score>80)?"green":score>50?"yellow":"red"
+          marginLeft:30,
           
         },
       });
@@ -87,7 +80,7 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
             {imageURL && <Image source={{uri: imageURL}} style={styles.image} />}
             {image && !imageURL && <Image source={image} style={styles.image} />}
             <View style={styles.box}>
-                <Text style={{marginLeft:12 , color:(score>80)?"green":score>50?"yellow":"red"}}>{score}</Text>
+                <ScoreView HealthScore={score} />
             </View>
         </View>
       <View style={styles.content}>
