@@ -26,6 +26,7 @@ export default {
   expo: {
     name: "Nutrigen",
     slug: "Mobile-App",
+    entryPoint: "./index.js",
     version: "1.1.0",
     orientation: "portrait",
     icon: "./assets/icon.png",
