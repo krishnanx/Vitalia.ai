@@ -13,6 +13,7 @@ import Jane from '../Pages/Jane';
 import Profile from '../Pages/Profile';
 import Dashboard from '../Pages/Dashboard';
 import Pro from '../Pages/Pro';
+import Account from '../Pages/Account';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -67,6 +68,9 @@ const AppNavigator = () => {
        />
        <Stack.Screen name = "Pro"
           component={Pro}
+       />
+       <Stack.Screen name='Account'
+       component={Account}
        />
       </>
      

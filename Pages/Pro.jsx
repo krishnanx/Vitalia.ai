@@ -45,16 +45,18 @@ const Pro = () => {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor:"#1d1d1e"
         },
         title: {
             fontSize: 25,
             fontWeight: 'bold',
             marginLeft:10,
-            marginBottom:20,
-            marginTop:10
+            marginBottom:0,
+            marginTop:10,
+            color:"white"
         },
         detailBox:{
-            marginBottom:10
+            marginBottom:0,
         },
         features:{
             alignItems:"center",
@@ -63,7 +65,7 @@ const Pro = () => {
         },
         pricing:{
             height:"50%",
-            backgroundColor:'black',
+            backgroundColor:'#070707',
             width:"100%",
             borderTopStartRadius:30,
             borderTopEndRadius:30,
@@ -95,17 +97,21 @@ const Pro = () => {
             height:"100%"
         },
         time:{
-            color:"white"
+            color:"#007bff"
         },
         price:{
             fontSize:16,
-            fontWeight:"bold"
+            fontWeight:"bold",
+            color:"white"
         },
         button:{
         width: '90%',
         backgroundColor: '#007bff',
     
       },
+      featuresText:{
+        color:"white"
+      }
     })
   return (
     <View style={styles.mainContainer}>
@@ -113,27 +119,27 @@ const Pro = () => {
       <View style={styles.detailBox}>
         <View style={styles.features}>
             <IconButton icon="check-circle" iconColor='#007bff' colr size={20}/>
-            <Text>Get Personalised Recommendations</Text>
+            <Text style={styles.featuresText}>Get Personalised Recommendations</Text>
         </View>
         <View style={styles.features}>
             <IconButton icon="check-circle" iconColor='#007bff' size={20}/>
-            <Text>Unlock Allergies</Text>
+            <Text style={styles.featuresText}>Unlock Allergies</Text>
         </View>
         <View style={styles.features}>
             <IconButton icon="check-circle" iconColor='#007bff' size={20}/>
-            <Text>Uncover Potential Carcinogens</Text>
+            <Text style={styles.featuresText}>Uncover Potential Carcinogens</Text>
         </View>
         <View style={styles.features}>
             <IconButton icon="check-circle" iconColor='#007bff' size={20}/>
-            <Text>Decipher ingredient and Nutrition list</Text>
+            <Text style={styles.featuresText}>Decipher ingredient and Nutrition list</Text>
         </View>
         <View style={styles.features}>
             <IconButton icon="check-circle" iconColor='#007bff' size={20}/>
-            <Text>Access 1500+ Recipes</Text>
+            <Text style={styles.featuresText}>Access 1500+ Recipes</Text>
         </View>
         <View style={styles.features}>
             <IconButton icon="check-circle" iconColor='#007bff' size={20}/>
-            <Text>Access special offers and discounts</Text>
+            <Text style={styles.featuresText}>Access special offers and discounts</Text>
         </View>
         
       </View>
@@ -143,11 +149,11 @@ const Pro = () => {
             <Button style={{
                     height:150,
                     width:120,
-                    backgroundColor:"gray",
+                    backgroundColor:"#1d1d1e",
                     borderRadius:10,
                     flexDirection:"column",
                     borderWidth:3,
-                    borderColor: plan.monthly?'#007bff':"gray"
+                    borderColor: plan.monthly?'#007bff':"#1d1d1e"
                 }} onPress={handleOnSelection1}>
                 <View style={styles.insideButton }>
                     <Text style={styles.time}>Monthly</Text>
@@ -157,11 +163,11 @@ const Pro = () => {
             <Button style={{
                     height:150,
                     width:120,
-                    backgroundColor:"gray",
+                    backgroundColor:"#1d1d1e",
                     borderRadius:10,
                     flexDirection:"column",
                     borderWidth:3,
-                    borderColor: plan.quarterly?'#007bff':"gray"
+                    borderColor: plan.quarterly?'#007bff':"#1d1d1e"
                 }} onPress={handleOnSelection2}>
                 <View style={styles.insideButton}>
                     <Text style={styles.time}>Quarterly</Text>
@@ -171,11 +177,11 @@ const Pro = () => {
             <Button style={{
                     height:150,
                     width:120,
-                    backgroundColor:"gray",
+                    backgroundColor:"#1d1d1e",
                     borderRadius:10,
                     flexDirection:"column",
                     borderWidth:3,
-                    borderColor: plan.yearly?'#007bff':"gray"
+                    borderColor: plan.yearly?'#007bff':"#1d1d1e"
                 }} onPress={handleOnSelection3}>
                 <View style={styles.insideButton}>
                     <Text style={styles.time}>Yearly</Text>

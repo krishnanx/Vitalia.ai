@@ -97,11 +97,7 @@ export default function LoginScreen({ navigation }) {
           mode="outlined"
           left={<TextInput.Icon name="email" icon={"email"}/>}
           onChangeText={setEmail}
-          theme={{
-            colors: {
-              primary: '#007bff', // Change the focused outline color
-            },
-          }}
+          textColor='white'
         />
         <TextInput
           style={styles.input}
@@ -109,17 +105,13 @@ export default function LoginScreen({ navigation }) {
           value={password}  
           onChangeText={handleChangePassword}
           mode='outlined'
+          textColor='white'
           secureTextEntry = {!passwordVisible}
           left = {<TextInput.Icon icon="lock" />}
           right= {<TextInput.Icon 
             icon={passwordVisible ? "eye-off" : "eye"} // Icon changes dynamically
             onPress={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
           />}
-          theme={{
-            colors: {
-              primary: '#007bff', // Change the focused outline color
-            },
-          }}
         />
         </View>
         <Text style={{marginTop:-20 , color:helperText.color }}>
@@ -179,6 +171,7 @@ const styles = StyleSheet.create({
     width: '90%',
     borderColor:"#007bff",
     marginBottom: 5,
+    backgroundColor:"black"
   },
   button:{
     width: '90%',
