@@ -13,9 +13,12 @@ import torchW from "../assets/flashlightW.png"
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+import history from '../functions/history';
+import { AuthContext } from '../Context/AuthProvider';
 const Scanner = () => {
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo] = useContext(bgContext);
   const Navigation = useNavigation();
+  const {user} = useContext(AuthContext)
   useEffect(() => {
       if (Navigation) {
           const state = Navigation.getState();
@@ -197,6 +200,7 @@ const Scanner = () => {
         ////console.log("result",result["data"])
         setInfo(result)
         if(result.status === "success"){
+          await history(user,result)
           Navigation.navigate("Dashboard")
         }
         result.status === "success"?(setWork(false),setState(2)):setWork(true);

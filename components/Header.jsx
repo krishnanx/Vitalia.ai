@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
 import {IconButton } from 'react-native-paper';
-
+import logo from "../assets/icon.png"
 import back from "../assets/back.png";
 import profilePic from "../assets/ProfilePic.png";
 const Header = () => {
@@ -71,11 +71,9 @@ const Header = () => {
         <TouchableOpacity onPress={()=>handlePress()} activeOpacity={0.5} style={{width:40}}>
             <Icon name="arrow-left" size={25} color="white" />
         </TouchableOpacity>
-        :""
+        :<Image source={logo} style={{height:30,width:30,marginLeft:5}}/>
         }
-        <Text style={{color:'white',width:'180',fontSize:20,textAlign:'center'}}>
-            {Location[Location.length-1]}
-        </Text>
+       
         <View
             style={{height:40,width:40,justifyContent:'center',alignItems:'center', flexDirection:"row" , marginRight:30}}
         >

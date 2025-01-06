@@ -19,7 +19,7 @@ import search from "../assets/shopping-search-outline-custom.png"
 const Footer = () => {
     //const [isVisible, setIsVisible] = useState(false);
     const {user} = useContext(AuthContext)
-    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes,value,setValue,bookmarks,setBookmarks] = useContext(bgContext);
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes,value,setValue,bookmarks,setBookmarks,scanned,setScanned] = useContext(bgContext);
     const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigation();
     useEffect(()=> {
@@ -111,8 +111,8 @@ const Footer = () => {
     
         if (screenName === "Saved") {
             const check = async () => {
-                const response = await handlePull(user);
-                console.log("footer response:", response);
+                const response = await handlePull(user,"Saved");
+                //console.log("footer response:", response);
                 setValue(response);
     
                 const initialBookmarks = {};
@@ -123,11 +123,24 @@ const Footer = () => {
                 setBookmarks(initialBookmarks);
                 return initialBookmarks; // Return the bookmarks object
             };
-    
+            
             // Wait for the `check` function to complete before navigating
             const initialBookmarks = check();
             navigation.navigate(screenName, { bookmarks: initialBookmarks });
-        } else {
+        } 
+        else if(screenName === "Home"){
+            const check = async() => {
+                const response = await handlePull(user,"History");
+                //console.log("response::",response);
+                //setScanned(response);
+                return response
+            }
+            const response = check();
+            navigation.navigate(screenName,{history:response});
+            
+            
+        }
+        else {
             navigation.navigate(screenName);
         }
     };

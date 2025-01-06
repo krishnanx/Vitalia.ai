@@ -1,15 +1,15 @@
 import { supabase } from "../Supabase/supabase"
 
-const handlePull = async(user) => {
+const handlePull = async(user,table) => {
     try{
         console.log("handlePull")
         const uid = user.uid
         const {data,error} = await supabase
-        .from('Saved')
+        .from(table)
         .select('*')
         .eq('user_id',uid)
         if(error){
-            //console.log("error fetching data",error)
+            console.log("error fetching data",error)
             return;
         }
         else{
@@ -18,7 +18,7 @@ const handlePull = async(user) => {
         }
     }
     catch(e){
-        //console.log("error fetching",e)
+        console.log("error fetching",e)
         return;
     }
 }

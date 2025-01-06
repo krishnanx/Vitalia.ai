@@ -13,16 +13,16 @@ const Saved = () => {
   const {user} = useContext(AuthContext)
 
   const Navigation = useNavigation();
-  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,info,setInfo,value,setValue] = useContext(bgContext);
+  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned] = useContext(bgContext);
   const [bgcolor,setBackgroundColor] = useState('#ADE2FF');
   const route = useRoute();
   console.log("Route Object in Saved:", route);
   const { bookmarks: routeBookmarks } = route.params || {};
   const object = routeBookmarks["_j"]
-  const [bookmarks, setBookmarks] = useState(object);
+  const [bookmarkss, setBookmarkss] = useState(object);
   useEffect(()=>{
-    console.log(bookmarks)
-  },[bookmarks])
+    console.log(bookmarkss)
+  },[bookmarkss])
   console.log("Route Bookmarks:", routeBookmarks['_j']);
   const toggleBookmark = async (item) => {
     await onDelete(user, item.code, []);
@@ -54,7 +54,7 @@ const Saved = () => {
 },[fav])*/
 
   const check = async() => {
-    const response = await handlePull(user);
+    const response = await handlePull(user,"Saved");
     console.log("footer response:",response);
     setValue(response);
   }

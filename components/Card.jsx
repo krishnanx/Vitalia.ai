@@ -20,10 +20,13 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
         imageContainer:{
           flexDirection:"row",
           alignContent:"center",
+          paddingLeft:5,
+          width:300,
         },
         image: {
           width: '40%',
           height: 100,
+          objectFit:'scale-down'
         },
         content: {
           marginTop:20,

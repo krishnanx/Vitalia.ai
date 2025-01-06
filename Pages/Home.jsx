@@ -8,13 +8,18 @@ import useLogOut from '../firebaseHooks/useLogOut';
 import { useNavigation } from '@react-navigation/native';
 import Auth from '../firebasefile/Auth';
 import Card from '../components/Card';
-
+import { useRoute } from '@react-navigation/native';
+import { AuthContext } from '../Context/AuthProvider';
+import handlePull from '../functions/handlePull';
 const Home = () => {
-
+    const route = useRoute();
+    const {history: his } = route.params || {};
+    const {user} = useContext(AuthContext)
+    //console.log("his:",his["_j"]);
     const {logout , loading , error} = useLogOut();
-    const navigation = useNavigation();
+    //const navigation = useNavigation();
     const Navigation = useNavigation();
-    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned] = useContext(bgContext);
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
@@ -27,6 +32,18 @@ const Home = () => {
             //console.log("Navigation context is undefined");
           }
       }, [Navigation]);
+    useEffect(()=>{
+        //console.log("HOME HISTORY:",scanned)
+        const check = async() => {
+            const response = await handlePull(user,"History")
+            console.log("response???:",response)
+            setScanned(response)
+            return response;
+        }
+        const response = check();
+        
+
+    },[user])
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -117,31 +134,20 @@ const Home = () => {
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/> */}
-
-                        <Card
-                            title="American Burger"
-                            image={Burger}
-                            score={50}
-                            onPress={() => alert('Learn More Pressed!')}
-                        />
-                        <Card
-                            title="American Burger"
-                            image={Burger}
-                            score={50}
-                            onPress={() => alert('Learn More Pressed!')}
-                        />
-                        <Card
-                            title="American Burger"
-                            image={Burger}
-                            score={50}
-                            onPress={() => alert('Learn More Pressed!')}
-                        />
-                        <Card
-                            title="American Burger"
-                            image={Burger}
-                            score={50}
-                            onPress={() => alert('Learn More Pressed!')}
-                        />
+                        {scanned && Array.isArray(scanned) && scanned.length>0?(
+                            scanned.map((item,index)=>{
+                                return(
+                                    <Card
+                                        title={item.name}
+                                        imageURL={item.image}
+                                        score={20}
+                                        onPress={() => alert('Learn More Pressed!')}
+                                    />
+                                )
+                            })
+                        ):(<Text style={{color:'white'}}>NONE</Text>)}
+                        
+                        
                        
                     </ScrollView>
                 </View>
@@ -158,7 +164,7 @@ const Home = () => {
                         <Card
                             title="American Burger"
                             image={Burger}
-                            score={50}
+                            score={20}
                             onPress={() => alert('Learn More Pressed!')}
                         />
                         <Card
