@@ -29,7 +29,7 @@ const Profile = () => {
             flex:1,
             backgroundColor: 'black',
             width:'100%',
-            height:'700',
+            height:700,
             //justifyContent:'space-around',
             //marginVertical:10,
             paddingTop:50,

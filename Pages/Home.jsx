@@ -54,7 +54,7 @@ const Home = () => {
         },
         header:{
             //marginTop:40,
-            height:'50', // Fixed height
+            height:50, // Fixed height
             backgroundColor: '#D6F1FF',
             alignItems: 'center',
             borderBottomWidth:0.5,
@@ -68,7 +68,7 @@ const Home = () => {
             height: 200,
         },
         scanbox:{
-            height:'50',
+            height:50,
             position:'relative'
         },
         Scan:{
@@ -87,23 +87,23 @@ const Home = () => {
             color:'#C7D1C8',
             fontSize:20,
             fontFamily: 'Arial',
-            marginBottom:'20',
+            marginBottom:20,
            
         },
         hero:{
             //backgroundColor:'white',
             width:'100%',
-            height:'730',
+            height:730,
             flexDirection:'column',
             justifyContent:'space-between',
-            paddingHorizontal:'20',
-            paddingVertical:'50',
+            paddingHorizontal:20,
+            paddingVertical:50,
         },
         HeroTop:{
-            height:'300'
+            height:300
         },
         HeroBottom:{
-            height:'300'
+            height:300
         },
         trial:{
             marginHorizontal: 10,

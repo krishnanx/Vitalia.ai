@@ -15,10 +15,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.3.3'
-        classpath('com.android.tools.build:gradle')
-        classpath('com.facebook.react:react-native-gradle-plugin')
-        classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
+        classpath 'com.google.gms:google-services:4.3.15' // Updated version of google-services
+        classpath 'com.android.tools.build:gradle:8.6.0'  // Gradle plugin version
+        classpath 'com.facebook.react:react-native-gradle-plugin'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin'
+
+        // Firebase dependencies (move them to classpath)
+        classpath 'com.google.firebase:firebase-analytics:21.0.0'
+        classpath 'com.google.firebase:firebase-auth:21.0.0'
+        classpath 'com.google.firebase:firebase-firestore:24.0.0'
+
+        
     }
 }
 
@@ -34,7 +41,7 @@ allprojects {
             // Android JSC is installed from npm
             url(new File(['node', '--print', "require.resolve('jsc-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), '../dist'))
         }
-
+        jcenter()
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }

@@ -38,7 +38,7 @@ const Scanner = () => {
           flex:1,
           backgroundColor: 'black',
           width:'100%',
-          height:'750',
+          height:750,
           justifyContent:'center',
           alignItems:'center'
 
@@ -69,7 +69,7 @@ const Scanner = () => {
       },
       viewPermission:{
         width:'100%',
-        height:'100',
+        height:100,
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center'

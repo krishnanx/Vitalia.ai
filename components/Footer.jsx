@@ -40,46 +40,47 @@ const Footer = () => {
             backgroundColor: 'black',
             flexDirection:"row",
             alignItems: 'center',
-            //justifyContent:"space-evenly",
+            justifyContent:"space-evenly",
             borderTopWidth:1,
-            borderTopColor:'#979797'
-            
+            borderTopColor:'#979797',
+            width:400,
 
         },
         leftFooter:{
             flexDirection:'row',
             justifyContent:'space-between',
-            width:'140',
-            height:'40',
-            paddingLeft:'30',
+            width:140,
+            height:40,
+            paddingLeft:30,
+            
             
         },
         middleFooter:{
             flexDirection:'row',
             justifyContent:'center',
-            height:"50",
-            width:'120',
+            height:50,
+            width:120,
             
         },
         rightFooter:{
             flexDirection:'row',
             justifyContent:'space-between',
-            width:'140',
-            height:'40',
-            paddingRight:'30',
+            width:140,
+            height:40,
+            paddingRight:30,
         },
         Touchable:{
             //backgroundColor:"white",
-            width:'50',
-            height:'40',
+            width:50,
+            height:40,
             flexDirection:'row',
             justifyContent:'center',
             alignItems:'center'
         },
         Scannable:{
            //backgroundColor:"white",
-            width:'50',
-            height:'40',
+            width:50,
+            height:40,
             flexDirection:'row',
             justifyContent:'center',
             alignItems:'center'
