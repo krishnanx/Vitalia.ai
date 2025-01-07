@@ -64,7 +64,7 @@ export default {
       ],
       package: "com.meclab.nutrigen",
       versionCode: 1,
-      googleServicesFile: convertBase64ToJson(process.env.GOOGLE_FIREBASE,'./')
+      googleServicesFile: "./google-services.json"
     },
     web: {
       favicon: "./assets/favicon.png",
