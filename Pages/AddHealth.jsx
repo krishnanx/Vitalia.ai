@@ -1,14 +1,15 @@
 import { View, Text, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
 import { RadioButton, IconButton, Button } from 'react-native-paper';
 import AllergyButton from '../components/AllergyButton';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { AuthContext } from '../Context/AuthProvider';
+import addSupaDetails from '../functions/addSupaDetails';
 const AddHealth = ({ route, navigation }) => {
   const { email, password, userDetails } = route.params;
   const [details, setDetails] = useState(userDetails);
   const [allergy , setAllergy] = useState("");
-
+  const {user} = useContext(AuthContext)
 
   const styles = StyleSheet.create({
     mainContainer: {
@@ -58,7 +59,7 @@ const AddHealth = ({ route, navigation }) => {
       borderRadius:3
     }
   });
-  const handleNext =()=>{
+  const handleNext = async()=>{
     
     if(!details.diet){
       alert("Please select a diet")
@@ -68,6 +69,7 @@ const AddHealth = ({ route, navigation }) => {
       alert("Please select a lifestyle goal")
       return
     }
+    const response = await addSupaDetails(user,details)
     console.log(details);
     //the details contains all the health data
     //add the supabse logic here
@@ -185,8 +187,8 @@ const AddHealth = ({ route, navigation }) => {
             <AllergyButton buttonIcon="close" text="Clear Selection"selected={false} onPress={()=>setDetails({...details,disease:""})}/>
           </View>
           <View style={{width:"85%" , flexDirection:"row" ,justifyContent:"space-between", marginTop:15}}>
-            <Button mode="contained" style={styles.button2} onPress={handleNext}>Back</Button>
-            <Button mode="contained" style={styles.button2} onPress={handleNext}>Next</Button>
+            <Button mode="contained" style={styles.button2} onPress={()=>handleNext()}>Back</Button>
+            <Button mode="contained" style={styles.button2} onPress={()=>handleNext()}>Next</Button>
           </View>
         </View>
       </View>

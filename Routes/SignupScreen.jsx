@@ -60,8 +60,8 @@ const SignupScreen = ({navigation}) => {
             //console.log(user)
             if(user){
               try{
-                const response = Auth();
-                console.log(response)
+                // const response = Auth();
+                // console.log(response)
                 navigation.navigate('Details');
               }catch(e){
                 console.log(e);

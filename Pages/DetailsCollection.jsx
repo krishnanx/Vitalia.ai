@@ -49,7 +49,7 @@ const DetailsCollection = ({route,navigation}) => {
           alert("Some inputs are invalid");
           return
         }
-        navigation.navigate('AddHealthInfo' , { userDetails});
+        navigation.navigate('AddHealthInfo' , {userDetails});
 
     }
   return (

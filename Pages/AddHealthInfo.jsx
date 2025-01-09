@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
 import { RadioButton, IconButton, Button } from 'react-native-paper';
 import AllergyButton from '../components/AllergyButton';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import addSupaDetails from '../functions/addSupaDetails';
+import { AuthContext } from '../Context/AuthProvider';
 const AddHealthInfo = ({ route, navigation }) => {
+  const {user} = useContext(AuthContext)
   const { email, password, userDetails } = route.params;
   const [details, setDetails] = useState(userDetails);
   const [allergy , setAllergy] = useState("");
@@ -58,7 +60,7 @@ const AddHealthInfo = ({ route, navigation }) => {
       borderRadius:3
     }
   });
-  const handleNext =()=>{
+  const handleNext = async()=>{
     
     if(!details.diet){
       alert("Please select a diet")
@@ -68,9 +70,10 @@ const AddHealthInfo = ({ route, navigation }) => {
       alert("Please select a lifestyle goal")
       return
     }
-    console.log(details);
+    //console.log(details);
     //the details contains all the health data
     //add the supabse logic here
+    const response = await addSupaDetails(user,details)
     navigation.navigate("Home");
   }
 
@@ -185,7 +188,7 @@ const AddHealthInfo = ({ route, navigation }) => {
             <AllergyButton buttonIcon="close" text="Clear Selection"selected={false} onPress={()=>setDetails({...details,disease:""})}/>
           </View>
           <View style={{width:"90%" , flexDirection:"row" ,justifyContent:"center", marginTop:15}}>
-            <Button mode="contained" style={styles.button2} onPress={handleNext}>Next</Button>
+            <Button mode="contained" style={styles.button2} onPress={()=>handleNext()}>Next</Button>
           </View>
         </View>
       </View>
