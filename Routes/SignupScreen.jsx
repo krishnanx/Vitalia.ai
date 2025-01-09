@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebasefile/firebase';
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 import Auth from '../firebasefile/Auth';
+import useRegister from '../firebaseHooks/useRegister';
 const SignupScreen = ({navigation}) => {
     const [email , setEmail] = useState('');
     const [password , setPassword] = useState('');
@@ -15,6 +16,7 @@ const SignupScreen = ({navigation}) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
     const Navigation = useNavigation();
+    const {register , loading , error , user} = useRegister();
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
@@ -40,38 +42,40 @@ const SignupScreen = ({navigation}) => {
     const handleSignup = async()=>{
         if(email.length === 0 || password.length === 0){
             setHelperText({value:"Please fill all fields" , color:"red"});
+            return
         }
-        else if(password.length<6){
+        if(password.length<6){
             setHelperText({value:"Password must be atleast 6 characters" , color:"red"});
+            return
         }
-        else if(emailRegex.test(email) === false){
+        if(emailRegex.test(email) === false){
             setHelperText({value:"Invalid email" , color:"red"});
+            return
         }
         /*else if(checkIfEmailRegistered(email)){
           setHelperText({value:"Account with this email already exists" , color:"red"});
         }*/
-        else{
+          try {
+            const user = await register(email , password);
+            //console.log(user)
+            if(user){
+              try{
+                const response = Auth();
+                console.log(response)
+                navigation.navigate('Details');
+              }catch(e){
+                console.log(e);
+              }
+                
+            }else{
+              alert("User with this email exists")
+            }
+        } catch (error) {
+            alert(error.message);
             
-            //console.log("Email: " , email , "Password: " , password);
-            navigation.navigate("Details", {email , password});
-    }
+        }
 }
 
-const checkIfEmailRegistered = async (email) => {
-
-  try {
-    const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-
-    if (signInMethods.length > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.error("Error checking email registration:", error.message);
-    throw error;
-  }
-};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
@@ -120,6 +124,7 @@ const checkIfEmailRegistered = async (email) => {
                 textColor='#fff'
                 mode="elevated"
                 style={styles.button}
+                loading={loading}
                 onPress={handleSignup}>
             Create Account
             </Button>

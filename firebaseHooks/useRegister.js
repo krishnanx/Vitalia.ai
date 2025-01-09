@@ -9,10 +9,10 @@ const useRegister = () => {
     const [error , setError] = useState(null);
     const [user, setUser] = useState(null);
 
-    const register = async (email , password , userDetails) => {
+    const register = async (email , password) => {
         try {
             setLoading(true);
-            if (!email || !password || !userDetails) {
+            if (!email || !password) {
                 throw new Error("All fields are required.");
               }
               const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -22,14 +22,14 @@ const useRegister = () => {
                 throw new Error("server error: failed to create user")
             }
 
-            const userDocRef = doc(firestore, "users", user.uid); // Reference to Firestore document
-                await setDoc(userDocRef, {
-                    email: user.email,
-                    ...userDetails,
-                    createdAt: serverTimestamp(),
-                });
+            // const userDocRef = doc(firestore, "users", user.uid); // Reference to Firestore document
+            //     await setDoc(userDocRef, {
+            //         email: user.email,
+            //         ...userDetails,
+            //         createdAt: serverTimestamp(),
+            //     });
             setUser(user);
-            //console.log("User created sucessfully")
+            console.log("User created sucessfully")
             return user;
         } catch (error) {
             //console.log("ERROR IN USEREGISTER HOOK: "+error.message);
