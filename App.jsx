@@ -20,10 +20,9 @@ import Welcome from './Routes/Welcome';
 import { Provider as PaperProvider , DefaultTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import Header from './components/Header';
-import React,{useRef} from 'react';
+import React,{useRef, useState} from 'react';
 import { AuthProvider, useAuth } from './Context/AuthProvider';
 import AppNavigator from './Routes/AppNavigator';
-import Config from 'react-native-config';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -54,16 +53,24 @@ const App = () => {
     },
   };
 
+  const [currentPage , setCurrentPage] = useState("");
+  const handleStateChange = (state) => {
+    setCurrentPage(state.routes[state.index].name);
+  };
+
   return (
     <AuthProvider>
     <PaperProvider theme={theme}>
     <SafeAreaView style={styles.container}>
       <StateContext>
         <StatusBar style="light" backgroundColor={'black'} />
-        <NavigationContainer>
+        <NavigationContainer onStateChange={handleStateChange}>
           <Header/>
           <AppNavigator/>
-          <Footer/>
+          {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
+          currentPage=="Profile" || currentPage=="Pro"?
+          <Footer/>:""
+          }
         </NavigationContainer>
        
       </StateContext>

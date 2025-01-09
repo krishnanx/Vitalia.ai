@@ -14,6 +14,7 @@ import Profile from '../Pages/Profile';
 import Dashboard from '../Pages/Dashboard';
 import Pro from '../Pages/Pro';
 import Account from '../Pages/Account';
+import AddHealth from '../Pages/AddHealth';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -43,14 +44,17 @@ const AppNavigator = () => {
           component={SignupScreen}
           //options={{ headerShown: false }}
         />
-        <Stack.Screen name="Details"
-        component={DetailsCollection}
-        />
       </>:
       <>
-        <Stack.Screen name="Home"
+      <Stack.Screen name="Details"
+        component={DetailsCollection}
+        />
+      <Stack.Screen name="Home"
           component={Home} 
        />
+        <Stack.Screen name="AddHealthInfo"
+        component={AddHealth}/>
+
         <Stack.Screen name="jane"
           component={Jane} 
        />
@@ -79,4 +83,4 @@ const AppNavigator = () => {
   )
 }
 
-export default AppNavigator
+export default AppNavigator;
