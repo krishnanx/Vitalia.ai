@@ -5,8 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import { CameraView, Camera } from "expo-camera";
 // import { Camera } from 'react-native-camera-kit';
 //import * as FileSystem from 'expo-file-system';
-import sendBase64ToServer from '../components/SendPic'
-import convertToBase64 from '../components/Convert';
+import sendBase64ToServer from '../functions/SendPic'
+import convertToBase64 from '../functions/Convert';
 //import saveBase64ToFile from '../components/Save';
 import torch from "../assets/flashlight.png"
 import torchW from "../assets/flashlightW.png"
@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import history from '../functions/history';
 import { AuthContext } from '../Context/AuthProvider';
+import calcScore from '../functions/calcScore';
 const Scanner = () => {
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo] = useContext(bgContext);
   const Navigation = useNavigation();
@@ -198,9 +199,12 @@ const Scanner = () => {
         ////console.log("response",response)
         const result = await sendBase64ToServer(response)
         ////console.log("result",result["data"])
-        setInfo(result)
         if(result.status === "success"){
+          const response = calcScore(result);
+          result["HealthScore"] = response 
+          setInfo(result)
           await history(user,result)
+          
           Navigation.navigate("Dashboard")
         }
         result.status === "success"?(setWork(false),setState(2)):setWork(true);

@@ -273,29 +273,29 @@ const Saved = () => {
                 style={styles.Level}
               >
                 <View style={[styles.corner, styles.topLeft,{ backgroundColor:
-                                                              item.HealthScore < 50
-                                                                ? '#FF0000'
-                                                                : item.HealthScore > 80
-                                                                ? '#01ff01'
-                                                                : '#f5f501',}]} />
+                                                              item.HealthScore === 'A' ? "#355e3b" :
+                                                              item.HealthScore === 'B' ? "#32cd32" :
+                                                              item.HealthScore === 'C' ? "#fdf718" :
+                                                              item.HealthScore === 'D' ? "#ED7014" : 
+                                                              "#AA0000",}]} />
                 <View style={[styles.corner, styles.topRight,{ backgroundColor:
-                                                                item.HealthScore < 50
-                                                                  ? '#FF0000'
-                                                                  : item.HealthScore > 80
-                                                                  ? '#01ff01'
-                                                                  : '#f5f501',}]} />
+                                                                 item.HealthScore === 'A' ? "#355e3b" :
+                                                                 item.HealthScore === 'B' ? "#32cd32" :
+                                                                 item.HealthScore === 'C' ? "#fdf718" :
+                                                                 item.HealthScore === 'D' ? "#ED7014" : 
+                                                                 "#AA0000",}]} />
                 <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
-                                                                item.HealthScore < 50
-                                                                  ? '#FF0000'
-                                                                  : item.HealthScore > 80
-                                                                  ? '#01ff01'
-                                                                  : '#f5f501',}]} />
+                                                                 item.HealthScore === 'A' ? "#355e3b" :
+                                                                 item.HealthScore === 'B' ? "#32cd32" :
+                                                                 item.HealthScore === 'C' ? "#fdf718" :
+                                                                 item.HealthScore === 'D' ? "#ED7014" : 
+                                                                 "#AA0000",}]} />
                 <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
-                                                                item.HealthScore < 50
-                                                                  ? '#FF0000'
-                                                                  : item.HealthScore > 80
-                                                                  ? '#01ff01'
-                                                                  : '#f5f501',}]} />
+                                                                 item.HealthScore === 'A' ? "#355e3b" :
+                                                                 item.HealthScore === 'B' ? "#32cd32" :
+                                                                 item.HealthScore === 'C' ? "#fdf718" :
+                                                                 item.HealthScore === 'D' ? "#ED7014" : 
+                                                                 "#AA0000",}]} />
                 <View style={styles.viewSquare}>
                     <Text
                         style={{fontSize:50,fontWeight:'400',color:

@@ -2,7 +2,7 @@ import Constants from 'expo-constants';
 const sendBase64ToServer = async (base64) => {
   try {
     console.log("gug",Constants.expoConfig.extra.SERVER)
-    const response = await fetch(`${Constants.expoConfig.extra.SERVER}`, {
+    const response = await fetch(`http://192.168.1.42:5000/upload-base64`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -140,7 +140,7 @@ const Home = () => {
                                     <Card
                                         title={item.name}
                                         imageURL={item.image}
-                                        score={20}
+                                        score={item.score}
                                         onPress={() => alert('Learn More Pressed!')}
                                     />
                                 )

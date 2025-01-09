@@ -41,7 +41,21 @@ const Dashboard = () => {
         //console.log(data.HealthScore);
         if(info && info.HealthScore!=undefined){
            
-            info.HealthScore<50?setBackgroundColor('#FF0000'):info.HealthScore>80?setBackgroundColor('#01ff01'):setBackgroundColor('#f5f501');
+            if(info.HealthScore==='A'){
+                setBackgroundColor("#355e3b")
+            }
+            else if(info.HealthScore==='B'){
+                setBackgroundColor("#32cd32")
+            }
+            else if(info.HealthScore==='C'){
+                setBackgroundColor("#fdf718")
+            }
+            else if(info.HealthScore==='D'){
+                setBackgroundColor("#ED7014")
+            }
+            else{
+                setBackgroundColor("#AA0000")
+            }
             //console.log("info",info.HealthScore);
             //console.log("bgColor",bgcolor);
         }

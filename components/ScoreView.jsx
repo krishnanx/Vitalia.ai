@@ -66,37 +66,37 @@ const ScoreView = ({HealthScore}) => {
           style={styles.Level}
         >
           <View style={[styles.corner, styles.topLeft,{ backgroundColor:
-                                                        HealthScore < 50
-                                                          ? '#FF0000'
-                                                          : HealthScore > 80
-                                                          ? '#01ff01'
-                                                          : '#f5f501',}]} />
+                                                         HealthScore === 'A' ? "#355e3b" :
+                                                         HealthScore === 'B' ? "#32cd32" :
+                                                         HealthScore === 'C' ? "#fdf718" :
+                                                         HealthScore === 'D' ? "#ED7014" : 
+                                                         "#AA0000",}]} />
           <View style={[styles.corner, styles.topRight,{ backgroundColor:
-                                                          HealthScore < 50
-                                                            ? '#FF0000'
-                                                            : HealthScore > 80
-                                                            ? '#01ff01'
-                                                            : '#f5f501',}]} />
+                                                           HealthScore === 'A' ? "#355e3b" :
+                                                           HealthScore === 'B' ? "#32cd32" :
+                                                           HealthScore === 'C' ? "#fdf718" :
+                                                           HealthScore === 'D' ? "#ED7014" : 
+                                                           "#AA0000",}]} />
           <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
-                                                          HealthScore < 50
-                                                            ? '#FF0000'
-                                                            : HealthScore > 80
-                                                            ? '#01ff01'
-                                                            : '#f5f501',}]} />
+                                                          HealthScore === 'A' ? "#355e3b" :
+                                                          HealthScore === 'B' ? "#32cd32" :
+                                                          HealthScore === 'C' ? "#fdf718" :
+                                                          HealthScore === 'D' ? "#ED7014" : 
+                                                          "#AA0000",}]} />
           <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
-                                                          HealthScore < 50
-                                                            ? '#FF0000'
-                                                            : HealthScore > 80
-                                                            ? '#01ff01'
-                                                            : '#f5f501',}]} />
+                                                           HealthScore === 'A' ? "#355e3b" :
+                                                           HealthScore === 'B' ? "#32cd32" :
+                                                           HealthScore === 'C' ? "#fdf718" :
+                                                           HealthScore === 'D' ? "#ED7014" : 
+                                                           "#AA0000",}]} />
           <View style={styles.viewSquare}>
               <Text
                   style={{fontSize:50,fontWeight:'400',color:
-                    HealthScore < 50
-                      ? '#FF0000'
-                      : HealthScore > 80
-                      ? '#01ff01'
-                      : '#f5f501',}}
+                    HealthScore === 'A' ? "#355e3b" :
+                    HealthScore === 'B' ? "#32cd32" :
+                    HealthScore === 'C' ? "#fdf718" :
+                    HealthScore === 'D' ? "#ED7014" : 
+                    "#AA0000",}}
               >
                   {HealthScore}
               </Text>
