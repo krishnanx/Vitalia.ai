@@ -130,16 +130,7 @@ const Footer = () => {
             navigation.navigate(screenName, { bookmarks: initialBookmarks });
         } 
         else if(screenName === "Home"){
-            const check = async() => {
-                const response = await handlePull(user,"History");
-                //console.log("response::",response);
-                //setScanned(response);
-                return response
-            }
-            const response = check();
-            navigation.navigate(screenName,{history:response});
-            
-            
+            navigation.navigate(screenName,);
         }
         else {
             navigation.navigate(screenName);

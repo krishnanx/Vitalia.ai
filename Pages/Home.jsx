@@ -44,6 +44,10 @@ const Home = () => {
         
 
     },[user])
+    const handleHistory = (item) => {
+        setInfo(item);
+        Navigation.navigate("Dashboard")
+    }
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -138,10 +142,11 @@ const Home = () => {
                             scanned.map((item,index)=>{
                                 return(
                                     <Card
+                                        key = {item.code}
                                         title={item.name}
                                         imageURL={item.image}
                                         score={item.score}
-                                        onPress={() => alert('Learn More Pressed!')}
+                                        onPress={() => handleHistory(item)}
                                     />
                                 )
                             })

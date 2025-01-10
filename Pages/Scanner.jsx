@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import history from '../functions/history';
 import { AuthContext } from '../Context/AuthProvider';
+
 import calcScore from '../functions/calcScore';
 const Scanner = () => {
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo] = useContext(bgContext);
@@ -59,14 +60,14 @@ const Scanner = () => {
         borderColor:'white',
       },
       requestCamera:{
-        //width:'100%',
-        //height:'815',
         //backgroundColor:'#100E1B',
-        //justifyContent:'center',
-        //alignItems:'center',
-        //flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        //borderWidth:1.5,
+        textAlign:'center',
         fontSize:20,
         color:'white',
+  
       },
       viewPermission:{
         width:'100%',
@@ -84,7 +85,8 @@ const Scanner = () => {
         width:'100%',
         height:815,
         justifyContent:'space-around',
-        alignItems:'center'      
+        alignItems:'center', 
+        position:'relative'     
       },
       torchView: {
         width: 50,
@@ -137,6 +139,20 @@ const Scanner = () => {
         justifyContent:'center',
         alignItems:'center'
       },
+      activity:{
+        position:"absolute",
+        zIndex:6,
+        top:550,
+        
+      },
+      activityView:{
+        height:60,
+        width:250,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:"center",
+        paddingHorizontal:10
+      }
     
     
     })
@@ -146,7 +162,7 @@ const Scanner = () => {
   const [scanned, setScanned] = useState(false);
   
   const [text,setText] = useState("");
-  const [work,setWork] = useState(false);
+  const [work,setWork] = useState(0);
   
   useEffect(() => {
     const getCameraPermissions = async () => {
@@ -185,7 +201,8 @@ const Scanner = () => {
   const takePicture = async () => {
     if (cameraRef.current) {
       console.log("pic taken")
-      setWork(false)
+      setWork(1)
+      //setWork(false)
       try {
         const options = {
           quality: 1,
@@ -201,13 +218,13 @@ const Scanner = () => {
         ////console.log("result",result["data"])
         if(result.status === "success"){
           const response = calcScore(result);
-          result["HealthScore"] = response 
+          result["score"] = response 
           setInfo(result)
           await history(user,result)
-          
           Navigation.navigate("Dashboard")
+          
         }
-        result.status === "success"?(setWork(false),setState(2)):setWork(true);
+        result.status === "success"?(setWork(2),setState(2)):setWork(3);
       } catch (error) {
         console.error("Error taking picture:", error);
       }
@@ -233,7 +250,7 @@ const Scanner = () => {
             />*/}
              <CameraView 
                   ref={cameraRef} 
-                  style={StyleSheet.absoluteFillObject}
+                  style={[StyleSheet.absoluteFillObject ]}
                   onCameraReady={() => console.log("Camera ready")} 
                   animateShutter={false} 
                   enableTorch={Torch}
@@ -262,15 +279,33 @@ const Scanner = () => {
               </View>
             </View>
             
-            {work?<Text
+            {work===3?<Text
               style={styles.requestCamera}
             >Please scan again....</Text>
             :
+            work===2?
             <Text
               style={styles.requestCamera}
             > 
+              Scanned
+            </Text>
+            :work===1?
+             
+              <View
+                style={styles.activityView}
+              >
+                <Text
+                  style={{fontSize:20,color:'white',textAlign:"center",paddingTop:5}}
+                >
+                  Scanning....
+                </Text>
+                <ActivityIndicator animating={true} color={MD2Colors.red800} style={{zIndex:6,justifyContent:'center',alignItems:'center',paddingLeft:5}} size={50}/>
+              </View>
+            :
+            <Text>
               {""}
-            </Text>}
+            </Text>
+            }
             <View
               style={styles.TakePicView}
             >

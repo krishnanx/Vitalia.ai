@@ -39,18 +39,18 @@ const Dashboard = () => {
    
     useEffect(() => { 
         //console.log(data.HealthScore);
-        if(info && info.HealthScore!=undefined){
+        if(info && info.score!=undefined){
            
-            if(info.HealthScore==='A'){
+            if(info.score==='A'){
                 setBackgroundColor("#355e3b")
             }
-            else if(info.HealthScore==='B'){
+            else if(info.score==='B'){
                 setBackgroundColor("#32cd32")
             }
-            else if(info.HealthScore==='C'){
+            else if(info.score==='C'){
                 setBackgroundColor("#fdf718")
             }
-            else if(info.HealthScore==='D'){
+            else if(info.score==='D'){
                 setBackgroundColor("#ED7014")
             }
             else{
@@ -59,10 +59,10 @@ const Dashboard = () => {
             //console.log("info",info.HealthScore);
             //console.log("bgColor",bgcolor);
         }
-        if(info && info.barcode_info!=undefined){
+        if(info && info.code!=undefined){
             //console.log(info.barcode_info)
             const check = async() =>{
-                const response = await checkSave(info.barcode_info, user);
+                const response = await checkSave(info.code, user);
                 //console.log("response", response);
                 setClicked(response);
             }   
@@ -287,7 +287,7 @@ const Dashboard = () => {
 
 }
     const handleFav = async() => {
-        const response = click?(setClicked(false),await onDelete(user,info.barcode_info,info)):(setClicked(true),await onSave(user,info));
+        const response = click?(setClicked(false),await onDelete(user,info.code,info)):(setClicked(true),await onSave(user,info));
         console.log("info",response)
         setInfo(response)
     };
@@ -348,12 +348,12 @@ const Dashboard = () => {
                     <Text
                         style={{fontSize:15}}
                     >
-                        {info && info.Brand}
+                        {info && info.brandName}
                     </Text>
                     <Text
                         style={{fontSize:25,width:250}}
                     >
-                        {info && info.Name}
+                        {info && info.name}
                     </Text>
                 </View>
                 <View
@@ -383,14 +383,14 @@ const Dashboard = () => {
                         <Text
                             style={{fontSize:50,fontWeight:'400',color:bgcolor}}
                         >
-                            {info && info.HealthScore}
+                            {info && info.score}
                         </Text>
                     </View>
                 </View>
                 <View
                     style={styles.picContainer}
                 >
-                   {info && <Image source={{ uri: info.Image }} style={styles.image} />}
+                   {info && <Image source={{ uri: info.image }} style={styles.image} />}
                 </View>
             </View>
         </View>
@@ -460,10 +460,10 @@ const Dashboard = () => {
                         {/*<DataTable.Title numeric>per portion (15g)</DataTable.Title>*/}
                     </DataTable.Header>
 
-                    {info && info.Nutrients && info.Nutrients.map((item) => (
+                    {info && info.nutrients["value"] && info.nutrients["value"].map((item) => (
                         <DataTable.Row key={item.key}>
-                        <DataTable.Cell textStyle={{ color:'white'}}>{item.name}</DataTable.Cell>
-                        <DataTable.Cell numeric textStyle={{ color:'white'}}>{item.value}</DataTable.Cell>
+                        <DataTable.Cell textStyle={{ color:'white'}} key={item.key}>{item.name}</DataTable.Cell>
+                        <DataTable.Cell numeric textStyle={{ color:'white'}} key={item.key}>{item.value}</DataTable.Cell>
                         </DataTable.Row>
                     ))}
 

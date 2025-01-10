@@ -6,10 +6,10 @@ const history = async(user,result) => {
     const uid = user.uid
     const response = await handlePull(user,"History");
     console.log("response",response)
-    console.log("code",result.barcode_info)
+    console.log("code",result.code)
     for(const item of response){
         console.log("item:",item)
-        if(result.barcode_info==item.code){
+        if(result.code==item.code){
             console.log("NOT UNIQUE")
             return
         }
@@ -19,14 +19,14 @@ const history = async(user,result) => {
         const {value, error} = await supabase
         .from('History')
         .insert([
-        {user_id:uid,code:result.barcode_info,brandName:result.Brand,name:result.Name,image:result.Image,ingredients:result.ingredients,nutrients:result.Nutrients,score:result.HealthScore },
+        {user_id:uid,code:result.code,brandName:result.brandName,name:result.name,image:result.image,ingredients:result.ingredients,nutrients:result.nutrients,score:result.score },
         ])
         .select()
         if(error){
-            console.log(error);
+            console.log("error",error);
         }
         else{
-            console.log(value)
+            console.log("value:",value)
         }
     }
     catch(e){
