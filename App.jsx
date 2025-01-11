@@ -23,6 +23,8 @@ import Header from './components/Header';
 import React,{useRef, useState} from 'react';
 import { AuthProvider, useAuth } from './Context/AuthProvider';
 import AppNavigator from './Routes/AppNavigator';
+import GetStarted from './Pages/getStarted';
+import FontContext from './Context/fontContext';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -63,16 +65,20 @@ const App = () => {
     <PaperProvider theme={theme}>
     <SafeAreaView style={styles.container}>
       <StateContext>
-        <StatusBar style="light" backgroundColor={'black'} />
-        <NavigationContainer onStateChange={handleStateChange}>
-          <Header/>
-          <AppNavigator/>
-          {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
-          currentPage=="Profile" || currentPage=="Pro"?
-          <Footer/>:""
-          }
-        </NavigationContainer>
+        <FontContext>
+          <StatusBar style="light" backgroundColor={'black'} />
+          <NavigationContainer onStateChange={handleStateChange}>
+            
+            <Header/>
+            <AppNavigator/>
+            {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
+            currentPage=="Profile" || currentPage=="Pro"?
+            <Footer/>:""
+            }
+          </NavigationContainer>
        
+        </FontContext>
+        
       </StateContext>
     </SafeAreaView>
     </PaperProvider>

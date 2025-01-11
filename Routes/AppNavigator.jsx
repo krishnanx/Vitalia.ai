@@ -15,6 +15,7 @@ import Dashboard from '../Pages/Dashboard';
 import Pro from '../Pages/Pro';
 import Account from '../Pages/Account';
 import AddHealth from '../Pages/AddHealth';
+import GetStarted from '../Pages/getStarted';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -29,6 +30,10 @@ const AppNavigator = () => {
     >
       {!user?
       <>
+        <Stack.Screen 
+          name="GetStarted"
+          component={GetStarted}
+        />
         <Stack.Screen
           name="Welcome"
           component={Welcome}

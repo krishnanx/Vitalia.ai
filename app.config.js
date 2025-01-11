@@ -85,5 +85,6 @@ export default {
       OPEN_AI_KEY:process.env.OPEN_AI_KEY,
       SERVER:process.env.SERVER
     },
+    assetBundlePatterns: ["**/*"], // Include all assets, including fonts
   },
 };
