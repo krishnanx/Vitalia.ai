@@ -73,7 +73,7 @@ const AddHealth = ({ route, navigation }) => {
     console.log(details);
     //the details contains all the health data
     //add the supabse logic here
-    navigation.navigate("Home");
+    navigation.navigate("GetStarted");
   }
 
   return (

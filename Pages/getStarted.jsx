@@ -9,8 +9,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import vector1 from "../assets/Vector 1.png";
 import { useFonts } from 'expo-font';
 import { font } from '../Context/fontContext'
+import { useNavigation } from '@react-navigation/native'
 const GetStarted = () => {
     const {fontsLoaded} = useContext(font)
+    const Navigation = useNavigation()
      const styles = StyleSheet.create({
         Main:{
             flex:1,
@@ -46,41 +48,46 @@ const GetStarted = () => {
             width:450,
             height:450,
             borderWidth:1.5,
-            borderColor:'#CACACA',
+            borderColor:`rgba(202, 202, 202,1)`,
             borderRadius:300,
             justifyContent:'center',
             alignItems:'center',
             transform: [{ rotate: '93.52deg' }],
-            top:-37,
-            left:30,
-            opacity:0.25
+            // top:-37,
+            // left:30,
+            //opacity:0.25
         },
         circle3:{
             width:640,
             height:640,
             borderWidth:1.5,
-            borderColor:'#CACACA',
+            borderColor:`rgba(202, 202, 202,0.5)`,
             position:"absolute",
-            top:-140,
+            top:-170,
             left:-50,
             borderRadius:300,
             justifyContent:'center',
             alignItems:'center',
             transform: [{ rotate: '158.9deg' }], // Rotates the view by 45 degrees
-            opacity:0.1
+            //opacity:0.1
+            marginRight:30,
+            marginTopt:60
         },
         circle1:{
-            width:350,
-            height:350,
+            width:300,
+            height:300,
             borderWidth:1.5,
-            position:"absolute",
-            top:20,
-            left:80,
+            // position:"absolute",
+            // top:20,
+            // left:80,
             borderRadius:300,
             justifyContent:'center',
             alignItems:'center',
-            borderColor:'#CACACA',
-            opacity:0.25
+            borderColor:`rgba(202, 202, 202, 1)`,
+            //opacity:0.25,
+            //marginRight:30,
+            //marginTop:50,
+           
         },
         text:{
             fontFamily: 'Poppins-ExtraBold',
@@ -94,8 +101,8 @@ const GetStarted = () => {
             width:400,
             height:240,
             position:'absolute',
-            top:-40,
-            marginLeft:25,
+            top:-50,
+            marginLeft:35,
         },
         aboutView:{
             width:300,
@@ -104,7 +111,7 @@ const GetStarted = () => {
             //borderColor:'white',
             position:'absolute',
             top:80,
-            left:130
+            left:150
 
         },
         about:{
@@ -148,11 +155,17 @@ const GetStarted = () => {
             position:"absolute",
             top:130,
             right:200,
+                // borderWidth:2,
+                // borderColor:'white',
+            //width:150
             
-        }
+        },
 
 
      })
+     const handleHome = () => {
+        Navigation.navigate("Home")
+     }
   return (
     <View
         style={styles.Main}
@@ -161,12 +174,16 @@ const GetStarted = () => {
             style={styles.Ellipse}
         >
             
-            <View style={styles.circle3}/>
-            <View style={styles.circle2}/> 
-            <View style={styles.circle1}/>
-            <Image source={Ellipse4} style={{position:"absolute",left:70,top:10}}/>
-            <Image source={Ellipse5} style={{position:"absolute",left:85,top:240}}/>
-            <Image source={Ellipse6} style={{position:"absolute",left:200,top:340}}/>
+            <View style={[styles.circle3, { opacity: 0.25 }]}>
+                <View style={[styles.circle2, { opacity: 1,position: 'absolute'}]}>
+                    <View style={styles.circle1}></View>
+                </View>
+                
+            </View>
+           
+            <Image source={Ellipse4} style={{position:"absolute",left:110,top:0,width:300,height:300}}/>
+            <Image source={Ellipse5} style={{position:"absolute",left:90,top:190}}/>
+            <Image source={Ellipse6} style={{position:"absolute",left:200,top:300}}/>
             <View
                 style={styles.NutrigenView}
             >
@@ -234,7 +251,7 @@ const GetStarted = () => {
             </View>
             
             <TouchableHighlight
-                onPress={()=>console.log("Button pressed")}
+                onPress={()=>handleHome()}
                 style={styles.getStarted}
             >
               
@@ -249,12 +266,8 @@ const GetStarted = () => {
                     <Image source={send}/>
                 </LinearGradient>
             </TouchableHighlight>
-            <View
-                style={styles.vectorView}
-            >
-                <Image source={vector1} style={styles.vector}/>
-            </View>
-        
+          
+            <Image source={vector1} style={styles.vector}/>
         </View>
         
     </View>

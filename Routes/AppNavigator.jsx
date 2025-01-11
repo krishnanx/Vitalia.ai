@@ -30,10 +30,7 @@ const AppNavigator = () => {
     >
       {!user?
       <>
-        <Stack.Screen 
-          name="GetStarted"
-          component={GetStarted}
-        />
+        
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -49,10 +46,15 @@ const AppNavigator = () => {
           component={SignupScreen}
           //options={{ headerShown: false }}
         />
+       
       </>:
       <>
       <Stack.Screen name="Details"
         component={DetailsCollection}
+        />
+       <Stack.Screen 
+          name="GetStarted"
+          component={GetStarted}
         />
       <Stack.Screen name="Home"
           component={Home} 

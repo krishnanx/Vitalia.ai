@@ -74,7 +74,7 @@ const AddHealthInfo = ({ route, navigation }) => {
     //the details contains all the health data
     //add the supabse logic here
     const response = await addSupaDetails(user,details)
-    navigation.navigate("Home");
+    
   }
 
   return (
