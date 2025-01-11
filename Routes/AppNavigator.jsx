@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../Context/AuthProvider'; // Correct path to AuthProvider
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, TransitionPresets,CardStyleInterpolators} from '@react-navigation/native-stack';
 import HomeStack from './HomeStack';
 import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
@@ -16,9 +16,12 @@ import Pro from '../Pages/Pro';
 import Account from '../Pages/Account';
 import AddHealth from '../Pages/AddHealth';
 import GetStarted from '../Pages/getStarted';
+import Anipage from '../Pages/Anipage';
+import { Easing } from 'react-native';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
+  
     const { user } = useAuth();
     return (
       <Stack.Navigator
@@ -30,58 +33,73 @@ const AppNavigator = () => {
     >
       {!user?
       <>
-        
+        <Stack.Screen
+          name="AnimationPage"
+          component={Anipage}
+          options={{animation:'fade'}}
+        />
         <Stack.Screen
           name="Welcome"
           component={Welcome}
-          //options={{ headerShown: false }}
+          options={{animation:'slide_from_bottom'}}
         />
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          //options={{ headerShown: false }}
+          options={{animation:'fade_from_bottom' }}
         />
         <Stack.Screen
           name="Signup"
           component={SignupScreen}
-          //options={{ headerShown: false }}
+          options={{animation:'fade_from_bottom' }}
         />
        
       </>:
       <>
       <Stack.Screen name="Details"
         component={DetailsCollection}
+        options={{animation:'fade' }}
+        />
+        <Stack.Screen name="AddHealthInfo"
+        component={AddHealth}
+        options={{animation:'fade_from_bottom' }}
         />
        <Stack.Screen 
           name="GetStarted"
           component={GetStarted}
+          options={{animation:'fade' }}
         />
-      <Stack.Screen name="Home"
-          component={Home} 
-       />
-        <Stack.Screen name="AddHealthInfo"
-        component={AddHealth}/>
-
+        <Stack.Screen name="Home"
+            component={Home} 
+            options={{animation:'fade' }}
+        />
         <Stack.Screen name="jane"
           component={Jane} 
+          options={{animation:'fade' }}
        />
         <Stack.Screen name="Scan"
-          component={Scanner} 
+          component={Scanner}
+          options={{animation:'fade' }} 
        />
         <Stack.Screen name="Saved"
-          component={Saved} 
+          component={Saved}
+          options={{animation:'fade' }} 
        />
         <Stack.Screen name="Profile"
-          component={Profile} 
+          component={Profile}
+          options={{animation:'fade' }} 
        />
         <Stack.Screen name="Dashboard"
-          component={Dashboard} 
+          component={Dashboard}
+          options={{animation:'fade' }} 
        />
        <Stack.Screen name = "Pro"
           component={Pro}
+          options={{animation:'fade' }}
        />
        <Stack.Screen name='Account'
-       component={Account}
+          component={Account}
+          options={{animation:'fade' }}
        />
       </>
      

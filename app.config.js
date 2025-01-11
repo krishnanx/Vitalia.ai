@@ -29,13 +29,13 @@ export default {
     entryPoint: "./index.js",
     version: "1.1.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
+    icon: "./assets/Ellipse 5.png",
     userInterfaceStyle: "light",
     newArchEnabled: true,
     splash: {
-      image: "./assets/splash-icon.png",
+      image:"./assets/Ellipse 5.png",
       resizeMode: "contain",
-      backgroundColor: "#ffffff",
+      backgroundColor: "black",
     },
     ios: {
       supportsTablet: true,
@@ -55,8 +55,8 @@ export default {
     ],
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#ffffff",
+        foregroundImage: "./assets/Ellipse 5.png",
+        backgroundColor: "pink",
       },
       permissions: [
         "android.permission.CAMERA",
