@@ -80,7 +80,7 @@ const Dashboard = () => {
     const styles = StyleSheet.create({
         Main:{
             flex:1,
-            backgroundColor: 'black',
+            backgroundColor: '#141414',
             width:'100%',
             height:'700',
             //justifyContent:'space-around',

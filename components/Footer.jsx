@@ -47,7 +47,7 @@ const Footer = () => {
         footer:{
             //height:60,
             //paddingHorizontal:30,
-            backgroundColor: currentPage === "Scan" ? "transparent" : "black",
+            backgroundColor: currentPage === "Scan" ? "transparent" : "#141414",
             flexDirection:"row",
             alignItems: 'center',
             justifyContent:"space-evenly",

@@ -12,7 +12,7 @@ const Account = () => {
             justifyContent: "center",
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'black',
+            backgroundColor: '#141414',
             width:'100%',
             margin:0,
             padding:0,

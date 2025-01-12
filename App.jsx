@@ -58,7 +58,7 @@ const App = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: currentPage === "Scan" ? "transparent" : "black",
+      backgroundColor: currentPage === "Scan" ? "transparent" : "#141414",
     },
   });
 
@@ -68,7 +68,7 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <StateContext>
         <FontContext>
-          <StatusBar style="light" backgroundColor={'black'} />
+          <StatusBar style="light" backgroundColor={'#141414'} />
           <NavigationContainer onStateChange={handleStateChange}>
             
           {/* {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
@@ -77,7 +77,7 @@ const App = () => {
             } */}
             <AppNavigator/>
             {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
-            currentPage=="Profile" || currentPage=="Pro"?
+            currentPage=="Profile" || currentPage=="Pro" ||currentPage=="Dashboard"?
             <Footer/>:""
             }
           </NavigationContainer>

@@ -40,7 +40,7 @@ const Scanner = () => {
   const styles = StyleSheet.create({
       Main:{
           flex:1,
-          backgroundColor: 'black',
+          backgroundColor: '#141414',
           width:'100%',
           height:870,
           justifyContent:'center',
@@ -219,11 +219,11 @@ const Scanner = () => {
   useEffect(()=>{
     if (hasPermission === null) {
       setState(-1);
-      setBackgroundColor("black");
+      setBackgroundColor("#141414");
     }
     if (hasPermission === false) {
       setState(0);
-      setBackgroundColor("black");
+      setBackgroundColor("#141414");
     }
     if (hasPermission === true) {
       setState(1);

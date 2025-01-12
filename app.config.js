@@ -35,7 +35,7 @@ export default {
     splash: {
       image:"./assets/Ellipse 5.png",
       resizeMode: "contain",
-      backgroundColor: "black",
+      backgroundColor: "#141414",
     },
     ios: {
       supportsTablet: true,

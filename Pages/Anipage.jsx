@@ -4,6 +4,7 @@ import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 import { font } from "../Context/fontContext";
 import Svg, { Text as SvgText, Defs, LinearGradient, Stop } from "react-native-svg";
+import { StatusBar } from 'expo-status-bar';
 const Anipage = () => {
     const navigation = useNavigation();
     const {fontsLoaded} = useContext(font)
@@ -32,6 +33,7 @@ const Anipage = () => {
     })
     return (
         <View style={styles.container}>
+            <StatusBar style="light" backgroundColor={'black'} />
             <Animatable.View animation="fadeIn" duration={3000} easing="ease-in-out" style={[styles.textContainer,{marginBottom:40}]}>
                 <Svg height="100" width="300">
                     <Defs>

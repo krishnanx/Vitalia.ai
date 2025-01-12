@@ -57,7 +57,7 @@ const Home = () => {
             flex: 1,
             flexDirection: 'column', // Main axis is vertical
             paddingTop:10,
-            backgroundColor: 'black',
+            backgroundColor: '#141414',
             justifyContent:"space-between",
             width:'100%',
             height:700,

@@ -15,7 +15,7 @@ const AddHealthInfo = ({ route, navigation }) => {
   const styles = StyleSheet.create({
     mainContainer: {
       flex: 1,
-      backgroundColor: 'black',
+      backgroundColor: '#141414',
     },
     title: {
       fontSize: 20,
