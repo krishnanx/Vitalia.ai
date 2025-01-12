@@ -39,12 +39,7 @@ const App = () => {
   ];
   //const [animation,setAnimation] = useState('');
   const previousIndex = useRef(0);
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'black',
-    },
-  });
+ 
 
   const theme = {
     ...DefaultTheme,
@@ -58,7 +53,14 @@ const App = () => {
   const [currentPage , setCurrentPage] = useState("");
   const handleStateChange = (state) => {
     setCurrentPage(state.routes[state.index].name);
+    console.log(state.routes[state.index].name)
   };
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: currentPage === "Scan" ? "transparent" : "black",
+    },
+  });
 
   return (
     <AuthProvider>

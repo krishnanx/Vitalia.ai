@@ -17,6 +17,8 @@ import history from '../functions/history';
 import { AuthContext } from '../Context/AuthProvider';
 
 import calcScore from '../functions/calcScore';
+import Svg, { Rect, Mask, G ,Path } from "react-native-svg";
+
 const Scanner = () => {
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo] = useContext(bgContext);
   const Navigation = useNavigation();
@@ -40,7 +42,7 @@ const Scanner = () => {
           flex:1,
           backgroundColor: 'black',
           width:'100%',
-          height:750,
+          height:870,
           justifyContent:'center',
           alignItems:'center'
 
@@ -83,8 +85,8 @@ const Scanner = () => {
       },
       Scanner:{
         width:'100%',
-        height:815,
-        justifyContent:'space-around',
+        height:870,
+        justifyContent:'flex-start',
         alignItems:'center', 
         position:'relative'     
       },
@@ -110,9 +112,10 @@ const Scanner = () => {
       },
       PicContainer:{
         height:500,
-        width:250,
+        width:330,
         flexDirection:'column',
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        marginTop:50
       },
       torchFeedback:{
         flexDirection:'row',
@@ -146,13 +149,54 @@ const Scanner = () => {
         
       },
       activityView:{
-        height:60,
+        height:100,
         width:250,
         flexDirection:'row',
         justifyContent:'center',
         alignItems:"center",
-        paddingHorizontal:10
-      }
+        paddingHorizontal:10,
+        marginBottom:20
+
+      },
+      viewSquare: {
+        width: 100,
+        height: 100,
+        backgroundColor: 'transparent',
+        position: 'relative',
+        marginTop:10,
+        justifyContent: 'center',
+        alignItems: 'center',   
+      },
+      corner: {
+        width: 20,
+        height: 20,
+        position: 'absolute',
+        backgroundColor:'white',
+      },
+      topLeft: {
+        top: 1,
+        left:-5,
+      },
+      topRight: {
+        top: 1,
+        right: -5,
+      },
+      bottomLeft: {
+        bottom:-9,
+        left: -5,
+      },
+      bottomRight: {
+        bottom: -9,
+        right: -5,
+      }, 
+      Level:{
+        //backgroundColor:'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 100,
+        height: 100,
+       
+      },
     
     
     })
@@ -250,11 +294,12 @@ const Scanner = () => {
             />*/}
              <CameraView 
                   ref={cameraRef} 
-                  style={[StyleSheet.absoluteFillObject ]}
+                  style={[StyleSheet.absoluteFillObject ,{height:870}]}
                   onCameraReady={() => console.log("Camera ready")} 
                   animateShutter={false} 
                   enableTorch={Torch}
                   autofocus={'on'}
+                  
                   //flash={'on'}
                   
                 />
@@ -268,27 +313,138 @@ const Scanner = () => {
                 <TouchableOpacity
                   style={styles.torchFeedback}
                   onPress={handleTorch}
-
                 >
                   {Torch?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
                 </TouchableOpacity>
               </View>
-              <View
-                  style={styles.barcodeView}
+              {/* <Svg
+                width="200"
+                height="200"
+                viewBox="0 0 260 200"
+                fill="white"
+                xmlns="http://www.w3.org/2000/svg"
               >
+                <Path
+                  d="M40 0 H160 A40 40 0 0 1 200 40 V160 A40 40 0 0 1 160 200 H40 A40 40 0 0 1 0 160 V40 A40 40 0 0 1 40 0 Z
+                    M10 40 A30 30 0 0 0 40 10 L60 10 Q40 10 40 40 Z
+                    M190 40 A30 30 0 0 0 160 10 L140 10 Q160 10 190 40 Z
+                    M190 160 A30 30 0 0 0 160 190 L140 190 Q160 190 190 160 Z
+                    M10 160 A30 30 0 0 0 40 190 L60 190 Q40 190 10 160 Z"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="4"
+                />
+              </Svg> */}
+              {/* <Svg width="200" height="200" viewBox="5 7 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Top-left corner}
+                <Path
+                  d="M10 40 A10 10 0 0 1 40 10 H9 V40 Z"
+                  fill="white"
+                />
+                
+                {/* Top-right corner}
+                <Path
+                  d="M160 10 A10 10 0 0 1 190 40 V10 H160 Z"
+                  fill="white"
+                />
+
+                {/* Bottom-left corner}
+                <Path
+                  d="M10 160 A10 10 0 0 0 40 190 H10 V160 Z"
+                  fill="white"
+                />
+
+                {/* Bottom-right corner}
+                <Path
+                  d="M190 160 A10 10 0 0 0 160 190 V160 H190 Z"
+                  fill="white"
+                  transform="rotate(180 175 175)" 
+                />
+              </Svg> */}
+              <View
+                style={{width:320,height:250,justifyContent:'center',alignItems:'center'}}
+              >
+                <Svg width={237} height={237} viewBox="0 0 237 237" fill="none">
+                  {/* Define the mask */}
+                  <Mask
+                    id="mask0_66_65"
+                    maskUnits="userSpaceOnUse"
+                    x={0}
+                    y={0}
+                    width={237}
+                    height={237}
+                  >
+                    {/* Rounded rectangle with a stroke */}
+                    <Rect
+                      x={1.5}
+                      y={1.5}
+                      width={234}
+                      height={234}
+                      rx={27.5}
+                      stroke="white"
+                      strokeWidth={3}
+                    />
+                  </Mask>
+                  {/* Use the mask */}
+                  <G mask="url(#mask0_66_65)">
+                    {/* Top-left rectangle */}
+                    <Rect
+                      x={-25.5811}
+                      y={-16.5522}
+                      width={85.7714}
+                      height={80.5048}
+                      fill="white"
+                    />
+                    {/* Top-right rectangle */}
+                    <Rect
+                      x={174.552}
+                      y={-16.5522}
+                      width={86.5238}
+                      height={80.5048}
+                      fill="white"
+                    />
+                    {/* Bottom-right rectangle */}
+                    <Rect
+                      x={177.562}
+                      y={171.543}
+                      width={85.7714}
+                      height={80.5048}
+                      fill="white"
+                    />
+                    {/* Bottom-left rectangle */}
+                    <Rect
+                      x={-26.3333}
+                      y={171.543}
+                      width={85.7714}
+                      height={80.5048}
+                      fill="white"
+                    />
+                  </G>
+                </Svg>
+
               </View>
+              
             </View>
             
-            {work===3?<Text
-              style={styles.requestCamera}
-            >Please scan again....</Text>
+            {work===3?
+            <View
+             style={styles.activityView}
+            >
+              <Text
+                style={styles.requestCamera}
+              >Please scan again....</Text>  
+            </View>
             :
             work===2?
-            <Text
-              style={styles.requestCamera}
-            > 
-              Scanned
-            </Text>
+            <View
+            style={styles.activityView}
+            >
+              <Text
+                style={styles.requestCamera}
+              > 
+                Scanned
+              </Text>
+            </View>
             :work===1?
              
               <View
@@ -302,9 +458,11 @@ const Scanner = () => {
                 <ActivityIndicator animating={true} color={MD2Colors.red800} style={{zIndex:6,justifyContent:'center',alignItems:'center',paddingLeft:5}} size={50}/>
               </View>
             :
-            <Text>
-              {""}
-            </Text>
+            <View
+            style={styles.activityView}
+            >
+              
+            </View>
             }
             <View
               style={styles.TakePicView}

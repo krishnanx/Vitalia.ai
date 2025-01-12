@@ -25,10 +25,12 @@ import bulb from "../assets/icons/lightbulb.png"
 import { MaterialIcons } from '@expo/vector-icons';
 
 const Footer = () => {
+   
     //const [isVisible, setIsVisible] = useState(false);
     const {user} = useContext(AuthContext)
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,route,setRoutes,value,setValue,bookmarks,setBookmarks,scanned,setScanned] = useContext(bgContext);
     const [isLoading, setIsLoading] = useState(false)
+    const currentPage = Location[Location.length - 1]
     const navigation = useNavigation();
     useEffect(()=> {
         ////console.log("Location",Location)    
@@ -45,14 +47,15 @@ const Footer = () => {
         footer:{
             //height:60,
             //paddingHorizontal:30,
-            backgroundColor: 'black',
+            backgroundColor: currentPage === "Scan" ? "transparent" : "black",
             flexDirection:"row",
             alignItems: 'center',
             justifyContent:"space-evenly",
-            borderTopWidth:1,
+            borderTopWidth:currentPage === "Scan" ?0:1,
             borderTopColor:'#282828',
             width:400,
-
+            position:currentPage === "Scan" ? "absolute" : "static",
+            bottom:currentPage === "Scan" ? 0: "none",
         },
         leftFooter:{
             flexDirection:'row',
@@ -148,7 +151,7 @@ const Footer = () => {
    
     
   return (
-    <View style={[styles.footer, { height:size,position:'relative' }]}>
+    <View style={[styles.footer, { height:size}]}>
               
                 <View
                     style={styles.leftFooter}

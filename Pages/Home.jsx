@@ -219,21 +219,26 @@ const Home = () => {
                         >
                             Scanned History
                         </Text>
-                        {scanned && Array.isArray(scanned) && scanned.length>0?(
-                            scanned.map((item,index)=>{
-                                return(
-                                    <Card
-                                        key = {item.code}
-                                        title={item.name}
-                                        imageURL={item.image}
-                                        score={item.score}
-                                        onPress={() => handleHistory(item)}
-                                    />
-                                )
-                            })
-                        ):(
-                            <></>
-                        )}
+                        <ScrollView
+                            horizontal={true}
+                        >
+                            {scanned && Array.isArray(scanned) && scanned.length>0?(
+                                scanned.map((item,index)=>{
+                                    return(
+                                        <Card
+                                            key = {item.code}
+                                            title={item.name}
+                                            imageURL={item.image}
+                                            score={item.score}
+                                            onPress={() => handleHistory(item)}
+                                        />
+                                    )
+                                })
+                            ):(
+                                <></>
+                            )}
+                        </ScrollView>
+                       
                     </View>
                 </View>
                
