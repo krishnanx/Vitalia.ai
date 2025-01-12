@@ -7,7 +7,7 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
     const styles = StyleSheet.create({
         card: {
           backgroundColor: '#1d1d1e',
-          borderRadius: 8,
+          borderRadius: 20,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.1,
@@ -15,13 +15,30 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
           elevation: 4,
           margin: 10,
           overflow: 'hidden',
-          width:250
+          width:350,
+          height:250
+        },
+        middleContainer:{
+          flexDirection:"row",
+          alignItems:"center",
+          width:350,
+          // borderWidth:1.5,
+          // borderColor:'white',
+          height:130,
+          justifyContent:'flex-start',
+          paddingLeft:20,
+         
         },
         imageContainer:{
+          height:130,
+          width:220,
+          justifyContent:"flex-start",
+          alignItems:'center',
           flexDirection:"row",
-          alignContent:"center",
-          paddingLeft:5,
-          width:300,
+          // borderWidth:1.5,
+          // borderColor:'white',
+          paddingLeft:10,
+          paddingTop:10,
         },
         image: {
           width: '40%',
@@ -29,18 +46,29 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
           objectFit:'scale-down'
         },
         content: {
-          marginTop:20,
+          //marginTop:20,
           padding: 0,
           flexDirection:"row",
-          justifyContent:"space-between"
+          justifyContent:"flex-end",
+          height:50,
+          // borderWidth:1.5,
+          // borderColor:'white',
+          borderBottomLeftRadius:20,
+          borderBottomRightRadius:20
+
         },
         title: {
-          fontSize: 15,
+          fontSize:20,
           fontWeight: 'bold',
           marginBottom: 0,
-          marginTop:10,
+          marginTop:13,
           color:"white",
-          marginLeft:7
+          marginLeft:13,
+          // borderWidth:1.5,
+          // borderColor:'white',
+          textAlign:'center',
+          paddingTop:10,
+         
         },
         description: {
           fontSize: 14,
@@ -56,7 +84,12 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
           fontWeight: 'bold',
         },
         box: {
-          marginLeft:30,
+          justifyContent:'center',
+          alignItems:"center",
+          width:120,
+          height:50,
+          // borderWidth:1.5,
+          // borderColor:'white'
           
         },
       });
@@ -73,21 +106,40 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
       }
   return (
     <View style={styles.card}>
-        <IconButton 
-            icon={!savePress?"bookmark-outline":"bookmark"}
-            style={{alignSelf:"flex-end"}}
-            iconColor={savePress?"white":"#fff"}
-            onPress={handleOnSavePress}
-         />
-        <View style={styles.imageContainer} >
-            {imageURL && <Image source={{uri: imageURL}} style={styles.image} />}
-            {image && !imageURL && <Image source={image} style={styles.image} />}
-            <View style={styles.box}>
-                <ScoreView HealthScore={score} />
-            </View>
-        </View>
-      <View style={styles.content}>
+      {/* <IconButton 
+          icon={!savePress?"bookmark-outline":"bookmark"}
+          style={{alignSelf:"flex-end"}}
+          iconColor={savePress?"white":"#fff"}
+          onPress={handleOnSavePress}
+      /> */}
+      <View
+        style={{width:350,height:70,/*borderWidth:1.5,borderColor:'white',*/borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'space-around',flexDirection:'row'}}
+      >
         {title && <Text style={styles.title}>{title}</Text>}
+        <View style={styles.box}>
+            <ScoreView HealthScore={score} />
+        </View>
+      </View>
+      <View 
+      style={styles.middleContainer} 
+      >
+        <View
+          style={styles.imageContainer} 
+        >
+          {imageURL && <Image source={{uri: imageURL}} style={styles.image} />}
+          {image && !imageURL && <Image source={image} style={styles.image} />}
+        </View>
+        {/* <View style={styles.box}>
+            <ScoreView HealthScore={score} />
+        </View> */}
+      </View>
+      <View style={styles.content}>
+        
+        <Text
+          style={{color:'white',textAlign:'center',paddingTop:15}}
+        >
+          More details
+        </Text>
         <IconButton icon="arrow-right" mode="outlined" iconColor='white' onPress={onPress}/>
       </View>
       

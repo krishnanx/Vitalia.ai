@@ -8,38 +8,45 @@ const ScoreView = ({HealthScore}) => {
             //backgroundColor:'black',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            width: 70,
-            height: 70,
+            width: 50,
+            height: 50,
             marginLeft:10,
             margintop:0,
             flexDirection:'row',
+            borderTopLeftRadius:20,
             
           },
           corner: {
-            width: 20,
-            height: 20,
+            width:15,
+            height:15,
             position: 'absolute',
             //backgroundColor:bgcolor,
+            borderTopLeftRadius:5,
+            borderTopRightRadius:5,
+            borderBottomLeftRadius:5,
+            borderBottomRightRadius:5,
+            
           },
           topLeft: {
-            top: 1,
-            left:-5,
+            top: 7,
+            left:-4,
+            
           },
           topRight: {
-            top: 1,
-            right: -5,
+            top: 7,
+            right:6,
           },
           bottomLeft: {
-            bottom:-9,
-            left: -5,
+            bottom:-4,
+            left: -4,
           },
           bottomRight: {
-            bottom: -9,
-            right: -5,
+            bottom:-4,
+            right:6,
           },
           viewSquare: {
-            width:70,
-            height:70,
+            width:40,
+            height:40,
             backgroundColor: '#1c1d1f',
             position: 'relative',
             marginTop:10,
@@ -49,11 +56,12 @@ const ScoreView = ({HealthScore}) => {
           },
           
           scoreView:{
-            width:'10%',
-            height:10,
+            //width:'10%',
+            //height:10,
             //backgroundColor:'black',
-            justifyContent:'flex-start',
-            paddingTop:20
+            //justifyContent:'flex-start',
+            marginTop:30
+            
     
     
           },
@@ -91,7 +99,7 @@ const ScoreView = ({HealthScore}) => {
                                                            "#AA0000",}]} />
           <View style={styles.viewSquare}>
               <Text
-                  style={{fontSize:50,fontWeight:'400',color:
+                  style={{fontSize:30,fontWeight:'400',color:
                     HealthScore === 'A' ? "#355e3b" :
                     HealthScore === 'B' ? "#32cd32" :
                     HealthScore === 'C' ? "#fdf718" :

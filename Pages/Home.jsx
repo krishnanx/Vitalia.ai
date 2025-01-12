@@ -1,18 +1,21 @@
 import React,{useEffect,useContext} from 'react'
 import { bgContext } from '../Context/StateContext';
 import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
-import { Button, IconButton } from 'react-native-paper';
-import trial from "../assets/trial.png";
 import Burger from "../assets/burger.png"
 import useLogOut from '../firebaseHooks/useLogOut';
 import { useNavigation } from '@react-navigation/native';
-import Auth from '../firebasefile/Auth';
 import Card from '../components/Card';
 import { useRoute } from '@react-navigation/native';
 import { AuthContext } from '../Context/AuthProvider';
 import handlePull from '../functions/handlePull';
+import { Searchbar } from 'react-native-paper';
+import Search from "../assets/icons/search.svg"
+import Svg, { Path } from "react-native-svg";
+import { font } from '../Context/fontContext'
 const Home = () => {
     const route = useRoute();
+    const {fontsLoaded} = useContext(font)
+    const [searchQuery, setSearchQuery] = React.useState('');
     const {history: his } = route.params || {};
     const {user} = useContext(AuthContext)
     //console.log("his:",his["_j"]);
@@ -44,6 +47,7 @@ const Home = () => {
         
 
     },[user])
+    const name = "Krishnan E"
     const handleHistory = (item) => {
         setInfo(item);
         Navigation.navigate("Dashboard")
@@ -54,7 +58,11 @@ const Home = () => {
             flexDirection: 'column', // Main axis is vertical
             paddingTop:10,
             backgroundColor: 'black',
-            justifyContent:"space-between"
+            justifyContent:"space-between",
+            width:'100%',
+            height:700,
+            paddingHorizontal:10,
+            paddingVertical:20,
         },
         header:{
             //marginTop:40,
@@ -101,10 +109,14 @@ const Home = () => {
             flexDirection:'column',
             justifyContent:'space-between',
             paddingHorizontal:20,
-            paddingVertical:50,
+            paddingVertical:20,
         },
         HeroTop:{
-            height:300
+            height:400,
+            marginTop:40,
+            alignItems:"center",
+            flexDirection:'column',
+            width:'100%'
         },
         HeroBottom:{
             height:300
@@ -127,9 +139,53 @@ const Home = () => {
       
   return (
        <View style={styles.container}>
-           <View style={styles.hero}>
                 <View style={styles.HeroTop}>
-                    <Text style={styles.textHero}>
+                    <Searchbar
+                        style={{padding:0,margin:0,width:350}}
+                        icon={()=>(
+                            <View
+                                style={{width:40,height:40,backgroundColor:'black',borderRadius:0,justifyContent:'center',alignItems:'center'}}
+                            >
+                                <Svg width={30} height={30} viewBox="0 -960 960 960">
+                                    <Path
+                                        d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+                                        fill="white"
+                                    />
+                                </Svg>
+                            </View>   
+                            
+                        )}
+                        onChangeText={setSearchQuery}
+                        value={searchQuery}
+                    />
+                   
+                    <View
+                        style={{width:350,height:100,marginTop:50,justifyContent:'center',padding:0}}
+                    >
+                        <Text
+                            style={{fontSize:40,color:'white',fontFamily:'Poppins-Medium',textAlign:'left'}}
+                        >
+                            Hi, {name}!
+                        </Text>
+                        <View
+                            style={{flexDirection:'row',height:20,justifyContent:'flex-start',alignItems:'center'}}
+                        >
+                           
+                            <Svg width={20} height={20} viewBox="0 -960 960 960">
+                                    <Path
+                                        d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z"
+                                        fill="#FFC300"
+                                    />
+                                </Svg>
+                            <Text
+                                style={{fontSize:10,color:'white',fontFamily:'Poppins-Medium',textAlign:'left',marginLeft:5}}
+                            >
+                                Prime member
+                            </Text>
+                        </View>
+                       
+                    </View>
+                    {/* {<Text style={styles.textHero}>
                         SCANNED HISTORY
                     </Text>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.ScrollView}>
@@ -137,7 +193,7 @@ const Home = () => {
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
-                        <Image source={trial} style={styles.trial}/> */}
+                        <Image source={trial} style={styles.trial}/>}
                         {scanned && Array.isArray(scanned) && scanned.length>0?(
                             scanned.map((item,index)=>{
                                 return(
@@ -154,9 +210,34 @@ const Home = () => {
                         
                         
                        
-                    </ScrollView>
+                    </ScrollView>*/}
+                    <View
+                        style={{width:'100%',/*borderWidth:1.5,borderColor:"white"*/}}
+                    >
+                        <Text
+                            style={{color:'white',fontSize:25,fontFamily:'Poppins-SemiBold',paddingLeft:10}}
+                        >
+                            Scanned History
+                        </Text>
+                        {scanned && Array.isArray(scanned) && scanned.length>0?(
+                            scanned.map((item,index)=>{
+                                return(
+                                    <Card
+                                        key = {item.code}
+                                        title={item.name}
+                                        imageURL={item.image}
+                                        score={item.score}
+                                        onPress={() => handleHistory(item)}
+                                    />
+                                )
+                            })
+                        ):(
+                            <></>
+                        )}
+                    </View>
                 </View>
-                <View  style={styles.HeroBottom}>
+               
+                {/* <View  style={styles.HeroBottom}>
                     <Text style={styles.textHero}>
                         RECOMMENDER FOR YOU
                     </Text>
@@ -165,7 +246,7 @@ const Home = () => {
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
                         <Image source={trial} style={styles.trial}/>
-                        <Image source={trial} style={styles.trial}/> */}
+                        <Image source={trial} style={styles.trial}/>}
                         <Card
                             title="American Burger"
                             image={Burger}
@@ -191,8 +272,8 @@ const Home = () => {
                             onPress={() => alert('Learn More Pressed!')}
                         />
                     </ScrollView>
-                </View>
-           </View>
+                </View> */}
+          
         </View>
        
   )

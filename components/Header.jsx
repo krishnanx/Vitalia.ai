@@ -32,10 +32,10 @@ const Header = () => {
             flexDirection:"row",
             alignItems: 'center',
             justifyContent:"space-between",
-            borderBottomWidth:1,
-            borderBottomColor:'#979797',
+           
             paddingTop:30,
-            paddingHorizontal:5,
+            paddingRight:5,
+            paddingLeft:20
             
 
         },

@@ -69,7 +69,10 @@ const App = () => {
           <StatusBar style="light" backgroundColor={'black'} />
           <NavigationContainer onStateChange={handleStateChange}>
             
-            <Header/>
+          {/* {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
+            currentPage=="Profile" || currentPage=="Pro"?
+            <Header/>:<></>
+            } */}
             <AppNavigator/>
             {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
             currentPage=="Profile" || currentPage=="Pro"?
