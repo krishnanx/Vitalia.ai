@@ -460,26 +460,30 @@ const Dashboard = () => {
                                                                     info.score === 'A' ? "#355e3b" :
                                                                     info.score === 'B' ? "#32cd32" :
                                                                     info.score === 'C' ? "#fdf718" :
-                                                                    info.score === 'D' ? "#ED7014" : 
-                                                                    "#AA0000",}]} />
+                                                                    info.score === 'D' ? "#ED7014" :
+                                                                    info.score === 'D'? "#AA0000":
+                                                                    "transparent"}]} />
                     <View style={[styles.corner, styles.topRight,{ backgroundColor:
                                                                     info.score === 'A' ? "#355e3b" :
                                                                     info.score === 'B' ? "#32cd32" :
                                                                     info.score === 'C' ? "#fdf718" :
-                                                                    info.score === 'D' ? "#ED7014" : 
-                                                                    "#AA0000",}]} />
+                                                                    info.score === 'D' ? "#ED7014" :
+                                                                    info.score === 'D'? "#AA0000":
+                                                                    "transparent"}]} />
                     <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
-                                                                    info.score === 'A' ? "#355e3b" :
-                                                                    info.score === 'B' ? "#32cd32" :
-                                                                    info.score === 'C' ? "#fdf718" :
-                                                                    info.score === 'D' ? "#ED7014" : 
-                                                                    "#AA0000",}]} />
+                                                                   info.score === 'A' ? "#355e3b" :
+                                                                   info.score === 'B' ? "#32cd32" :
+                                                                   info.score === 'C' ? "#fdf718" :
+                                                                   info.score === 'D' ? "#ED7014" :
+                                                                   info.score === 'D'? "#AA0000":
+                                                                   "transparent"}]} />
                     <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
                                                                     info.score === 'A' ? "#355e3b" :
                                                                     info.score === 'B' ? "#32cd32" :
                                                                     info.score === 'C' ? "#fdf718" :
-                                                                    info.score === 'D' ? "#ED7014" : 
-                                                                    "#AA0000",}]} />
+                                                                    info.score === 'D' ? "#ED7014" :
+                                                                    info.score === 'D'? "#AA0000":
+                                                                    "transparent"}]} />
                     <View style={styles.viewSquare}>
                         
                         <Text
