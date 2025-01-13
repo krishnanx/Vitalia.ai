@@ -9,6 +9,7 @@ import info from "../assets/info.png"
 import contact from "../assets/contact.png"
 import terms from "../assets/terms.png"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
+import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
 const Profile = () => {
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
@@ -70,6 +71,16 @@ const Profile = () => {
           alignItems:'center',
           color:'white'
         },
+        navigator:{
+          height:70,
+          width:350,
+          justifyContent:'flex-start',
+          alignItems:'center',
+          // borderWidth:1.5,
+          // borderColor:'white'
+          flexDirection:'row'
+          
+      },
 
        
     })
@@ -79,6 +90,39 @@ const Profile = () => {
   return (
     <>
       <View style={styles.Main}>
+        <View
+          style={styles.navigator}
+        >
+          <TouchableOpacity>
+              <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
+                  {/* Define the mask */}
+                  <Mask
+                      id="mask0_82_433"
+                      maskUnits="userSpaceOnUse"
+                      x={0}
+                      y={0}
+                      width={24}
+                      height={24}
+                  >
+                      <Rect width={24} height={24} fill="#D9D9D9" />
+                  </Mask>
+
+                  {/* Apply the mask */}
+                  <G mask="url(#mask0_82_433)">
+                      {/* Arrow Path */}
+                      <Path
+                      d="M10 18L4 12L10 6L11.4 7.45L7.85 11H20V13H7.85L11.4 16.55L10 18Z"
+                      fill="white"
+                      />
+                  </G>
+              </Svg>
+          </TouchableOpacity>
+          <Text
+            style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'center',marginLeft:20}}
+          >
+            More
+          </Text>
+        </View>
         <TouchableHighlight
             style={styles.dashboardButton}
             underlayColor="#1c1d1f" // Color when the button is pressed

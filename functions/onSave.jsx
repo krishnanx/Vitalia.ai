@@ -1,7 +1,7 @@
 import { supabase } from "../Supabase/supabase"
 import React, { useContext } from 'react'
 
-const onSave = async(user,data) => {
+const onSave = async(user,result) => {
     console.log("onSave")
     //console.log("user:",user.uid);
     //console.log("data:",data)
@@ -9,9 +9,9 @@ const onSave = async(user,data) => {
         const uid = user.uid
 
         const {value, error } = await supabase
-        .from('Saved')
+        .from('saved')
         .insert([
-        {user_id:uid,code:data.barcode_info,brandName:data.Brand,name:data.Name,image:data.Image,ingredients:data.ingredients,nutrients:data.Nutrients,score:data.HealthScore},
+        {user_id:uid,code:result.code,brandName:result.brandName,name:result.name,image:result.image,ingredients:result.ingredients,nutrients:result.nutrients,score:result.score,Nutri:result.Nutri},
         ])
         .select()
         if(error){

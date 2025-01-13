@@ -8,7 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import onDelete from '../functions/onDelete';
 import checkSave from '../functions/checkSave';
 import { useRoute } from '@react-navigation/native';
-
+import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
+import Card from '../components/Card';
 const Saved = () => {
   const {user} = useContext(AuthContext)
 
@@ -58,7 +59,23 @@ const Saved = () => {
     console.log("footer response:",response);
     setValue(response);
   }
+  useEffect(()=>{
+    //console.log("HOME HISTORY:",scanned)
+    const check = async() => {
+        const response = await handlePull(user,"saved")
+        console.log("response???:",response)
+        setScanned(response)
+        return response;
+    }
+    const response = check();
+    
+
+  },[user])
   const [fav,setFav] = useState(true)
+  const handleHistory = (item) => {
+    setInfo(item);
+    Navigation.navigate("Dashboard")
+  }
   /*useEffect(()=>{
     console.log("saved value:",value)
 
@@ -66,10 +83,13 @@ const Saved = () => {
   const styles = StyleSheet.create({
       Main:{
         flex:1,
-        backgroundColor: '#141414', 
+        backgroundColor: '#141414',
         width:'100%',
         height:700,
-        padding:10,
+        //justifyContent:'space-around',
+        //marginVertical:10,
+        paddingTop:50,
+        alignItems:'center'
       },
       blocks:{
         width:'100%',
@@ -204,122 +224,80 @@ const Saved = () => {
         height:40,
         justifyContent:'center',
         alignItems:'center'
-      }
+      },
+      navigator:{
+        height:70,
+        width:350,
+        justifyContent:'flex-start',
+        alignItems:'center',
+        // borderWidth:1.5,
+        // borderColor:'white'
+        flexDirection:'row'
+        
+    },
 
   })
   return (
-  <ScrollView 
-    style={styles.Main}
-    contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
-  >
-    {Array.isArray(value) && value.length > 0 ? 
-    
-    (value.map((item,index)=>{
-      //console.log('Item Code:', item.code);
-      //console.log('Bookmark Status:', bookmarks[`${item.code}`]);
-      //console.log('Bookmarks Object:', bookmarks);
-
-
-      return(
-      <View
-        style={styles.blocks}
-        key={item.code}
-      >
-        <View
-          style={styles.info}
-        >
-          <View
-            style={styles.imageContainer}
-          >
-           <Image source={{uri: item.image}} style={styles.image}/>
-          </View>
-          <View
-            style={styles.name}
-          >
-            <Text
-               style={{textAlign:'center',fontSize:22,color:'white'}}
-            >
-              {item.brandName}
-            </Text>
-            <Text
-              style={{textAlign:'center',fontSize:20,color:'white'}}
-            >
-              {item.name}
-            </Text>
-          </View>
-        </View>
-        <View
-          style={styles.Score}
-        >
-          <View
-            style={styles.save}
-          >
-            <TouchableOpacity
-              style={styles.saveFunc}
-              onPress={() => toggleBookmark(item)} // Correct usage
-              activeOpacity={0.5}
-            >
-                <Icon
-                  name="trash-can-outline"
-                  size={30}
-                  color="white"
-                />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={styles.scoreView}
-          >
-            <View
-                style={styles.Level}
-              >
-                <View style={[styles.corner, styles.topLeft,{ backgroundColor:
-                                                              item.HealthScore === 'A' ? "#355e3b" :
-                                                              item.HealthScore === 'B' ? "#32cd32" :
-                                                              item.HealthScore === 'C' ? "#fdf718" :
-                                                              item.HealthScore === 'D' ? "#ED7014" : 
-                                                              "#AA0000",}]} />
-                <View style={[styles.corner, styles.topRight,{ backgroundColor:
-                                                                 item.HealthScore === 'A' ? "#355e3b" :
-                                                                 item.HealthScore === 'B' ? "#32cd32" :
-                                                                 item.HealthScore === 'C' ? "#fdf718" :
-                                                                 item.HealthScore === 'D' ? "#ED7014" : 
-                                                                 "#AA0000",}]} />
-                <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
-                                                                 item.HealthScore === 'A' ? "#355e3b" :
-                                                                 item.HealthScore === 'B' ? "#32cd32" :
-                                                                 item.HealthScore === 'C' ? "#fdf718" :
-                                                                 item.HealthScore === 'D' ? "#ED7014" : 
-                                                                 "#AA0000",}]} />
-                <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
-                                                                 item.HealthScore === 'A' ? "#355e3b" :
-                                                                 item.HealthScore === 'B' ? "#32cd32" :
-                                                                 item.HealthScore === 'C' ? "#fdf718" :
-                                                                 item.HealthScore === 'D' ? "#ED7014" : 
-                                                                 "#AA0000",}]} />
-                <View style={styles.viewSquare}>
-                    <Text
-                        style={{fontSize:50,fontWeight:'400',color:
-                          item.HealthScore < 50
-                            ? '#FF0000'
-                            : item.HealthScore > 80
-                            ? '#01ff01'
-                            : '#f5f501',}}
-                    >
-                        {item.score}
-                    </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-    )}))
-    :
-    <Text
-      style={{justifyContent:'center',alignItems:'center'}}
+    <View
+      style={styles.Main}
     >
-      NO
-    </Text>}
+      <View
+        style={styles.navigator}
+      >
+        <TouchableOpacity>
+            <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
+                {/* Define the mask */}
+                <Mask
+                    id="mask0_82_433"
+                    maskUnits="userSpaceOnUse"
+                    x={0}
+                    y={0}
+                    width={24}
+                    height={24}
+                >
+                    <Rect width={24} height={24} fill="#D9D9D9" />
+                </Mask>
+
+                {/* Apply the mask */}
+                <G mask="url(#mask0_82_433)">
+                    {/* Arrow Path */}
+                    <Path
+                    d="M10 18L4 12L10 6L11.4 7.45L7.85 11H20V13H7.85L11.4 16.55L10 18Z"
+                    fill="white"
+                    />
+                </G>
+            </Svg>
+        </TouchableOpacity>
+        <Text
+          style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'center',marginLeft:20}}
+        >
+          Saved
+        </Text>
+      </View>
+      <ScrollView 
+        //style={{}}
+        contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
+      >
+      {scanned && Array.isArray(scanned) && scanned.length>0?(
+        scanned.map((item,index)=>{
+          console.log(item)
+          return(
+              <Card
+                key = {item.code}
+                title={item.name}
+                imageURL={item.image}
+                score={item.score}
+                onPress={() => handleHistory(item)}
+              />
+          )
+        })
+        ):(
+            <></>
+        )}
   </ScrollView>
+    </View>
+    
+  
   )
 }
 

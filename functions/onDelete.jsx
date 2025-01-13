@@ -1,5 +1,5 @@
 import { supabase } from "../Supabase/supabase"
-const onDelete = async(user,code,data) => {
+const onDelete = async(user,code,result) => {
     
     try{
         const uid = user.uid
@@ -12,14 +12,14 @@ const onDelete = async(user,code,data) => {
         .eq("code",code);
         if(error){
             console.log("error deleting row",error)
-            return data
+            return result
         }
         console.log("deleted!!!!!")
-        return data
+        return result
     }
     catch(e){
         console.log("error deleting row",e)
-        return data;
+        return result;
     }
 
 }

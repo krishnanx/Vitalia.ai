@@ -123,7 +123,7 @@ const Footer = () => {
     
         if (screenName === "Saved") {
             const check = async () => {
-                const response = await handlePull(user,"Saved");
+                const response = await handlePull(user,"saved");
                 //console.log("footer response:", response);
                 setValue(response);
     

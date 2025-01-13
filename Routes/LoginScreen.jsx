@@ -77,7 +77,7 @@ export default function LoginScreen({ navigation }) {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'black',
+      backgroundColor: '#141414',
     },
     welcomeContainer:{
       justifyContent:"center",
