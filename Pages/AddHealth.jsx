@@ -5,10 +5,15 @@ import React, { useContext, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AuthContext } from '../Context/AuthProvider';
 import addSupaDetails from '../functions/addSupaDetails';
+import StyledRadioButton from '../components/StyledRadioButton';
+import StyledButton from '../components/StyledButton';
+import CustomDialog from '../components/CustomDialog';
+
 const AddHealth = ({ route, navigation }) => {
   const { email, password, userDetails } = route.params;
   const [details, setDetails] = useState(userDetails);
-  const [allergy , setAllergy] = useState("");
+  const [dialogMessage , setDialogMessage] = useState("");
+  const [isDialogVisible , setIsDialogVisible] = useState(false);
   const {user} = useContext(AuthContext)
 
   const styles = StyleSheet.create({
@@ -36,6 +41,7 @@ const AddHealth = ({ route, navigation }) => {
     },
     options: {
       marginTop: 20,
+      gap:10,
       width: '100%',
     },
     icons: {
@@ -60,13 +66,14 @@ const AddHealth = ({ route, navigation }) => {
     }
   });
   const handleNext = async()=>{
-    
     if(!details.diet){
-      alert("Please select a diet")
+      setDialogMessage("Please select a Diet");
+      setIsDialogVisible(true);
       return
     }
     if(!details.lifestyle){
-      alert("Please select a lifestyle goal")
+      setDialogMessage("Please select a lifestyle goal");
+      setIsDialogVisible(true)
       return
     }
     const response = await addSupaDetails(user,details)
@@ -76,120 +83,75 @@ const AddHealth = ({ route, navigation }) => {
     navigation.navigate("GetStarted");
   }
 
+  const addDisease = (disease) => {
+    setDetails((prevDetails) => ({
+      ...prevDetails,
+      disease: prevDetails.disease.includes(disease)
+        ? prevDetails.disease.filter((d) => d !== disease) // Remove if exists
+        : [...prevDetails.disease, disease], // Add if not exists
+    }));
+  };
+
+  const isDiseasePresent = (diseaseToCheck) => {
+    return details.disease.includes(diseaseToCheck);
+  };
+  const clearDiseases = () => {
+    setDetails((prevDetails) => ({
+      ...prevDetails,
+      disease: [],
+    }));
+  };
+    
+  
+
   return (
     <ScrollView style={styles.mainContainer} >
+      <CustomDialog visible={isDialogVisible} onClose={()=>setIsDialogVisible(false)} message={dialogMessage} />
       <Text style={styles.title}>Add Health Info</Text>
       <View style={styles.subContainer}>
         <Text style={styles.subTitle}>Dietary Preferences</Text>
         <View style={styles.options}>
-          <RadioButton.Group
-            onValueChange={(newValue) =>
-              setDetails({ ...details, diet: newValue })
-            }
-            value={details.diet}
-          >
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 10,
-              }}
-            >
-              <RadioButton value="vegetarian" />
-              <Text style={{ color: 'gray' }}>Vegetarian</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 10,
-              }}
-            >
-              <RadioButton value="vegan" />
-              <Text style={{ color: 'gray' }}>Vegan</Text>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <RadioButton value="non vegetarian" />
-              <Text style={{ color: 'gray' }}>Non Vegetarian</Text>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <RadioButton value="jain" />
-              <Text style={{ color: 'gray' }}>Jain</Text>
-            </View>
-          </RadioButton.Group>
+          <StyledRadioButton text='Vegetarian' selected={details.diet=="Vegetarian"} onPress={()=>setDetails({...details , diet:"Vegetarian"})}/>
+          <StyledRadioButton text='Non Vegetarian' selected={details.diet=="Non Vegetarian"} onPress={()=>setDetails({...details , diet:"Non Vegetarian"})}/>
+          <StyledRadioButton text='Jain' selected={details.diet=="Jain"} onPress={()=>setDetails({...details , diet:"Jain"})}/>
+          <StyledRadioButton text='Vegan' selected={details.diet=="Vegan"} onPress={()=>setDetails({...details , diet:"Vegan"})}/>
         </View>
       </View>
 
       <View style={styles.subContainer}>
         <Text style={styles.subTitle}>Health and Lifestyle Goals</Text>
         <View style={styles.options}>
-          <RadioButton.Group
-            onValueChange={(newValue) =>
-              setDetails({ ...details, lifestyle: newValue })
-            }
-            value={details.lifestyle}
-          >
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 10,
-              }}
-            >
-              <RadioButton value="weight loss" />
-              <Text style={{ color: 'gray' }}>Weight Loss</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 10,
-              }}
-            >
-              <RadioButton value="cardio training" />
-              <Text style={{ color: 'gray' }}>Cardio Training</Text>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <RadioButton value="strength training" />
-              <Text style={{ color: 'gray' }}>Strength Training</Text>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <RadioButton value="healthy heart" />
-              <Text style={{ color: 'gray' }}>Healthy Heart</Text>
-            </View>
-          </RadioButton.Group>
+          <StyledRadioButton text='Weight Loss' selected={details.lifestyle=="Weight Loss"} onPress={()=>setDetails({...details , lifestyle:"Weight Loss"})}/>
+          <StyledRadioButton text='Cardio Training' selected={details.lifestyle=="Cardio Training"} onPress={()=>setDetails({...details , lifestyle:"Cardio Training"})}/>
+          <StyledRadioButton text='Strength Training' selected={details.lifestyle=="Strength Training"} onPress={()=>setDetails({...details , lifestyle:"Strength Training"})}/>
+          <StyledRadioButton text='Healthy Heart' selected={details.lifestyle=="Healthy Heart"} onPress={()=>setDetails({...details , lifestyle:"Healthy Heart"})}/>
         </View>
+      </View>
 
-        <View style={styles.subContainer}>
-          <Text style={styles.subTitle}>Allergies and Aversions</Text>
-          <View style={styles.icons}>
-            
-            {/* <TouchableHighlight>
-              <View style={styles.button}>
-                <IconButton icon="barley" size={50} />
-                <Text style={{ color: 'gray', fontSize: 10 }}>Gluten</Text>
-              </View>
-            </TouchableHighlight> */}
-            <AllergyButton buttonIcon="barley" text="Gluten" selected={details.disease=="Gluten"} onPress={()=>setDetails({...details,disease:"Gluten"})}/>
-            <AllergyButton buttonIcon="corn" text="Corn" selected={details.disease=="Corn"} onPress={()=>setDetails({...details,disease:"Corn"})}/>
-            <AllergyButton buttonIcon="egg-outline" text="Egg" selected={details.disease=="Egg"} onPress={()=>setDetails({...details,disease:"Egg"})}/>
-            <AllergyButton buttonIcon="fish" text="Fish" selected={details.disease=="Fish"} onPress={()=>setDetails({...details,disease:"Fish"})}/>
-            <AllergyButton buttonIcon="food-steak" text="Meat" selected={details.disease=="Meat"} onPress={()=>setDetails({...details,disease:"Meat"})}/>
-            <AllergyButton buttonIcon="peanut-outline" text="Peanut" selected={details.disease=="Peanut"} onPress={()=>setDetails({...details,disease:"Peanut"})}/>
-            <AllergyButton buttonIcon="bottle-soda" text="Milk" selected={details.disease=="Milk"} onPress={()=>setDetails({...details,disease:"Milk"})}/>
-            <AllergyButton buttonIcon="duck" text="Poultry" selected={details.disease=="Poultry"} onPress={()=>setDetails({...details,disease:"Poultry"})}/>
-            <AllergyButton buttonIcon="carrot" text="Root Vegetable" selected={details.disease=="Root Vegetable"} onPress={()=>setDetails({...details,disease:"Root Vegetable"})}/>
-            <AllergyButton buttonIcon="soy-sauce" text="Soy" selected={details.disease=="Soy"} onPress={()=>setDetails({...details,disease:"Soy"})}/>
-            <AllergyButton buttonIcon="yeast" text="Yeast" selected={details.disease=="Yeast"} onPress={()=>setDetails({...details,disease:"Yeast"})}/>
-            <AllergyButton buttonIcon="beehive-outline" text="Honey" selected={details.disease=="Honey"} onPress={()=>setDetails({...details,disease:"Honey"})}/>
-            <AllergyButton buttonIcon="mushroom" text="Fungus" selected={details.disease=="Fungus"} onPress={()=>setDetails({...details,disease:"Fungus"})}/>
-            <AllergyButton buttonIcon="liquor" text="Alcohol"selected={details.disease=="Alcohol"} onPress={()=>setDetails({...details,disease:"Alcohol"})}/>
-            <AllergyButton buttonIcon="close" text="Clear Selection"selected={false} onPress={()=>setDetails({...details,disease:""})}/>
-          </View>
-          <View style={{width:"85%" , flexDirection:"row" ,justifyContent:"space-between", marginTop:15}}>
-            <Button mode="contained" style={styles.button2} onPress={()=>handleNext()}>Back</Button>
-            <Button mode="contained" style={styles.button2} onPress={()=>handleNext()}>Next</Button>
-          </View>
+      <View style={styles.subContainer}>
+        <Text style={styles.subTitle}>Allergies and Aversions</Text>
+        <View style={styles.icons}>
+          <AllergyButton buttonIcon="barley" text="Gluten" selected={isDiseasePresent("Gluten")} onPress={() => addDisease("Gluten")}/>
+          <AllergyButton buttonIcon="corn" text="Corn" selected={isDiseasePresent("Corn")} onPress={() => addDisease("Corn")}/>
+          <AllergyButton buttonIcon="egg-outline" text="Egg" selected={isDiseasePresent("Egg")} onPress={() => addDisease("Egg")}/>
+          <AllergyButton buttonIcon="fish" text="Fish" selected={isDiseasePresent("Fish")} onPress={() => addDisease("Fish")}/>
+          <AllergyButton buttonIcon="food-steak" text="Meat" selected={isDiseasePresent("Meat")} onPress={() => addDisease("Meat")}/>
+          <AllergyButton buttonIcon="peanut-outline" text="Peanut" selected={isDiseasePresent("Peanut")} onPress={() => addDisease("Peanut")}/>
+          <AllergyButton buttonIcon="bottle-soda" text="Milk" selected={isDiseasePresent("Milk")} onPress={() => addDisease("Milk")}/>
+          <AllergyButton buttonIcon="duck" text="Poultry" selected={isDiseasePresent("Poultry")} onPress={() => addDisease("Poultry")}/>
+          <AllergyButton buttonIcon="carrot" text="Root Vegetable" selected={isDiseasePresent("Root Vegetable")} onPress={() => addDisease("Root Vegetable")}/>
+          <AllergyButton buttonIcon="soy-sauce" text="Soy" selected={isDiseasePresent("Soy")} onPress={() => addDisease("Soy")}/>
+          <AllergyButton buttonIcon="yeast" text="Yeast" selected={isDiseasePresent("Yeast")} onPress={() => addDisease("Yeast")}/>
+          <AllergyButton buttonIcon="beehive-outline" text="Honey" selected={isDiseasePresent("Honey")} onPress={() => addDisease("Honey")}/>
+          <AllergyButton buttonIcon="mushroom" text="Fungus" selected={isDiseasePresent("Fungus")} onPress={() => addDisease("Fungus")}/>
+          <AllergyButton buttonIcon="liquor" text="Alcohol" selected={isDiseasePresent("Alcohol")} onPress={() => addDisease("Alcohol")}/>
+          <AllergyButton buttonIcon="close" text="Clear Selection" selected={false} onPress={() => clearDiseases()}/>
+        </View>
+        <View style={{width:"85%" , flexDirection:"row" ,justifyContent:"space-between",alignItems:"center", marginTop:15}}>
+          <TouchableHighlight onPress={()=>navigation.navigate("Details")}>
+            <Text style={{fontSize:16 , fontWeight:400 , color:"#5F6061"}}>Back</Text>
+          </TouchableHighlight>
+          <StyledButton width={100} height={40} title={"Next"} onPress={handleNext} />
         </View>
       </View>
     </ScrollView>

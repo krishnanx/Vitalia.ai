@@ -19,6 +19,8 @@ const useLogin = () => {
 
     } catch (err) {
       setError(err.message); // Handle any errors
+      console.log(error.message)
+      throw err
       //console.log('Error logging in:', err.message);
 
     } finally {

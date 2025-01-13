@@ -5,7 +5,7 @@ import Ellipse5  from "../assets/Ellipse 5.png"
 import Ellipse6  from "../assets/Ellipse 6.png"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import send from "../assets/send.png"
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import vector1 from "../assets/Vector 1.png";
 import { useFonts } from 'expo-font';
 import { font } from '../Context/fontContext'

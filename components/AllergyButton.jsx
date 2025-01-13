@@ -8,7 +8,7 @@ const AllergyButton = ({buttonIcon , onPress , text , selected}) => {
         button: {
             borderRadius: 10,
             borderWidth: 1,
-            borderColor: !selected?"gray":"#007bff",
+            borderColor: !selected?"gray":"#944EE0",
             height: 100,
             width: 100,
             marginTop: 10,
@@ -20,7 +20,7 @@ const AllergyButton = ({buttonIcon , onPress , text , selected}) => {
   return (
     <TouchableHighlight onPress={onPress || (() => { console.log(`${text} Button pressed`) })}>
         <View style={styles.button}>
-          <IconButton icon={buttonIcon} size={50} iconColor={!selected?"gray":"#007bff"} />
+          <IconButton icon={buttonIcon} size={50} iconColor={!selected?"gray":"#944EE0"} />
           <Text style={{ color: 'gray', fontSize: 10 }}>{text}</Text>
         </View>
     </TouchableHighlight>
