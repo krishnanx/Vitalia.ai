@@ -579,8 +579,36 @@ const Dashboard = () => {
             :
             <View
             style={styles.Nutrients}
-            >
-               {Array.isArray(info?.Nutri?.value) &&
+            >   
+                {Array.isArray(info?.Nutri?.value) && 
+                <View
+                    style={{
+                        width:250,marginLeft:20,height: 40,justifyContent:'flex-start',
+                        flexDirection:'row',alignItems:'center'}}
+                >
+                    <Text
+                        style={{color:'white',fontFamily:'Poppins-Light',fontSize:20,marginRight:5}}
+                    >
+                        Energy:
+                    </Text>
+                    <Text
+                        style={{color:'white',fontFamily:'Poppins-SemiBold',fontSize:25}}
+                    >
+                        {info.Nutri.value[0].value} Kcal
+                    </Text>
+                </View>}
+                <View
+                    style={{
+                        width:250,marginLeft:20,height:20,justifyContent:'flex-start',
+                        flexDirection:'row',alignItems:'center',marginBottom:5}}
+                >
+                    <Text
+                        style={{color:'#515151',fontFamily:'Poppins-SemiBold',fontSize:12}}
+                    >
+                        Nutritional information per 100g
+                    </Text>
+                </View>
+                {Array.isArray(info?.Nutri?.value) &&
                     info.Nutri.value.map((item, index) => {
                         // Exclude 'energy' from rendering
                         if (item.name !== 'energy') {
@@ -588,9 +616,10 @@ const Dashboard = () => {
                                 <View
                                     style={{
                                         position:'relative',height:60,borderRadius:30,marginHorizontal:5, 
-                                        overflow: 'hidden'
-
+                                        overflow: 'hidden',
+                                        
                                     }}
+                                    key={index}
                                 >
                                     <View
                                         style={{
@@ -599,7 +628,6 @@ const Dashboard = () => {
     
                                         }}
                                     >
-                                        
                                         <ProgressBar
                                         key={index}
                                         animatedValue={item.value/100} // Assuming item.value is a percentage
