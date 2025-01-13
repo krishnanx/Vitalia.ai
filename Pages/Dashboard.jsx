@@ -10,16 +10,18 @@ import onSave from '../functions/onSave';
 import { AuthContext } from '../Context/AuthProvider';
 import checkSave from '../functions/checkSave';
 import onDelete from '../functions/onDelete';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
+import LinearGradient from 'react-native-linear-gradient';
 const Dashboard = () => {
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,click,setClicked,value,setValue] = useContext(bgContext);
     const [fav,setFav] = useState(true)
     const [bgcolor,setBackgroundColor] = useState('#EBF8FF');
-    const [IngredientsColor,setIngredientsColor] = useState('#ADE2FF');
-    const [NutrientsColor,setNutrientsColor] = useState('transparent');
+    const [IngredientsColor,setIngredientsColor] = useState('transparent');
+    const [NutrientsColor,setNutrientsColor] = useState('#1d1d1e');
     const [textColorN,setColorN] = useState('white');
-    const [textColorI,setColorI] = useState('black');
+    const [textColorI,setColorI] = useState('white');
     const [view,setView] = useState("Ingredients")
     const {user} = useContext(AuthContext);
     useEffect(() => {
@@ -85,22 +87,22 @@ const Dashboard = () => {
             height:'700',
             //justifyContent:'space-around',
             //marginVertical:10,
-            paddingTop:20,
+            paddingTop:30,
             //alignItems:'center'
 
         },
         product:{
             width:340,
-            height:300,
-            backgroundColor:"#EBF8FF",
+            height:234,
+            backgroundColor:"#1d1d1e",
             marginVertical:5,
             //opacity:"0.5"
             borderRadius:20,
             justifyContent:'flex-start',
             //alignItems:'center',
             paddingHorizontal:5,
-            borderWidth:1.5,
-            borderColor:'black',
+            // borderWidth:1.5,
+            // borderColor:'black',
         },
         productName:{
             width:"100%",
@@ -147,52 +149,14 @@ const Dashboard = () => {
             //padding:10,
             //backgroundColor:'black'
         },
-        Level:{
-            //backgroundColor:'black',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 100,
-            height: 100,
-            marginLeft:20,
-            margintop:20,
-        },
+       
         image:{
             width: "100%",
-            height: "100%",
+            height: "70%",
             objectFit:'scale-down'
             
         },
-        viewSquare: {
-            width: 100,
-            height: 100,
-            backgroundColor: '#EBF8FF',
-            position: 'relative',
-            marginTop:10,
-            justifyContent: 'center',
-            alignItems: 'center',   
-        },
-        corner: {
-            width: 20,
-            height: 20,
-            position: 'absolute',
-            //backgroundColor:bgcolor,
-        },
-        topLeft: {
-            top: 1,
-            left:-5,
-        },
-        topRight: {
-            top: 1,
-            right: -5,
-        },
-        bottomLeft: {
-            bottom:-9,
-            left: -5,
-        },
-        bottomRight: {
-            bottom: -9,
-            right: -5,
-        },
+        
         Info:{
             width:"100%",
             minHeight:800,
@@ -213,15 +177,16 @@ const Dashboard = () => {
             alignItems:'center',
             marginTop:10,
             //padding:10,
-            justifyContent:'center',
+            justifyContent:'flex-start',
+            marginLeft:30,
             //backgroundColor:"black"
-            borderColor:"white",
-            borderWidth:1.5,
+            // borderColor:"white",
+            // borderWidth:1.5,
             borderRadius:9,
 
         },
         TouchHeading:{
-            width:"50%",
+            width:"40%",
             height:47.5,
             justifyContent:'center',
             alignItems:'center',
@@ -229,6 +194,7 @@ const Dashboard = () => {
             //backgroundColor:"#EBF8FF",
             //borderRadius:9,
             //marginHorizontal:0
+            borderWidth:1
         },
         Ingredients:{
             width:"95%",
@@ -261,27 +227,105 @@ const Dashboard = () => {
             justifyContent: "center", // Centers vertically
             alignItems: "center", // Centers horizontally
             textAlign: "center", // Centers the text inside the View
-            borderColor: "black",
-            borderWidth: 1.5,
+            borderColor: "#2B2B2B",
+            borderBottomWidth: 1.5,
             borderRadius:20,
-            backgroundColor:'#EBF8FF'
+            backgroundColor:'#141414'
           },
+        navigator:{
+            height:70,
+            width:350,
+            justifyContent:'flex-start',
+            alignItems:'center',
+            // borderWidth:1.5,
+            // borderColor:'white'
+            flexDirection:'row'
+            
+        },
+        gradient: {
+            flex: 1,
+            
+          },
+        absoluteFill: {
+            ...StyleSheet.absoluteFillObject,
+        },
+        Level:{
+            //backgroundColor:'black',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            width: 100,
+            height:100,
+            marginLeft:10,
+            margintop:0,
+            flexDirection:'row',
+            borderTopLeftRadius:20,
+            
+        },
+        corner: {
+        width:20,
+        height:20,
+        position: 'absolute',
+        //backgroundColor:bgcolor,
+        borderTopLeftRadius:5,
+        borderTopRightRadius:5,
+        borderBottomLeftRadius:5,
+        borderBottomRightRadius:5,
+        
+        },
+        topLeft: {
+        top: 7,
+        left:-4,
+        
+        },
+        topRight: {
+        top: 7,
+        right:6,
+        },
+        bottomLeft: {
+        bottom:-4,
+        left: -4,
+        },
+        bottomRight: {
+        bottom:-4,
+        right:6,
+        },
+        viewSquare: {
+        width:90,
+        height:90,
+        backgroundColor: '#1c1d1f',
+        position: 'relative',
+        marginTop:10,
+        justifyContent: 'center',
+        alignItems: 'center',   
+        //backgroundColor:'black'
+        },
+        gradientBorder: {
+            padding: 3, // Width of the border
+            borderRadius:40,
+        },
+        innerContent: {
+            borderRadius:20, // Match the border radius minus padding
+            padding: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width:130,
+
+
+        },
     });
     const handleIngredients = () => { 
-        setNutrientsColor("transparent")
-        setIngredientsColor("#ADE2FF")
+        setNutrientsColor("#1d1d1e")
+        setIngredientsColor("transparent")
         setView("Ingredients")
-        setColorI("black")
-        setColorN("white")
+        
 
 
     }
     const handleNutrients = () => { 
-        setNutrientsColor("#ADE2FF")
-        setIngredientsColor("transparent")
+        setNutrientsColor("transparent")
+        setIngredientsColor("#1d1d1e")
         setView("Nutrients")
-        setColorI("white")
-        setColorN("black")
+       
 
 
 
@@ -322,6 +366,7 @@ const Dashboard = () => {
           calories: 305,
           fat: 3.7,
         },
+
        ]);
      
        const from = page * itemsPerPage;
@@ -334,11 +379,45 @@ const Dashboard = () => {
     <ScrollView
         style={styles.Main}
         contentContainerStyle={{ alignItems: 'center' }} // Optional for centered content
-
     >
         <View
-            style={styles.product}
+            style={styles.navigator}
         >
+            <TouchableOpacity>
+                <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
+                    {/* Define the mask */}
+                    <Mask
+                        id="mask0_82_433"
+                        maskUnits="userSpaceOnUse"
+                        x={0}
+                        y={0}
+                        width={24}
+                        height={24}
+                    >
+                        <Rect width={24} height={24} fill="#D9D9D9" />
+                    </Mask>
+
+                    {/* Apply the mask */}
+                    <G mask="url(#mask0_82_433)">
+                        {/* Arrow Path */}
+                        <Path
+                        d="M10 18L4 12L10 6L11.4 7.45L7.85 11H20V13H7.85L11.4 16.55L10 18Z"
+                        fill="white"
+                        />
+                    </G>
+                </Svg>
+            </TouchableOpacity>
+            <Text
+            style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'center',marginLeft:20}}
+            >
+                Dashboard
+            </Text>
+        </View>
+        <View
+           
+            style={styles.product}
+        >   
+            
             <View
                style={styles.Top}
             >
@@ -346,12 +425,12 @@ const Dashboard = () => {
                     style={styles.productName}
                 >
                     <Text
-                        style={{fontSize:15}}
+                        style={{fontSize:15,color:'white',fontFamily:'Poppins-Medium'}}
                     >
                         {info && info.brandName}
                     </Text>
                     <Text
-                        style={{fontSize:25,width:250}}
+                        style={{fontSize:25,width:250,color:'white',fontFamily:'Poppins-Medium'}}
                     >
                         {info && info.name}
                     </Text>
@@ -363,7 +442,7 @@ const Dashboard = () => {
                         style={styles.saveTouch}
                         onPress={()=>handleFav()}
                     >
-                       {info && info.Name?click?<Image source={Fav2} style={{width:20,height:30}}/>: <Image source={Fav} style={{width:20,height:30}}/>:<></>}
+                       {info && info.name?click?<Icon name="bookmark" color="white" size={35}/>:<Icon name="bookmark-outline" color="white" size={35}/>:<></>}
                     </TouchableOpacity>
                 </View>
                
@@ -375,15 +454,42 @@ const Dashboard = () => {
                 <View
                     style={styles.Level}
                 >
-                    <View style={[styles.corner, styles.topLeft,{backgroundColor:bgcolor}]} />
-                    <View style={[styles.corner, styles.topRight,{backgroundColor:bgcolor}]} />
-                    <View style={[styles.corner, styles.bottomLeft,{backgroundColor:bgcolor}]} />
-                    <View style={[styles.corner, styles.bottomRight,{backgroundColor:bgcolor}]} />
+                    
+                    <View style={[styles.corner, styles.topLeft,{ backgroundColor:
+                                                                    info.score === 'A' ? "#355e3b" :
+                                                                    info.score === 'B' ? "#32cd32" :
+                                                                    info.score === 'C' ? "#fdf718" :
+                                                                    info.score === 'D' ? "#ED7014" : 
+                                                                    "#AA0000",}]} />
+                    <View style={[styles.corner, styles.topRight,{ backgroundColor:
+                                                                    info.score === 'A' ? "#355e3b" :
+                                                                    info.score === 'B' ? "#32cd32" :
+                                                                    info.score === 'C' ? "#fdf718" :
+                                                                    info.score === 'D' ? "#ED7014" : 
+                                                                    "#AA0000",}]} />
+                    <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
+                                                                    info.score === 'A' ? "#355e3b" :
+                                                                    info.score === 'B' ? "#32cd32" :
+                                                                    info.score === 'C' ? "#fdf718" :
+                                                                    info.score === 'D' ? "#ED7014" : 
+                                                                    "#AA0000",}]} />
+                    <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
+                                                                    info.score === 'A' ? "#355e3b" :
+                                                                    info.score === 'B' ? "#32cd32" :
+                                                                    info.score === 'C' ? "#fdf718" :
+                                                                    info.score === 'D' ? "#ED7014" : 
+                                                                    "#AA0000",}]} />
                     <View style={styles.viewSquare}>
+                        
                         <Text
-                            style={{fontSize:50,fontWeight:'400',color:bgcolor}}
+                            style={{fontSize:30,fontWeight:'400',color:
+                            info.score === 'A' ? "#355e3b" :
+                            info.score === 'B' ? "#32cd32" :
+                            info.score === 'C' ? "#fdf718" :
+                            info.score === 'D' ? "#ED7014" : 
+                            "#AA0000",}}
                         >
-                            {info && info.score}
+                            {info.score}
                         </Text>
                     </View>
                 </View>
@@ -392,36 +498,64 @@ const Dashboard = () => {
                 >
                    {info && <Image source={{ uri: info.image }} style={styles.image} />}
                 </View>
-            </View>
+            </View>                    
         </View>
+       
         <View
             style={styles.Info}
         >
             <View
                 style={styles.heading}
             >
-               <TouchableHighlight
-                    onPress={()=>handleIngredients()}
-                    //underlayColor="#EBF8FF"
-                    style={[styles.TouchHeading, {borderTopLeftRadius:10, borderBottomLeftRadius:10,backgroundColor:IngredientsColor}]}
-               >
-                    <Text
-                        style={{fontSize:15,fontWeight:500,color:textColorI}}
+                
+                <LinearGradient
+                    colors={['#954EDD', '#CD6AAB']}
+                    style={[styles.gradientBorder,{marginRight:10}]}
+                >
+                    <TouchableHighlight
+                        onPress={()=>handleIngredients()}
+                        //underlayColor="#EBF8FF"
+                        style={[styles.innerContent,{backgroundColor:IngredientsColor}]}
                     >
-                        Ingredients
-                    </Text>
-               </TouchableHighlight>
-               <TouchableHighlight
-                    //underlayColor="#EBF8FF"
-                    onPress={()=>handleNutrients()}
-                    style={[styles.TouchHeading,{borderBottomRightRadius:10, borderTopRightRadius:10,backgroundColor:NutrientsColor}]}
-               >
-                    <Text
-                         style={{fontSize:15,fontWeight:500,color:textColorN}}
+                        <Text
+                            style={{fontSize:15,fontFamily:'Poppins-Light',color:textColorI}}
+                        >
+                            Ingredients
+                        </Text>
+                    </TouchableHighlight>
+                </LinearGradient>
+                <LinearGradient
+                    colors={['#954EDD', '#CD6AAB']}
+                    style={styles.gradientBorder}
+                >
+                    <TouchableHighlight
+                        //underlayColor="#EBF8FF"
+                        onPress={()=>handleNutrients()}
+                        style={[styles.innerContent,{backgroundColor:NutrientsColor}]}
                     >
-                        Nutrition
-                    </Text>
-               </TouchableHighlight>
+                        <Text
+                            style={{fontSize:15,color:textColorN,fontFamily:'Poppins-Light'}}
+                        >
+                            Nutrition
+                        </Text>
+                    </TouchableHighlight>
+                </LinearGradient>
+                <TouchableOpacity
+                    style={{width:40,height:40,marginLeft:20,justifyContent:"center",alignItems:'center',borderRadius:40}}
+                >
+                    <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <Mask id="mask0" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                            <Rect width="24" height="24" fill="#D9D9D9" />
+                        </Mask>
+                        <G mask="url(#mask0)">
+                            <Path
+                            d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z"
+                            fill="white"
+                            />
+                        </G>
+                    </Svg>
+                </TouchableOpacity>
+                                
             </View>
             {view==="Ingredients"?
             <View
@@ -433,7 +567,7 @@ const Dashboard = () => {
                         key={item}
                     >
                         <Text
-                            style={{color:'black',width:"100%",fontSize:20, textAlign:'center'}}
+                            style={{color:'white',width:"100%",fontSize:20, textAlign:'center',fontFamily:'Poppins-Light'}}
                            
                         >
                             {item}
