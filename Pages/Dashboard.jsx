@@ -1,6 +1,7 @@
 import React,{ useEffect,useContext, useState } from 'react'
 import { View,StyleSheet,Text,Image,TouchableOpacity, ScrollView, TouchableHighlight,} from 'react-native'
 import { DataTable } from 'react-native-paper';
+import { ProgressBar, MD3Colors } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
 import Fav from "../assets/Fav.png";
@@ -94,7 +95,7 @@ const Dashboard = () => {
         product:{
             width:340,
             height:234,
-            backgroundColor:"#1d1d1e",
+            backgroundColor:"#2C2C2C",
             marginVertical:5,
             //opacity:"0.5"
             borderRadius:20,
@@ -292,7 +293,7 @@ const Dashboard = () => {
         viewSquare: {
         width:90,
         height:90,
-        backgroundColor: '#1c1d1f',
+        backgroundColor: '#2C2C2C',
         position: 'relative',
         marginTop:10,
         justifyContent: 'center',
@@ -567,7 +568,7 @@ const Dashboard = () => {
                         key={item}
                     >
                         <Text
-                            style={{color:'white',width:"100%",fontSize:20, textAlign:'center',fontFamily:'Poppins-Light'}}
+                            style={{color:'white',width:"100%",fontSize:16, textAlign:'center',fontFamily:'Poppins-Light'}}
                            
                         >
                             {item}
@@ -579,30 +580,64 @@ const Dashboard = () => {
             <View
             style={styles.Nutrients}
             >
-                <DataTable> 
-                    <DataTable.Header>
-                        <DataTable.Title
-                            textStyle={{ color:'white'}}
-                        >
-                            Typical Values
-                        </DataTable.Title>
-                        <DataTable.Title numeric 
-                            textStyle={{ color:'white'}}
-                        >
-                            Per 100g    
-                        </DataTable.Title>
-                        {/*<DataTable.Title numeric>per portion (15g)</DataTable.Title>*/}
-                    </DataTable.Header>
+               {Array.isArray(info?.Nutri?.value) &&
+                    info.Nutri.value.map((item, index) => {
+                        // Exclude 'energy' from rendering
+                        if (item.name !== 'energy') {
+                            return (
+                                <View
+                                    style={{
+                                        position:'relative',height:60,borderRadius:30,marginHorizontal:5, 
+                                        overflow: 'hidden'
 
-                    {info && info.nutrients["value"] && info.nutrients["value"].map((item) => (
-                        <DataTable.Row key={item.key}>
-                        <DataTable.Cell textStyle={{ color:'white'}} key={item.key}>{item.name}</DataTable.Cell>
-                        <DataTable.Cell numeric textStyle={{ color:'white'}} key={item.key}>{item.value}</DataTable.Cell>
-                        </DataTable.Row>
-                    ))}
+                                    }}
+                                >
+                                    <View
+                                        style={{
+                                            height:50,borderRadius:30, 
+                                            overflow: 'hidden'
+    
+                                        }}
+                                    >
+                                        
+                                        <ProgressBar
+                                        key={index}
+                                        animatedValue={item.value/100} // Assuming item.value is a percentage
+                                        color="#2C2C2C"
+                                        style={{height:50,borderWidth:1.5,backgroundColor:"#2C2C2C",borderRadius:30,marginBottom:10}}
+                                        />
+                                    <LinearGradient
+                                            colors={['#954EDE', '#CB69AC']} // Adjust gradient colors here
+                                            
+                                            start={{ x: 0, y: 0 }}
+                                            end={{ x: 1, y: 0 }}
+                                            style={{ width: `${item.value}%`,
+                                            height:item.value < 1 ? 15 : 50,
+                                            borderRadius: 30,
+                                            position:'absolute',
+                                            left:item.value < 1 ?3 :0,
+                                            top:item.value < 1 ?16 :0,
+                                        }}
+                                        />
+                                    </View>
+                                   
+                                    
+                                    <View
+                                        style={{position:'absolute',left:20,top:13,}}
+                                    >
+                                        <Text
+                                            style={{color:'white',fontFamily:'Poppins-Light',fontSize:16}}
+                                        >
+                                            {item.name} : {item.value} grams
+                                        </Text>
+                                    </View>
+                                </View>
+                            );
+                        }
+                        return null; // Skip rendering if item.name is 'energy'
+                    })}
 
-                   
-                </DataTable>
+
             </View>}
         </View>
     </ScrollView>

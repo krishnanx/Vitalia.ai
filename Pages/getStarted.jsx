@@ -5,11 +5,12 @@ import Ellipse5  from "../assets/Ellipse 5.png"
 import Ellipse6  from "../assets/Ellipse 6.png"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import send from "../assets/send.png"
-import { LinearGradient } from 'expo-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 import vector1 from "../assets/Vector 1.png";
 import { useFonts } from 'expo-font';
 import { font } from '../Context/fontContext'
 import { useNavigation } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar';
 const GetStarted = () => {
     const {fontsLoaded} = useContext(font)
     const Navigation = useNavigation()
@@ -164,12 +165,13 @@ const GetStarted = () => {
 
      })
      const handleHome = () => {
-        Navigation.navigate("Home")
+        Navigation.navigate("Login")
      }
   return (
     <View
         style={styles.Main}
     >
+        <StatusBar style="light" backgroundColor={'transparent'} />
         <View
             style={styles.Ellipse}
         >

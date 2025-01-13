@@ -1,6 +1,6 @@
 import React from 'react';
   import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
-  import { LinearGradient } from 'expo-linear-gradient';
+  import LinearGradient from 'react-native-linear-gradient';
 
   const StyledRadioButton = ({ selected, onPress , text="" }) => {
     return (

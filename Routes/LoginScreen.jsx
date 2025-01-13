@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
 import Auth from '../firebasefile/Auth';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import StyledRadioButton from '../components/StyledRadioButton';
 import StyledButton from '../components/StyledButton';
 import Google from "../components/svgs/Google"
@@ -192,7 +192,7 @@ export default function LoginScreen({ navigation }) {
       <View style={styles.bottom}>
         <Text style={{color:"#818181" , fontSize:12 , fontFamily:"Poppins"}}>Don't have an account ?</Text>
         <TouchableHighlight onPress={()=>navigation.navigate("Signup")}>
-          <Text style={{color:"#818181" , fontSize:15 , fontFamily:"Poppins-Bold"}}> Sign in</Text>
+          <Text style={{color:"#818181" , fontSize:15 , fontFamily:"Poppins-Bold"}}> Sign up</Text>
         </TouchableHighlight>
       </View>
     </View>

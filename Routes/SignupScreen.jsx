@@ -3,7 +3,7 @@ import React ,{useState,useEffect,useContext} from 'react'
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import useRegister from '../firebaseHooks/useRegister';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import CustomDialog from '../components/CustomDialog';
 import StyledButton from '../components/StyledButton';
 
@@ -177,7 +177,7 @@ const SignupScreen = ({navigation}) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableHighlight onPress={()=>navigation.navigate("Welcome")}>
+        <TouchableHighlight onPress={()=>navigation.navigate("GetStarted")}>
           <Text style={{fontSize:16 , fontWeight:400 , color:"#5F6061"}}>cancel</Text>
         </TouchableHighlight>
 

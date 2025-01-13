@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableHighlight, StyleSheet, ActivityIndicator } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 
 const StyledButton = ({
   title,
@@ -14,7 +14,7 @@ const StyledButton = ({
     <TouchableHighlight
       style={{ borderRadius: radius }}
       onPress={isLoading ? null : onPress} // Disable button if loading
-      underlayColor="rgba(255, 255, 255, 0.3)"
+      //underlayColor="rgba(255, 255, 255, 0.3)"
     >
       <LinearGradient
         colors={['#944EE0', '#CD6AAB']}
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
+    width:333
   },
   text: {
     color: '#ffffff',
