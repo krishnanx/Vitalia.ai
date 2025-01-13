@@ -55,7 +55,7 @@ const AppNavigator = () => {
          <Stack.Screen 
           name="GetStarted"
           component={GetStarted}
-          options={{animation:'fade' }}
+          options={{animation: 'fade_from_bottom'}}
         />
        
       </>:

@@ -43,7 +43,7 @@ const GetStarted = () => {
             width:"100%",
             position:'relative',
             height:"40%",
-            borderWidth:1.5
+            //borderWidth:1.5
         },
         circle2:{
             width:450,

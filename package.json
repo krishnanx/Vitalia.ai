@@ -46,7 +46,6 @@
     "react-native-screens": "~4.4.0",
     "react-native-svg": "^15.8.0",
     "react-native-svg-transformer": "^1.5.0",
-    "react-native-text-gradient": "^0.1.7",
     "react-native-vector-icons": "^10.2.0",
     "react-native-video": "^6.8.2"
   },
