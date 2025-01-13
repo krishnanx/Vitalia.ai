@@ -1,10 +1,13 @@
 // Import the Firebase SDKs
-import { initializeApp} from "firebase/app";
-import { initializeAuth, getReactNativePersistence,getAuth } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 // Import Expo Constants for secure environment variables
 import Constants from "expo-constants";
+
+// Import AsyncStorage for auth persistence
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -17,13 +20,15 @@ const firebaseConfig = {
   measurementId: Constants.expoConfig.extra.MEASUREMENT_ID,
 };
 
-console.log("check",firebaseConfig);
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase services
-const auth = getAuth(app)
+// Initialize Firebase Auth with persistence
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
+
+// Initialize Firestore
 const firestore = getFirestore(app);
 
 // Export Firebase instances

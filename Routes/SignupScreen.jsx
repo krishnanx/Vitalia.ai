@@ -1,25 +1,26 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet , TextInput, TouchableHighlight} from 'react-native'
 import React ,{useState,useEffect,useContext} from 'react'
-import { TouchableOpacity } from 'react-native'
-import { TextInput , Button, IconButton, HelperText } from 'react-native-paper';
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../firebasefile/firebase';
-import { fetchSignInMethodsForEmail } from "firebase/auth";
-import Auth from '../firebasefile/Auth';
 import useRegister from '../firebaseHooks/useRegister';
+import { LinearGradient } from 'expo-linear-gradient';
+import CustomDialog from '../components/CustomDialog';
+import StyledButton from '../components/StyledButton';
+
 const SignupScreen = ({navigation}) => {
+    const [fname , setFname] = useState('');
+    const [lname , setlname] = useState("");
     const [email , setEmail] = useState('');
     const [password , setPassword] = useState('');
-    const [passwordVisible , setPasswordVisible] = useState(false);
-    const [helperText , setHelperText] = useState({value:"" , color:""});
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
-    const Navigation = useNavigation();
     const {register , loading , error , user} = useRegister();
+    const [isDialogVisible, setIsDialogVisible] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState('');
+    
     useEffect(() => {
-        if (Navigation) {
-            const state = Navigation.getState();
+        if (navigation) {
+            const state = navigation.getState();
             ////console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
             const location = state.routes[Index].name;
@@ -28,193 +29,183 @@ const SignupScreen = ({navigation}) => {
           } else {
             //console.log("Navigation context is undefined");
           }
-    }, [Navigation]);
-    const handleChangePassword = (text)=>{
-        setPassword(text);
-        if(text.length<6){
-            setHelperText({value:"Password must be atleast 6 characters" , color:"red"});
-        }
-        if(text.length>6){
-            setHelperText({value:"" , color:"red"});
-        }
-    }
+    }, [navigation]);
 
-    const handleSignup = async()=>{
-        if(email.length === 0 || password.length === 0){
-            setHelperText({value:"Please fill all fields" , color:"red"});
+    const handleSignup = async () => {
+        if(email.length === 0 || password.length === 0 || !fname || !lname){
+            setDialogMessage("Fill all Fields")
+            setIsDialogVisible(true)
             return
         }
-        if(password.length<6){
-            setHelperText({value:"Password must be atleast 6 characters" , color:"red"});
+        if(password.length<=5){
+            setDialogMessage("Password must be more than 6 characters");
+            setIsDialogVisible(true)
             return
         }
         if(emailRegex.test(email) === false){
-            setHelperText({value:"Invalid email" , color:"red"});
+            setDialogMessage("Invalid Email format");
+            setIsDialogVisible(true)
             return
         }
-        /*else if(checkIfEmailRegistered(email)){
-          setHelperText({value:"Account with this email already exists" , color:"red"});
-        }*/
-          try {
-            const user = await register(email , password);
-            //console.log(user)
-            if(user){
-              try{
-                // const response = Auth();
-                // console.log(response)
-                navigation.navigate('Details');
-              }catch(e){
-                console.log(e);
-              }
+        
+        try {
+            const user = await register(email, password);
+            if (user) {
+                navigation.navigate("Details" , {fname:fname ,lname: lname});
+                console.log("Passing to Details:", { fname, lname });
+
                 
-            }else{
-              alert("User with this email exists")
             }
         } catch (error) {
-            alert(error.message);
-            
+            setDialogMessage(error.message.split("/")[1].split(")")[0]);
+            setIsDialogVisible(true);
         }
-}
+    }
+
+  const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
+      },
+    titleBox:{
+      justifyContent:"center",
+      height:30,
+      flexDirection:"row",
+      gap:5,
+      textAlign:"center",
+    },
+    title:{
+      color:"white",
+      fontSize:20,
+      marginTop:5,
+      fontFamily:"Poppins",
+      fontWeight:400
+    },
+    AccTitle:{
+      height:"100%",
+      color:"white",
+      fontSize:24,
+      textAlign:"center",
+      fontFamily:"Poppins-ExtraBold",
+      fontWeight:400
+    },
+    inputContainer:{
+      width:"90%",
+      marginTop:100,
+      gap:50
+    },
+    inputP:{
+      width:"100%",
+      gap:20,
+    },
+    input: {
+      height: 80, // Adjust height as needed
+      backgroundColor:"#252930",
+      borderRadius: 22, // Change the border radius here
+      paddingHorizontal: 10, // Inner padding for text
+      color:"white"
+    },
+    buttonContainer:{
+      flexDirection:"row",
+      justifyContent:"space-between",
+      width:"80%",
+      marginTop:30,
+      alignItems:"center"
+    },
+    bottom:{
+      marginTop:100,
+      flexDirection:"row",
+      width:"70%",
+      gap:5,
+      alignItems:"center",
+      justifyContent:"center"
+    }
+    
+  })
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
-      <View style={styles.card}>
-        <View id='top container' style={{width:"100%" ,  marginLeft:30 , marginBottom:30}}>
-            <IconButton 
-                icon="arrow-left"
-                iconColor={"#007bff"}
-                size={30}
-                mode='contained'
-                onPress={() => navigation.navigate("Welcome")}
-                />
-        </View>
-        <View style={styles.inputContainer}>
-            <TextInput style={styles.input}
-              label={"Email"}
-              value={email}
-              mode="outlined"
-              left={<TextInput.Icon name="email" icon={"email"}/>}
-              onChangeText={setEmail}
-              textColor='white'
-            />
-            <TextInput
-              style={styles.input}
-              label="Password"
-              value={password}  
-              textColor='white'
-              onChangeText={handleChangePassword}
-              mode='outlined'
-              secureTextEntry = {!passwordVisible}
-              left = {<TextInput.Icon icon="lock" />}
-              right= {<TextInput.Icon 
-                icon={passwordVisible ? "eye-off" : "eye"} // Icon changes dynamically
-                onPress={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
-              />}
-              
-            />
-            <Text style={{marginTop:-20 , color:helperText.color }}>
-                {helperText.value}
-            </Text>
-        </View>
-         
-
-        <View style={{width:"100%" , alignItems:"center"}}> 
-            <Button icon="login"
-                textColor='#fff'
-                mode="elevated"
-                style={styles.button}
-                loading={loading}
-                onPress={handleSignup}>
-            Create Account
-            </Button>
-            <Text>By signing in you are agreeing to our terms, conditions and privacy policy.</Text>
-        </View>
-        
+      <CustomDialog
+        visible={isDialogVisible}
+        onClose={() => setIsDialogVisible(false)}
+        message={dialogMessage}
+      />
+      <View style={styles.titleBox}>
+        <Text style={styles.title}>Create your</Text>
+        <Text style={styles.AccTitle}>Account</Text>
       </View>
-    
 
+      <View style={styles.inputContainer}>
+        <View style={styles.inputP}>
+          <TextInput 
+            style={styles.input}
+            placeholder='First Name'
+            placeholderTextColor={"#686868"}
+            value={fname}
+            onChangeText={(text)=>setFname(text)}
+          />
+
+          <TextInput 
+            style={styles.input}
+            placeholder='Last Name'
+            placeholderTextColor={"#686868"}
+            value={lname}
+            onChangeText={(text)=>setlname(text)}
+          />
+        </View>
+        <View style={styles.inputP}>
+          <TextInput 
+            style={styles.input}
+            placeholder='Email'
+            placeholderTextColor={"#686868"}
+            value={email}
+            onChangeText={(text)=>setEmail(text)}
+          />
+
+          <TextInput 
+            style={styles.input}
+            placeholder='Password'
+            placeholderTextColor={"#686868"}
+            value={password}
+            secureTextEntry
+            onChangeText={(text)=>setPassword(text)}
+          />
+          
+        </View>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableHighlight onPress={()=>navigation.navigate("Welcome")}>
+          <Text style={{fontSize:16 , fontWeight:400 , color:"#5F6061"}}>cancel</Text>
+        </TouchableHighlight>
+
+        <StyledButton isLoading={loading} onPress={handleSignup} width={150} height={40} title={"Create Account"}/>
+
+        {/* <TouchableHighlight onPress={handleSignup}>
+          <LinearGradient
+            colors={['#944EE0', '#CD6AAB']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.getStartedView}
+          >
+            <Text style={{ color: 'white', textAlign: 'center', fontSize: 15, marginRight: 10, fontFamily: 'Poppins', fontWeight:700, paddingTop: 5 }}>
+              Create Account
+            </Text>
+          </LinearGradient>
+        </TouchableHighlight> */}
+      </View>
+
+      <View style={styles.bottom}>
+        <Text style={{color:"#818181" , fontSize:12 , fontFamily:"Poppins"}}>Already have an account ?</Text>
+        <TouchableHighlight onPress={()=>navigation.navigate("Login")}>
+          <Text style={{color:"#818181" , fontSize:15 , fontFamily:"Poppins-Bold"}}> Log in</Text>
+        </TouchableHighlight>
+      </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color:'white'
-  },
-  card: {
-    width: '90%',
-    height: 400,
-    gap:10,
-    //backgroundColor: '#fff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    display: 'flex',
-    alignItems:"center",
-    justifyContent:"center",
-    borderWidth:1.5,
-    borderColor:'white'
-  },
-  inputContainer:{
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
-    gap: 10,
-  },
-  input: {
-    width: '90%',
-    borderColor:"#007bff",
-    marginBottom: 5,
-    backgroundColor:"black",
-  },
-  button:{
-    width: '90%',
-    backgroundColor: '#007bff',
-    marginTop: 20,
-  },
-  button2:{
-    width: '80%',
-    height: 50,
-    backgroundColor: '#007bff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    marginTop: 20,
-    position:"absolute",
-    bottom:50
-  },
-  buttonText:{
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  iconButton:{
-    height:40,
-    width:50,
-    borderRadius:8,
-    backgroundColor:"#007bff",
-    alignItems:"center",
-    justifyContent:"center",
-    marginBottom:20,
-    marginTop:20
-  }
-})
 
 export default SignupScreen

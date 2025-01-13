@@ -21,8 +21,7 @@ import { Easing } from 'react-native';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
-  
-    const { user } = useAuth();
+    const { user, newUser } = useAuth();
     return (
       <Stack.Navigator
         screenOptions={{
