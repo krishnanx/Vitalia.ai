@@ -52,11 +52,7 @@ const AppNavigator = () => {
           component={SignupScreen}
           options={{animation:'fade_from_bottom' }}
         />
-         <Stack.Screen 
-          name="GetStarted"
-          component={GetStarted}
-          options={{animation: 'fade_from_bottom'}}
-        />
+         
        
       </>:
       <>
@@ -67,6 +63,11 @@ const AppNavigator = () => {
         <Stack.Screen name="AddHealthInfo"
         component={AddHealth}
         options={{animation:'fade_from_bottom' }}
+        />
+        <Stack.Screen 
+          name="GetStarted"
+          component={GetStarted}
+          options={{animation: 'fade_from_bottom'}}
         />
       
         <Stack.Screen name="Home"

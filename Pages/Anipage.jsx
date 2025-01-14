@@ -12,7 +12,7 @@ const Anipage = () => {
     useEffect(() => {
         // Automatically navigate to the next page after 3 seconds
         const timer = setTimeout(() => {
-        navigation.navigate("GetStarted"); // Replace 'NextScreen' with your actual screen name
+        navigation.navigate("Login"); // Replace 'NextScreen' with your actual screen name
         }, 5000); // 3000ms = 3 seconds
 
         return () => clearTimeout(timer); // Cleanup timer

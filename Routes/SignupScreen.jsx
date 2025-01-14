@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet , TextInput, TouchableHighlight} from 'react-native'
+import { View, Text, StyleSheet , TextInput, TouchableHighlight, TouchableOpacity} from 'react-native'
 import React ,{useState,useEffect,useContext} from 'react'
+import { LinearTextGradient } from "react-native-text-gradient";
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import useRegister from '../firebaseHooks/useRegister';
 
 import CustomDialog from '../components/CustomDialog';
 import StyledButton from '../components/StyledButton';
+import StyledText from '../components/StyledText';
 
 const SignupScreen = ({navigation}) => {
     const [fname , setFname] = useState('');
@@ -134,7 +136,7 @@ const SignupScreen = ({navigation}) => {
       />
       <View style={styles.titleBox}>
         <Text style={styles.title}>Create your</Text>
-        <Text style={styles.AccTitle}>Account</Text>
+        <StyledText text="Account                   " style={styles.AccTitle}  colors={['#944EE0', '#CD6AAB']}/>
       </View>
 
       <View style={styles.inputContainer}>
@@ -183,25 +185,14 @@ const SignupScreen = ({navigation}) => {
 
         <StyledButton isLoading={loading} onPress={handleSignup} width={150} height={40} title={"Create Account"}/>
 
-        {/* <TouchableHighlight onPress={handleSignup}>
-          <LinearGradient
-            colors={['#944EE0', '#CD6AAB']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.getStartedView}
-          >
-            <Text style={{ color: 'white', textAlign: 'center', fontSize: 15, marginRight: 10, fontFamily: 'Poppins', fontWeight:700, paddingTop: 5 }}>
-              Create Account
-            </Text>
-          </LinearGradient>
-        </TouchableHighlight> */}
       </View>
 
       <View style={styles.bottom}>
         <Text style={{color:"#818181" , fontSize:12 , fontFamily:"Poppins"}}>Already have an account ?</Text>
-        <TouchableHighlight onPress={()=>navigation.navigate("Login")}>
-          <Text style={{color:"#818181" , fontSize:15 , fontFamily:"Poppins-Bold"}}> Log in</Text>
-        </TouchableHighlight>
+        
+        <TouchableOpacity style={{ width:50, height:30, alignItems: 'center', backgroundColor: 'transparent'}} onPress={()=>navigation.navigate("Login")}>
+          <StyledText text={"Log in  "} colors={['#944EE0', '#CD6AAB']} style={{fontSize:16 , fontFamily:"Poppins-Bold"}}/>
+        </TouchableOpacity>
       </View>
     </View>
   )
