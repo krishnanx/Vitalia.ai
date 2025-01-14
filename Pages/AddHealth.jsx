@@ -1,20 +1,29 @@
 import { View, Text, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
 import { RadioButton, IconButton, Button } from 'react-native-paper';
 import AllergyButton from '../components/AllergyButton';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { AuthContext } from '../Context/AuthProvider';
+import { AuthContext, useAuth } from '../Context/AuthProvider';
 import addSupaDetails from '../functions/addSupaDetails';
 import StyledRadioButton from '../components/StyledRadioButton';
 import StyledButton from '../components/StyledButton';
 import CustomDialog from '../components/CustomDialog';
 
 const AddHealth = ({ route, navigation }) => {
-  const { email, password, userDetails } = route.params;
-  const [details, setDetails] = useState(userDetails);
+  //const { email, password, userDetails } = route.params;
+  const [details, setDetails] = useState({
+    diet:"",
+    lifestyle:"",
+    disease:[]
+  });
   const [dialogMessage , setDialogMessage] = useState("");
   const [isDialogVisible , setIsDialogVisible] = useState(false);
   const {user} = useContext(AuthContext)
+  const {updateUserDetails, userDetailsState} = useAuth();
+
+  useEffect(() => {
+    console.log("Updated userDetailsState:", userDetailsState);
+  }, [userDetailsState]); // Runs whenever userDetailsState changes
 
   const styles = StyleSheet.create({
     mainContainer: {
@@ -43,6 +52,7 @@ const AddHealth = ({ route, navigation }) => {
       marginTop: 20,
       gap:10,
       width: '100%',
+      marginLeft:10
     },
     icons: {
       flexWrap: 'wrap',
@@ -76,8 +86,19 @@ const AddHealth = ({ route, navigation }) => {
       setIsDialogVisible(true)
       return
     }
-    const response = await addSupaDetails(user,details)
-    console.log(details);
+    
+    updateUserDetails({
+      diet:details.diet,
+      lifestyle: details.lifestyle,
+      disease: details.disease
+    });
+    const response = await addSupaDetails(user,{
+      diet: details.diet,
+      disease: details.disease,
+      lifestyle: details.lifestyle,
+      ...userDetailsState
+    })
+    console.log(response);
     //the details contains all the health data
     //add the supabse logic here
     navigation.navigate("GetStarted");

@@ -8,6 +8,7 @@ import useRegister from '../firebaseHooks/useRegister';
 import CustomDialog from '../components/CustomDialog';
 import StyledButton from '../components/StyledButton';
 import StyledText from '../components/StyledText';
+import { useAuth } from '../Context/AuthProvider';
 
 const SignupScreen = ({navigation}) => {
     const [fname , setFname] = useState('');
@@ -17,6 +18,7 @@ const SignupScreen = ({navigation}) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
     const {register , loading , error , user} = useRegister();
+    const {updateUserDetails , userDetailsState} = useAuth();
     const [isDialogVisible, setIsDialogVisible] = useState(false);
     const [dialogMessage, setDialogMessage] = useState('');
     
@@ -53,8 +55,12 @@ const SignupScreen = ({navigation}) => {
         try {
             const user = await register(email, password);
             if (user) {
-                navigation.navigate("Details" , {fname:fname ,lname: lname});
-                console.log("Passing to Details:", { fname, lname });
+                updateUserDetails({
+                  fname: fname,
+                  lname: lname,
+                })
+                console.log(userDetailsState);
+                navigation.navigate("Details");
 
                 
             }
@@ -103,7 +109,7 @@ const SignupScreen = ({navigation}) => {
       gap:20,
     },
     input: {
-      height: 80, // Adjust height as needed
+      height: 70, // Adjust height as needed
       backgroundColor:"#252930",
       borderRadius: 22, // Change the border radius here
       paddingHorizontal: 10, // Inner padding for text
@@ -113,11 +119,11 @@ const SignupScreen = ({navigation}) => {
       flexDirection:"row",
       justifyContent:"space-between",
       width:"80%",
-      marginTop:30,
+      marginTop:20,
       alignItems:"center"
     },
     bottom:{
-      marginTop:100,
+      marginTop:70,
       flexDirection:"row",
       width:"70%",
       gap:5,

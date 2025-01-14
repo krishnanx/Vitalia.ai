@@ -1,32 +1,27 @@
 import { View, Text , StyleSheet, TextInput, ScrollView } from 'react-native'
-import React,{useState} from 'react'
+import React,{useState , useEffect} from 'react'
 import { Button, IconButton, Menu, Avatar, SegmentedButtons } from 'react-native-paper';
 import Auth from '../firebasefile/Auth';
 import StyledRadioButton from '../components/StyledRadioButton';
 import StyledButton from '../components/StyledButton';
 import CustomDialog from '../components/CustomDialog';
+import { useAuth } from '../Context/AuthProvider';
 
 const DetailsCollection = ({route,navigation}) => {
     //const {email , password} = route.params;
-    const {fname , sname} = route.params ||{};
     //console.log(fname , sname)
 
     const [isDialogVisible, setIsDialogVisible] = useState(false);
     const [dialogMessage, setDialogMessage] = useState('');
+    const {updateUserDetails , userDetailsState} = useAuth()
     const [userDetails , setUserDetails] = useState({
       gender: "",
       age: "",
       height: "",
       weight: "",
-      fname: fname||"",
-      lname: sname||"",
       activity: "",
       img: "",
-      diet: "",
-      lifestyle: "",
-      disease: []
     });
-
 
     //for avatar
     const [imageError, setImageError] = useState(false);
@@ -42,8 +37,7 @@ const DetailsCollection = ({route,navigation}) => {
     function isNumber(value) {
       return !isNaN(value) && value.trim() !== ''; // Ensures no empty string or whitespace
     }
-
-
+    
     const handleSubmit = () => {
       console.log(userDetails)
         if( !userDetails.gender || !userDetails.height || !userDetails.weight || !userDetails.activity || !userDetails.age){
@@ -57,7 +51,10 @@ const DetailsCollection = ({route,navigation}) => {
           setIsDialogVisible(true)
           return
         }
-        console.log(userDetails);
+        updateUserDetails(
+          userDetails
+        )
+       // console.log(userDetailsState)
         navigation.navigate('AddHealthInfo' , {userDetails});
 
     }
