@@ -12,9 +12,9 @@ const StyledButton = ({
 }) => {
   return (
     <TouchableHighlight
-      style={{ borderRadius: radius }}
+      style={{ borderRadius: radius , width:width}}
       onPress={isLoading ? null : onPress} // Disable button if loading
-      //underlayColor="rgba(255, 255, 255, 0.3)"
+      underlayColor="rgba(255, 255, 255, 0.3)"
     >
       <LinearGradient
         colors={['#944EE0', '#CD6AAB']}

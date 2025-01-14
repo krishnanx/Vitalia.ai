@@ -7,26 +7,71 @@ export const AuthContext = createContext();
 // AuthProvider component that provides the context value
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [newUser, setNewUser] = useState(false); // New state to track if the user is new
+  const [newUser, setNewUser] = useState(false); // Flag to track if the user is newly created
+  const [userDetailsState, setUserDetailsState] = useState({
+    fname: "",
+    sname: "",
+    gender: "",
+    age: "",
+    height: "",
+    weight: "",
+    activity: "",
+    diet: "",
+    lifestyle: "",
+    disease: [],
+  });
 
   // Listen to authentication state changes
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-
-      // Check if the user is new based on creation and last sign-in time
-      if (user && user.metadata.creationTime === user.metadata.lastSignInTime) {
-        setNewUser(true);
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser);
       } else {
-        setNewUser(false);
+        setUser(null);
+        resetUserDetails(); // Reset user details on sign-out
       }
     });
 
     return unsubscribe; // Cleanup listener on unmount
   }, []);
 
+  // Function to update user details
+  const updateUserDetails = (details) => {
+    setUserDetailsState((prevDetails) => ({
+      ...prevDetails, // Keep previous details
+      ...details,     // Overwrite with new details
+    }));
+    //console.log("Updated details inside updateUserDetails:", userDetailsState); 
+    setNewUser(true);
+  };
+
+  // Function to reset user details to defaults
+  const resetUserDetails = () => {
+    setUserDetailsState({
+      fname: "",
+      sname: "",
+      gender: "",
+      age: "",
+      height: "",
+      weight: "",
+      activity: "",
+      diet: "",
+      lifestyle: "",
+      disease: [],
+    });
+    setNewUser(false);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, newUser }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        userDetailsState,
+        newUser,
+        updateUserDetails,
+        resetUserDetails, // Expose the reset function
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
