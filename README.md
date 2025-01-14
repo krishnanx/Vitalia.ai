@@ -46,6 +46,6 @@ Nutrigen addresses these challenges by offering:
 - **Backend**: Django
 - **Database**: Supabase
 - **AI/ML**: TensorFlow, OpenAI API
-- **Cloud Services**: AWS
+- **Cloud Services**: CloudFlare
 - **Barcode/QR Code Scanning**: Libraries and APIs for seamless scanning.
 
