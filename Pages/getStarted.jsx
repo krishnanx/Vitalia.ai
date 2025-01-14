@@ -165,7 +165,7 @@ const GetStarted = () => {
 
      })
      const handleHome = () => {
-        Navigation.navigate("Login")
+        Navigation.navigate("Home")
      }
   return (
     <View

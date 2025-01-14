@@ -1,6 +1,6 @@
 // screens/LoginScreen.js
 import React, { useState,useEffect,useContext } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {  Button, IconButton } from 'react-native-paper';
 import useLogin from '../firebaseHooks/useLogin';
@@ -14,6 +14,8 @@ import StyledRadioButton from '../components/StyledRadioButton';
 import StyledButton from '../components/StyledButton';
 import Google from "../components/svgs/Google"
 import CustomDialog from '../components/CustomDialog';
+import StyledText from '../components/StyledText';
+
 
 
 export default function LoginScreen({ navigation }) {
@@ -114,7 +116,7 @@ export default function LoginScreen({ navigation }) {
       backgroundColor: 'white',
     },
     bottom:{
-      marginTop:100,
+      marginTop:80,
       flexDirection:"row",
       width:"70%",
       gap:5,
@@ -191,140 +193,11 @@ export default function LoginScreen({ navigation }) {
 
       <View style={styles.bottom}>
         <Text style={{color:"#818181" , fontSize:12 , fontFamily:"Poppins"}}>Don't have an account ?</Text>
-        <TouchableHighlight onPress={()=>navigation.navigate("Signup")}>
-          <Text style={{color:"#818181" , fontSize:15 , fontFamily:"Poppins-Bold"}}> Sign up</Text>
-        </TouchableHighlight>
+        <TouchableOpacity style={{height:40, width:56,backgroundColor:'transparent' , alignItems:"center", marginTop:13}} onPress={()=>navigation.navigate("Signup")}>
+          {/* <Text style={{color:"#818181" , fontSize:15 , fontFamily:"Poppins-Bold"}}> Sign up</Text> */}
+          <StyledText text="Sign up            " style={{fontSize:15 , fontFamily:"Poppins-Bold"}}/>
+        </TouchableOpacity>
       </View>
     </View>
   )
 }
-      {/* {error? alert(error):""} */}
-      {/* <Text style={styles.title}>Welcome Back</Text>
-      <View style={styles.card}>
-        <View id='top container' style={{width:"100%" ,  marginLeft:30 }}>
-          <IconButton 
-            icon="arrow-left"
-            iconColor={"#007bff"}
-            size={30}
-            mode='contained'
-            onPress={() => navigation.navigate("Welcome")}
-            />
-        </View>
-
-        <View style={styles.inputContainer}>
-        <TextInput style={styles.input}
-          label={"Email"}
-          value={email}
-          mode="outlined"
-          left={<TextInput.Icon name="email" icon={"email"}/>}
-          onChangeText={setEmail}
-          textColor='white'
-        />
-        <TextInput
-          style={styles.input}
-          label="Password"
-          value={password}  
-          onChangeText={handleChangePassword}
-          mode='outlined'
-          textColor='white'
-          secureTextEntry = {!passwordVisible}
-          left = {<TextInput.Icon icon="lock" />}
-          right= {<TextInput.Icon 
-            icon={passwordVisible ? "eye-off" : "eye"} // Icon changes dynamically
-            onPress={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
-          />}
-        />
-        </View>
-        <Text style={{marginTop:-20 , color:helperText.color }}>
-          {helperText.value}
-        </Text>
-
-        <View style={{width:"100%" , alignItems:"center"}}> 
-          <Button icon="login" textColor='#fff' mode="elevated" style={styles.button} onPress={handleLogin} loading={loading}>
-          Login
-          </Button>
-          <Button textColor='black'>Forgot passsword?</Button>
-        </View>
-      </View>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color:'white'
-  },
-  card: {
-    width: '90%',
-    height: 400,
-    gap:30,
-    //backgroundColor: '#4B3B40',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    display: 'flex',
-    alignItems:"center",
-    justifyContent:"center",
-    borderWidth:1.5,
-    borderColor:'white'
-  },
-  inputContainer:{
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  input: {
-    width: '90%',
-    borderColor:"#007bff",
-    marginBottom: 5,
-    backgroundColor:"black"
-  },
-  button:{
-    width: '90%',
-    backgroundColor: '#007bff',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  signupLink:{
-    marginTop:5,
-  },
-  button2:{
-    width: '80%',
-    height: 50,
-    backgroundColor: '#007bff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    marginTop: 20,
-    position:"absolute",
-    bottom:50
-  },
-  iconButton:{
-    height:40,
-    width:50,
-    borderRadius:8,
-    backgroundColor:"#007bff",
-    alignItems:"center",
-    justifyContent:"center",
-    marginBottom:20
-  }
-}); */}

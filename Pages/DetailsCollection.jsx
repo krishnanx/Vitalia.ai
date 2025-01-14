@@ -57,11 +57,12 @@ const DetailsCollection = ({route,navigation}) => {
           setIsDialogVisible(true)
           return
         }
+        console.log(userDetails);
         navigation.navigate('AddHealthInfo' , {userDetails});
 
     }
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{alignItems: 'center',justifyContent: "space-around"}}>
       <CustomDialog message={dialogMessage} onClose={()=>setIsDialogVisible(false)} visible={isDialogVisible} />
         <View style={{width:'100%', alignItems:'center'}}>
             <Text style={styles.title}>Before we Start!!</Text>
@@ -120,7 +121,7 @@ const DetailsCollection = ({route,navigation}) => {
           <View style={{width:"99%" , flexDirection:"row" , justifyContent:"space-around"}}>
             
             <View style={{width:"99%"}}>
-              <Text style={{color:"white" , marginBottom:1}}>Set Activity level</Text>
+              <Text style={{color:"white" , marginBottom:5}}>Set Activity level</Text>
               <View style={{gap:10}}>
               <StyledRadioButton text='Sendentary' onPress={()=>setUserDetails({...userDetails , activity:"sendentary"})} selected={userDetails.activity=="sendentary"}/>
               <StyledRadioButton text='Somewhat Active' onPress={()=>setUserDetails({...userDetails , activity:"somewhat active"})} selected={userDetails.activity=="somewhat active"}/>
@@ -136,7 +137,7 @@ const DetailsCollection = ({route,navigation}) => {
 
         </View>
 
-    </View>
+    </ScrollView>
   )
 }
 
@@ -144,8 +145,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#141414',
-        alignItems: 'center',
-        justifyContent: "space-around",
     },  
     subContainerBottom:{
         width:'100%',
