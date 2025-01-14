@@ -19,7 +19,7 @@ const history = async(user,result) => {
         const {value, error} = await supabase
         .from('History')
         .insert([
-        {user_id:uid,code:result.code,brandName:result.brandName,name:result.name,image:result.image,ingredients:result.ingredients,nutrients:result.nutrients,score:result.score,Nutri:result.Nutri},
+        {user_Id:uid,code:result.code,brandName:result.brandName,name:result.name,image:result.image,ingredients:result.ingredients,nutrients:result.nutrients,score:result.score,Nutri:result.Nutri},
         ])
         .select()
         

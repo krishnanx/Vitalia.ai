@@ -14,9 +14,9 @@ const addSupaDetails = async(user,details) => {
             try {
               const { data: Users, E } = await supabase
               .from('Users')
-              .select('userId')
+              .select('user_Id')
               for(const item of Users){
-                if(item.userId===userId){
+                if(item.user_Id===userId){
                   //setUnique(false);
                   //console.log("Its not unique")
                   return
@@ -26,7 +26,7 @@ const addSupaDetails = async(user,details) => {
               //console.log("Its Unique")
               const { Value, error } = await supabase
                 .from('Users')
-                .insert([{ userId: userId, Gmail: email,Fname:details.fname,Lname: details.lname,age:details.age,height:details.height,weight:details.weight,activity:details.activity,diet:details.diet,lifestyle:details.lifestyle,disease:details.disease,image:details.img}])
+                .insert([{ user_Id: userId, Gmail: email,Fname:details.fname,Lname: details.lname,age:details.age,height:details.height,weight:details.weight,activity:details.activity,diet:details.diet,lifestyle:details.lifestyle,disease:details.disease,image:details.img}])
                 .select();
           
               if (error) {

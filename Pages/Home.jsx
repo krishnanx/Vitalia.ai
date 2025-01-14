@@ -1,4 +1,4 @@
-import React,{useEffect,useContext} from 'react'
+import React,{useEffect,useContext,useState} from 'react'
 import { bgContext } from '../Context/StateContext';
 import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
 import Burger from "../assets/burger.png"
@@ -14,6 +14,7 @@ import Svg, { Path } from "react-native-svg";
 import { font } from '../Context/fontContext'
 const Home = () => {
     const route = useRoute();
+    
     const {fontsLoaded} = useContext(font)
     const [searchQuery, setSearchQuery] = React.useState('');
     const {history: his } = route.params || {};
@@ -23,6 +24,7 @@ const Home = () => {
     //const navigation = useNavigation();
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned] = useContext(bgContext);
+    const [name,setName] = useState("")
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
@@ -39,15 +41,20 @@ const Home = () => {
         //console.log("HOME HISTORY:",scanned)
         const check = async() => {
             const response = await handlePull(user,"History")
-            console.log("response???:",response)
+            const value = await handlePull(user,"Users")
+            // console.log("response???:",response)
+            // console.log(value[0])
+            setName(value[0].Fname)
             setScanned(response)
+            //console.log(user)
             return response;
+
         }
         const response = check();
         
 
     },[user])
-    const name = "Krishnan E"
+    
     const handleHistory = (item) => {
         setInfo(item);
         Navigation.navigate("Dashboard")

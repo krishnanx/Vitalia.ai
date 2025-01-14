@@ -17,7 +17,7 @@ const Auth = async() => {
       try {
         const { data: Users, E } = await supabase
         .from('Users')
-        .select('userId')
+        .select('user_Id')
         //console.log("Dattttaa:",Users)
         /*                                                               */
 
@@ -27,7 +27,7 @@ const Auth = async() => {
 
         /*                                                               */ 
         for(const item of Users){
-          if(item.userId===userId){
+          if(item.user_Id===userId){
             //setUnique(false);
             //console.log("Its not unique")
             return
@@ -37,7 +37,7 @@ const Auth = async() => {
         //console.log("Its Unique")
         const { Value, error } = await supabase
           .from('Users')
-          .insert([{ userId: userId, Gmail: email }])
+          .insert([{ user_Id: userId, Gmail: email }])
           .select();
     
         if (error) {

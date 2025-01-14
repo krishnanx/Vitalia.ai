@@ -7,7 +7,7 @@ const handlePull = async(user,table) => {
         const {data,error} = await supabase
         .from(table)
         .select('*')
-        .eq('user_id',uid)
+        .eq('user_Id',uid)
         if(error){
             console.log("error fetching data",error)
             return;
