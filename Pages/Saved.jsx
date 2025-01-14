@@ -10,6 +10,7 @@ import checkSave from '../functions/checkSave';
 import { useRoute } from '@react-navigation/native';
 import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
 import Card from '../components/Card';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Saved = () => {
   const {user} = useContext(AuthContext)
 
@@ -64,7 +65,7 @@ const Saved = () => {
     const check = async() => {
         const response = await handlePull(user,"saved")
         console.log("response???:",response)
-        setScanned(response)
+        setValue(response)
         return response;
     }
     const response = check();
@@ -278,8 +279,8 @@ const Saved = () => {
         //style={{}}
         contentContainerStyle={{justifyContent:'center', alignItems:'center'}}
       >
-      {scanned && Array.isArray(scanned) && scanned.length>0?(
-        scanned.map((item,index)=>{
+      {value && Array.isArray(value) && value.length>0?(
+        value.map((item,index)=>{
           console.log(item)
           return(
               <Card
@@ -288,11 +289,16 @@ const Saved = () => {
                 imageURL={item.image}
                 score={item.score}
                 onPress={() => handleHistory(item)}
+                
               />
           )
         })
         ):(
-            <></>
+         <View
+          style={{width:380,height:200,justifyContent:'center',alignItems:'center'}}
+         >
+
+         </View>
         )}
   </ScrollView>
     </View>

@@ -56,12 +56,13 @@ const ScoreView = ({HealthScore}) => {
           },
           
           scoreView:{
-            //width:'10%',
-            //height:10,
+            width:65,
+            height:70,
             //backgroundColor:'black',
             //justifyContent:'flex-start',
-            marginTop:30
-            
+            marginTop:30,
+            // borderWidth:1.5,
+            // borderColor:'white'
     
     
           },

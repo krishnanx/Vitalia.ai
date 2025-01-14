@@ -7,7 +7,7 @@ const checkSave = async(num,user) => {
         const { data, error } = await supabase
         .from('saved')            // Specify the table you want to query (saved)
         .select('code')              // Select all columns from the saved table
-        .eq('user_id',uid); // Filter by the user's unique uid (replace 'specific-uid' with the actual uid)
+        .eq('user_Id',uid); // Filter by the user's unique uid (replace 'specific-uid' with the actual uid)
         if (error) {
             console.error('Error fetching saved data:', error);
         } else {

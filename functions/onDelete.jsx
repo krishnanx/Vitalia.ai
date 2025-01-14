@@ -6,9 +6,9 @@ const onDelete = async(user,code,result) => {
         console.log("onDelete")
 
         const { error } = await supabase
-        .from('Saved')
+        .from('saved')
         .delete()
-        .eq('user_id',uid)
+        .eq('user_Id',uid)
         .eq("code",code);
         if(error){
             console.log("error deleting row",error)

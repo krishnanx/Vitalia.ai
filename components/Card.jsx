@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
 import ScoreView from './ScoreView';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Card = ({ title, image, imageURL, score, onPress }) => {
     const styles = StyleSheet.create({
         card: {
@@ -113,12 +113,17 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
           onPress={handleOnSavePress}
       /> */}
       <View
-        style={{width:350,height:70,/*borderWidth:1.5,borderColor:'white',*/borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'space-around',flexDirection:'row'}}
+        style={{width:350,height:70/*,borderWidth:1.5,borderColor:'white'*/,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'space-evenly',flexDirection:'row'}}
       >
-        {title && <Text style={styles.title}>{title}</Text>}
+        <View
+          style={{width:200,height:70,justifyContent:'flex-start',flexDirection:'row',marginLeft:10}}
+        >
+          {title && <Text style={styles.title}>{title}</Text>}
+        </View>
         <View style={styles.box}>
             <ScoreView HealthScore={score} />
         </View>
+       
       </View>
       <View 
       style={styles.middleContainer} 
@@ -134,13 +139,17 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
         </View> */}
       </View>
       <View style={styles.content}>
-        
-        <Text
-          style={{color:'white',textAlign:'center',paddingTop:15}}
+       
+        <View
+          style={{flexDirection:'row'}}
         >
-          More details
-        </Text>
-        <IconButton icon="arrow-right" mode="outlined" iconColor='white' onPress={onPress}/>
+          <Text
+            style={{color:'white',textAlign:'center',paddingTop:15}}
+          >
+            More details
+          </Text>
+          <IconButton icon="arrow-right" mode="outlined" iconColor='white' onPress={onPress}/>
+        </View>
       </View>
       
     </View>

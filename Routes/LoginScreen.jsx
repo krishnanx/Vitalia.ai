@@ -4,6 +4,7 @@ import { View, Text, TouchableHighlight, StyleSheet, TextInput, TouchableOpacity
 import Icon from 'react-native-vector-icons/AntDesign';
 import {  Button, IconButton } from 'react-native-paper';
 import useLogin from '../firebaseHooks/useLogin';
+import { StatusBar } from 'expo-status-bar';
 import {
   useNavigation,
 } from '@react-navigation/native';
@@ -128,6 +129,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" backgroundColor={'#141414'} />
       <CustomDialog message={dialogMessage} onClose={()=>setIsDialogVisible(false)} visible={isDialogVisible} />
       <View style={styles.welcomeContainer}>
         <Text style={{color:"#fff" , fontFamily:"Poppins" , fontWeight:400 , fontSize:24}}>Welcome Back!</Text>

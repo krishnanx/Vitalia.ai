@@ -12,6 +12,7 @@ import { Searchbar } from 'react-native-paper';
 import Search from "../assets/icons/search.svg"
 import Svg, { Path } from "react-native-svg";
 import { font } from '../Context/fontContext'
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Home = () => {
     const route = useRoute();
     
@@ -23,8 +24,7 @@ const Home = () => {
     const {logout , loading , error} = useLogOut();
     //const navigation = useNavigation();
     const Navigation = useNavigation();
-    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned] = useContext(bgContext);
-    const [name,setName] = useState("")
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned,name,setName] = useContext(bgContext);
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
@@ -172,7 +172,7 @@ const Home = () => {
                         <Text
                             style={{fontSize:40,color:'white',fontFamily:'Poppins-Medium',textAlign:'left'}}
                         >
-                            Hi, {name}!
+                        {name!=""?"Hi, "+`${name}`+"!":""}
                         </Text>
                         <View
                             style={{flexDirection:'row',height:20,justifyContent:'flex-start',alignItems:'center'}}
@@ -238,11 +238,16 @@ const Home = () => {
                                             imageURL={item.image}
                                             score={item.score}
                                             onPress={() => handleHistory(item)}
+                                            
                                         />
                                     )
                                 })
                             ):(
-                                <></>
+                                <View
+                                    style={{width:380,height:200,justifyContent:'center',alignItems:'center'}}
+                                >
+                                    <ActivityIndicator animating={true} color={MD2Colors.white} style={{zIndex:6,justifyContent:'center',alignItems:'center',paddingLeft:5}} size={50}/>
+                                </View>
                             )}
                         </ScrollView>
                        
