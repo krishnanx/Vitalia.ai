@@ -10,15 +10,15 @@ import {
 } from '@react-navigation/native';
 import { bgContext } from '../Context/StateContext';
 import Auth from '../firebasefile/Auth';
-
 import StyledRadioButton from '../components/StyledRadioButton';
 import StyledButton from '../components/StyledButton';
 import Google from "../components/svgs/Google"
 import CustomDialog from '../components/CustomDialog';
 import StyledText from '../components/StyledText';
-
-
-
+import { SignInContext } from "../Context/AuthProvider"
+import auth from '@react-native-firebase/auth';
+import { useAuth } from '../Context/AuthProvider';
+import { setLoginCookie } from '../Cookies/Cookie';
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,10 +27,10 @@ export default function LoginScreen({ navigation }) {
   const [selected, setSelected] = useState(false);
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
-
   const {login , loading , error} = useLogin();
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
-
+  const { user, newUser, signedIn, dispatchSignedIn } = useAuth();
+  
   const Navigation = useNavigation();
   useEffect(() => {
       if (Navigation) {
@@ -63,6 +63,8 @@ export default function LoginScreen({ navigation }) {
         try {
           const user = await login(email , password);
           if(user){
+            console.log("logged in",user)
+            const response = setLoginCookie(user)
             navigation.navigate("Home");
           }
          

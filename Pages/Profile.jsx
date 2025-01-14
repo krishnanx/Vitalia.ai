@@ -10,9 +10,11 @@ import contact from "../assets/contact.png"
 import terms from "../assets/terms.png"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
 import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
+import LinearGradient from 'react-native-linear-gradient';
+import GoPro from '../components/svgs/GoPro';
 const Profile = () => {
     const Navigation = useNavigation();
-    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity] = useContext(bgContext);
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned,name,setName] = useContext(bgContext);
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
@@ -74,7 +76,7 @@ const Profile = () => {
         navigator:{
           height:70,
           width:350,
-          justifyContent:'flex-start',
+          justifyContent:'space-around',
           alignItems:'center',
           // borderWidth:1.5,
           // borderColor:'white'
@@ -93,36 +95,66 @@ const Profile = () => {
         <View
           style={styles.navigator}
         >
-          <TouchableOpacity>
-              <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
-                  {/* Define the mask */}
-                  <Mask
-                      id="mask0_82_433"
-                      maskUnits="userSpaceOnUse"
-                      x={0}
-                      y={0}
-                      width={24}
-                      height={24}
-                  >
-                      <Rect width={24} height={24} fill="#D9D9D9" />
-                  </Mask>
-
-                  {/* Apply the mask */}
-                  <G mask="url(#mask0_82_433)">
-                      {/* Arrow Path */}
-                      <Path
-                      d="M10 18L4 12L10 6L11.4 7.45L7.85 11H20V13H7.85L11.4 16.55L10 18Z"
-                      fill="white"
-                      />
-                  </G>
-              </Svg>
-          </TouchableOpacity>
-          <Text
-            style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'center',marginLeft:20}}
+          <View
+            style={{width:150,height:50,justifyContent:"flex-start",alignItems:'center',flexDirection:'row'}}
           >
-            More
-          </Text>
+            <TouchableOpacity>
+                <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
+                    {/* Define the mask */}
+                    <Mask
+                        id="mask0_82_433"
+                        maskUnits="userSpaceOnUse"
+                        x={0}
+                        y={0}
+                        width={24}
+                        height={24}
+                    >
+                        <Rect width={24} height={24} fill="#D9D9D9" />
+                    </Mask>
+
+                    {/* Apply the mask */}
+                    <G mask="url(#mask0_82_433)">
+                        {/* Arrow Path */}
+                        <Path
+                        d="M10 18L4 12L10 6L11.4 7.45L7.85 11H20V13H7.85L11.4 16.55L10 18Z"
+                        fill="white"
+                        />
+                    </G>
+                </Svg>
+            </TouchableOpacity>
+            <Text
+              style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'center',marginLeft:20}}
+            >
+              More
+            </Text>
+          </View>
+          <View
+            style={{width:150,flexDirection:'row',/*borderWidth:1,borderColor:'white',*/justifyContent:'flex-end',alignItems:'center'}}
+          >
+            <TouchableOpacity
+              style={{marginRight:10}}
+              onPress={()=>{Navigation.navigate("Pro")}}
+            >
+              <GoPro/>
+            </TouchableOpacity>
+            <LinearGradient
+              colors={['#954EDD', '#CD6AAB']}
+              style={{width:40,height:40,borderRadius:20,justifyContent:'center',alignItems:'center'}}
+            >
+              <TouchableOpacity
+                style={{width:37,height:37,borderRadius:20,justifyContent:'center',alignItems:'center',backgroundColor:"#110C47"}}
+                onPress={()=>{Navigation.navigate("Account")}}
+              >
+                <Text
+                  style={{fontSize:20,fontWeight:800,color:'white'}}
+                >
+                  {name.charAt(0)}
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </View>
         </View>
+        
         <TouchableHighlight
             style={styles.dashboardButton}
             underlayColor="#1c1d1f" // Color when the button is pressed

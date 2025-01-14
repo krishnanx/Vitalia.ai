@@ -6,17 +6,34 @@ import { font } from "../Context/fontContext";
 import Svg, { Text as SvgText, Defs, LinearGradient, Stop } from "react-native-svg";
 import {Mask, Rect, G, Path } from 'react-native-svg';
 import { StatusBar } from 'expo-status-bar';
+import { useAuth } from '../Context/AuthProvider';
+import auth from '@react-native-firebase/auth';
+import { checkLoginStatus } from "../Cookies/Cookie"; 
+
 const Anipage = () => {
+    const { user, setUser,newUser, signedIn, dispatchSignedIn } = useAuth();
     const navigation = useNavigation();
     const {fontsLoaded} = useContext(font)
     useEffect(() => {
         // Automatically navigate to the next page after 3 seconds
         const timer = setTimeout(() => {
-        navigation.navigate("Login"); // Replace 'NextScreen' with your actual screen name
-        }, 5000); // 3000ms = 3 seconds
+            const response = async() => {
+                const [value,user] =  await checkLoginStatus()
+                console.log("user?",user)
+                if(value){
+                    setUser(user);
+                    navigation.navigate("Home");
+                }
+                else{
+                    navigation.navigate("Login");
+                }
+            }
+            response()
+           },5000); // 3000ms = 3 seconds
 
         return () => clearTimeout(timer); // Cleanup timer
     }, [navigation]);
+   
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -35,7 +52,7 @@ const Anipage = () => {
     return (
         <View style={styles.container}>
             <StatusBar style="light" backgroundColor={'black'} />
-            <Animatable.View animation="fadeIn" duration={3000} easing="ease-in-out" style={[styles.textContainer,{marginBottom:40}]}>
+            <Animatable.View animation="fadeIn" duration={4000} easing="ease-in-out" style={[styles.textContainer,{marginBottom:40}]}>
                 
                 <Svg height="100" width="300">
                     <Defs>

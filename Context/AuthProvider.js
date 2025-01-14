@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect,useReducer } from "react";
 import { auth } from "../firebasefile/firebase"; // Import firebase auth
-
+import {SignInReducer} from "../reducers/authReducers"
 // Create an AuthContext
 export const AuthContext = createContext();
 
@@ -20,6 +20,9 @@ export const AuthProvider = ({ children }) => {
     lifestyle: "",
     disease: [],
   });
+  const[signedIn,dispatchSignedIn] = useReducer(SignInReducer,{
+    userToken:null,
+  })
 
   // Listen to authentication state changes
   useEffect(() => {
@@ -63,15 +66,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        userDetailsState,
-        newUser,
-        updateUserDetails,
-        resetUserDetails, // Expose the reset function
-      }}
-    >
+    <AuthContext.Provider value={{ user,setUser,newUser,signedIn,dispatchSignedIn}}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet , TextInput, TouchableHighlight, TouchableOpacity} from 'react-native'
 import React ,{useState,useEffect,useContext} from 'react'
-import { LinearTextGradient } from "react-native-text-gradient";
+
 import { bgContext } from '../Context/StateContext';
 import { useNavigation } from '@react-navigation/native';
 import useRegister from '../firebaseHooks/useRegister';

@@ -1,11 +1,13 @@
+import { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
 import { Button } from 'react-native-paper'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import useLogOut from '../firebaseHooks/useLogOut';
-
+import { bgContext } from '../Context/StateContext';
 const Account = () => {
+    const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned,name,setName] = useContext(bgContext);
     const styles = StyleSheet.create({
         mainContainer:{
             flex: 1,
@@ -37,7 +39,7 @@ const Account = () => {
         },
         boxTitle:{
             color:"white",
-            fontSize:18,
+            fontSize:25,
         },
         buttonContainer:{
             width:"100%",
@@ -49,7 +51,7 @@ const Account = () => {
             backgroundColor:"#1c1d1f",
             marginVertical:5,
             //opacity:"0.5"
-            borderRadius:8,
+            borderRadius:20,
             justifyContent:'center',
             //alignItems:'center',
             paddingHorizontal:5,
@@ -73,10 +75,10 @@ const Account = () => {
       <View style={styles.TopCard}>
         <View style={styles.topTexts}>
             <View>
-                <Text style={{color:"white" , fontSize:10}}>welcome,</Text>
-                <Text style={styles.boxTitle}>John Doe 👋</Text>
+                <Text style={{color:"white" , fontSize:15}}>welcome,</Text>
+                <Text style={styles.boxTitle}>{name} 👋</Text>
             </View>
-            <Button mode='outlined' icon="crown" onPress={()=>navigation.navigate("Pro")}>Go Pro</Button>
+            <Button mode='outlined' icon="crown" onPress={()=>navigation.navigate("Pro")} style={{justifyContent:'center',alignItems:'center'}}>Go Pro</Button>
         </View>
 
       </View>
@@ -87,9 +89,9 @@ const Account = () => {
             onPress={() => console.log('Button Pressed')}
         >  
             <View style={styles.touchView}>
-                <View style={{flexDirection:"row" , gap:10}}>
+                <View style={{flexDirection:"row" , gap:10,alignItems:'center'}}>
                     <Icon name="medical-bag" size={25} color="white" />
-                    <Text style={{color:"white"}}>My Health Info</Text>
+                    <Text style={{color:"white",paddingTop:3}}>My Health Info</Text>
                 </View>
                 <Icon name="chevron-right" size={25} color="white" />
             </View>
@@ -104,7 +106,7 @@ const Account = () => {
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>
                     <Icon name="information-outline" size={25} color="white" />
-                    <Text style={{color:"white"}}>Edit Personal Info</Text>
+                    <Text style={{color:"white",paddingTop:3}}>Edit Personal Info</Text>
                 </View>
                 <Icon name="chevron-right" size={25} color="white" />
             </View>
@@ -119,7 +121,7 @@ const Account = () => {
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>
                     <Icon name="pencil" size={25} color="white" />
-                    <Text style={{color:"white"}}>Edit Health Info</Text>
+                    <Text style={{color:"white",paddingTop:3}}>Edit Health Info</Text>
                 </View>
                 <Icon name="chevron-right" size={25} color="white" />
             </View>
@@ -134,7 +136,7 @@ const Account = () => {
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>
                     <Icon name="crown" size={25} color="white" />
-                    <Text style={{color:"white"}}>My Subscription</Text>
+                    <Text style={{color:"white",paddingTop:3}}>My Subscription</Text>
                 </View>
                 <Icon name="chevron-right" size={25} color="white" />
             </View>
@@ -149,7 +151,7 @@ const Account = () => {
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>
                     <Icon name="lock" size={25} color="white" />
-                    <Text style={{color:"white"}}>Change Password</Text>
+                    <Text style={{color:"white",paddingTop:3}}>Change Password</Text>
                 </View>
                 <Icon name="chevron-right" size={25} color="white" />
             </View>
@@ -164,7 +166,7 @@ const Account = () => {
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>
                     <Icon name="logout" size={25} color="white" />
-                    <Text style={{color:"white"}}>Log Out</Text>
+                    <Text style={{color:"white",paddingTop:3}}>Log Out</Text>
                 </View>
                 <Icon name="chevron-right" size={25} color="white" />
             </View>
