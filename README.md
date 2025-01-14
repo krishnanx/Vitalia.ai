@@ -44,7 +44,7 @@ Nutrigen addresses these challenges by offering:
 
 - **Frontend**: React Native
 - **Backend**: Django
-- **Database**: MongoDB
+- **Database**: Supabase
 - **AI/ML**: TensorFlow, OpenAI API
 - **Cloud Services**: AWS
 - **Barcode/QR Code Scanning**: Libraries and APIs for seamless scanning.
