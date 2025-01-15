@@ -261,6 +261,8 @@ const Scanner = () => {
         const result = await sendBase64ToServer(response)
         ////console.log("result",result["data"])
         if(result.status === "success"){
+          console.log("allergens:",result["allergens_detected"])
+          console.log("safe:",result["safe"])
           const response = calcScore(result);
           result["score"] = response 
           setInfo(result)

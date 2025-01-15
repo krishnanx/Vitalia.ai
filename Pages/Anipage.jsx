@@ -20,11 +20,14 @@ const Anipage = () => {
             const response = async() => {
                 const [value,user] =  await checkLoginStatus()
                 console.log("user?",user)
+                console.log(value)
                 if(value){
                     setUser(user);
+                    console.log("bro")
                     navigation.navigate("Home");
                 }
                 else{
+                    console.log("nah bro")
                     navigation.navigate("Login");
                 }
             }

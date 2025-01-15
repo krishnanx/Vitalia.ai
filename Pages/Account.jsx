@@ -161,7 +161,7 @@ const Account = () => {
         <TouchableHighlight 
             style={styles.dashboardButton}
             underlayColor="#1c1d1f" // Color when the button is pressed
-            onPress={logout}
+            onPress={async()=>await logout()}
         >  
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>
