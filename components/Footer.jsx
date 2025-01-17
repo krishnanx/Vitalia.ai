@@ -23,6 +23,7 @@ import barcode from "../assets/icons/barcode_scanner.png"
 import list from "../assets/icons/list.png"
 import bulb from "../assets/icons/lightbulb.png"
 import { MaterialIcons } from '@expo/vector-icons';
+import ScanButton from "../components/svgs/ScanButton"
 
 const Footer = () => {
    
@@ -94,7 +95,10 @@ const Footer = () => {
             height:40,
             flexDirection:'row',
             justifyContent:'center',
-            alignItems:'center'
+            alignItems:'center',
+            position:"absolute",
+            bottom:10,
+            display: currentPage != "Scan" ? "flex" : "none"
         },
         loaderContainer: {
             position: 'absolute',
@@ -177,9 +181,10 @@ const Footer = () => {
                     
                     <TouchableOpacity onPress={()=>handlePress('Scan')} activeOpacity={0.5} style={styles.Scannable}>
                         {/* {<Icon name="barcode-scan" size={45} color="white" />} */}
-                        <Svg width={35} height={35} viewBox="0 -960 960 960">
+                        {/* <Svg width={35} height={35} viewBox="0 -960 960 960">
                             <Path d="M40-120v-200h80v120h120v80H40Zm680 0v-80h120v-120h80v200H720ZM160-240v-480h80v480h-80Zm120 0v-480h40v480h-40Zm120 0v-480h80v480h-80Zm120 0v-480h120v480H520Zm160 0v-480h40v480h-40Zm80 0v-480h40v480h-40ZM40-640v-200h200v80H120v120H40Zm800 0v-120H720v-80h200v200h-80Z" fill="white" />
-                        </Svg>
+                        </Svg> */}
+                        <ScanButton/>
                     </TouchableOpacity>
                     
                 </View>

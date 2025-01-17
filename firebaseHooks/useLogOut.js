@@ -12,9 +12,10 @@ const useLogOut = () => {
       await signOut(auth); // Firebase signOut method
       await deleteDeviceCookie()
       //console.log('User logged out successfully');
-    } catch (err) {
-      setError(err.message); // Handle any errors
+    } catch (error) {
+      setError(error.message); // Handle any errors
       //console.log('Error logging out:', err.message);
+      throw error
     } finally {
       setLoading(false);
     }

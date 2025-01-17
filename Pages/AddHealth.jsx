@@ -94,9 +94,9 @@ const AddHealth = ({ route, navigation }) => {
     });
     const response = await addSupaDetails(user,{
       diet: details.diet,
-      disease: details.disease,
+      disease: details.disease, // disease is now a list
       lifestyle: details.lifestyle,
-      ...userDetailsState
+      ...userDetailsState //userDetailsState will have the previous data like fname, lname , age, activity etc
     })
     console.log(response);
     //the details contains all the health data

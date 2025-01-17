@@ -18,6 +18,8 @@ import AddHealth from '../Pages/AddHealth';
 import GetStarted from '../Pages/getStarted';
 import Anipage from '../Pages/Anipage';
 import { Easing } from 'react-native';
+import HealthInfo from '../Pages/HealthInfo';
+import ChangePassword from '../Pages/ChangePassword';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -100,6 +102,14 @@ const AppNavigator = () => {
        />
        <Stack.Screen name='Account'
           component={Account}
+          options={{animation:'fade' }}
+       />
+       <Stack.Screen name='MyHealthInfo'
+          component={HealthInfo}
+          options={{animation:'fade' }}
+       />
+       <Stack.Screen name='ChangePassword'
+          component={ChangePassword}
           options={{animation:'fade' }}
        />
       </>

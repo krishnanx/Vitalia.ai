@@ -77,7 +77,7 @@ const App = () => {
             } */}
             <AppNavigator/>
             {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
-            currentPage=="Profile" || currentPage=="Pro" ||currentPage=="Dashboard"?
+            currentPage=="Profile" ||currentPage=="Dashboard" || currentPage=="MyHealthInfo" || currentPage=="changePassword"?
             <Footer/>:""
             }
           </NavigationContainer>
