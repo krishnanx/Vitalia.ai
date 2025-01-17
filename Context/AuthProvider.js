@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   const resetUserDetails = () => {
     setUserDetailsState({
       fname: "",
-      sname: "",
+      lname: "",
       gender: "",
       age: "",
       height: "",
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user,setUser,newUser,signedIn,dispatchSignedIn}}>
+    <AuthContext.Provider value={{ user,setUser,newUser,signedIn,dispatchSignedIn, userDetailsState , updateUserDetails, resetUserDetails}}>
       {children}
     </AuthContext.Provider>
   );

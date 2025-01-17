@@ -1,13 +1,19 @@
-import { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { useContext, useState } from 'react';
+import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
 import { Button } from 'react-native-paper'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import useLogOut from '../firebaseHooks/useLogOut';
 import { bgContext } from '../Context/StateContext';
+import GoPro from '../components/svgs/GoPro';
+import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
+import CustomDialog from '../components/CustomDialog';
+
 const Account = () => {
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned,name,setName] = useContext(bgContext);
+    const [dialogMessage ,setDialogMessage] = useState("");
+    const [isDialogOpen , setIsDialogOpen] = useState(false);
     const styles = StyleSheet.create({
         mainContainer:{
             flex: 1,
@@ -35,7 +41,8 @@ const Account = () => {
             width:"100%",
             alignSelf:"flex-start",
             flexDirection:"row",
-            justifyContent:"space-around"
+            justifyContent:"space-around",
+            alignItems:"center"
         },
         boxTitle:{
             color:"white",
@@ -66,19 +73,73 @@ const Account = () => {
             justifyContent:'space-between',
             alignItems:'center'
           },
+          navigator:{
+            height:70,
+            width:350,
+            justifyContent:'flex-start',
+            alignItems:'center',
+            // borderWidth:1.5,
+            // borderColor:'white'
+            flexDirection:'row'
+            
+        },
     })
     const navigation = useNavigation()
     const {logout , loading , error} = useLogOut();
+    const handleLogOut = async()=>{
+        try{
+            await logout()
+        }catch(error){
+            setDialogMessage(error.message);
+            setIsDialogOpen(true);
+        }
+    }
   return (
     <View style={styles.mainContainer}>
-        {error?alert(error.message):""}
+        <CustomDialog message={dialogMessage} visible={isDialogOpen} onClose={()=>setIsDialogOpen(false)} />
+        <View style={styles.navigator} >
+            <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+                <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
+                    {/* Define the mask */}
+                    <Mask
+                        id="mask0_82_433"
+                        maskUnits="userSpaceOnUse"
+                        x={0}
+                        y={0}
+                        width={24}
+                        height={24}
+                    >
+                        <Rect width={24} height={24} fill="#D9D9D9" />
+                    </Mask>
+    
+                    {/* Apply the mask */}
+                    <G mask="url(#mask0_82_433)">
+                        {/* Arrow Path */}
+                        <Path
+                        d="M10 18L4 12L10 6L11.4 7.45L7.85 11H20V13H7.85L11.4 16.55L10 18Z"
+                        fill="white"
+                        />
+                    </G>
+                </Svg>
+            </TouchableOpacity>
+            <Text
+              style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'center',marginLeft:20}}
+            >
+              Account
+            </Text>
+        </View>
       <View style={styles.TopCard}>
         <View style={styles.topTexts}>
             <View>
                 <Text style={{color:"white" , fontSize:15}}>welcome,</Text>
                 <Text style={styles.boxTitle}>{name} 👋</Text>
             </View>
-            <Button mode='outlined' icon="crown" onPress={()=>navigation.navigate("Pro")} style={{justifyContent:'center',alignItems:'center'}}>Go Pro</Button>
+            <TouchableOpacity
+              style={{marginRight:10}}
+              onPress={()=>{navigation.navigate("Pro")}}
+            >
+              <GoPro/>
+            </TouchableOpacity>
         </View>
 
       </View>
@@ -86,7 +147,7 @@ const Account = () => {
         <TouchableHighlight 
             style={styles.dashboardButton}
             underlayColor="#1c1d1f" // Color when the button is pressed
-            onPress={() => console.log('Button Pressed')}
+            onPress={() => navigation.navigate("MyHealthInfo")}
         >  
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10,alignItems:'center'}}>
@@ -146,7 +207,7 @@ const Account = () => {
         <TouchableHighlight 
             style={styles.dashboardButton}
             underlayColor="#1c1d1f" // Color when the button is pressed
-            onPress={() => console.log('Button Pressed')}
+            onPress={() => navigation.navigate("ChangePassword")}
         >  
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>
@@ -161,7 +222,7 @@ const Account = () => {
         <TouchableHighlight 
             style={styles.dashboardButton}
             underlayColor="#1c1d1f" // Color when the button is pressed
-            onPress={async()=>await logout()}
+            onPress={handleLogOut}
         >  
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>

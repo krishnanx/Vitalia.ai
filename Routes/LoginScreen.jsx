@@ -197,7 +197,7 @@ export default function LoginScreen({ navigation }) {
 
       <View style={styles.bottom}>
         <Text style={{color:"#818181" , fontSize:12 , fontFamily:"Poppins"}}>Don't have an account ?</Text>
-        <TouchableOpacity style={{height:40, width:56,backgroundColor:'transparent' , alignItems:"center", marginTop:13}} onPress={()=>navigation.navigate("Signup")}>
+        <TouchableOpacity style={{height:40, width:56,backgroundColor:'transparent' , alignItems:"center", marginTop:15}} onPress={()=>navigation.navigate("Signup")}>
           {/* <Text style={{color:"#818181" , fontSize:15 , fontFamily:"Poppins-Bold"}}> Sign up</Text> */}
           <StyledText text="Sign up            " style={{fontSize:15 , fontFamily:"Poppins-Bold"}}/>
         </TouchableOpacity>

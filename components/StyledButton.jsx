@@ -9,6 +9,7 @@ const StyledButton = ({
   height = 80,
   width = 333,
   radius = 22,
+  colors
 }) => {
   return (
     <TouchableHighlight
@@ -17,7 +18,7 @@ const StyledButton = ({
       underlayColor="rgba(255, 255, 255, 0.3)"
     >
       <LinearGradient
-        colors={['#944EE0', '#CD6AAB']}
+        colors={colors || ['#944EE0', '#CD6AAB']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={[
