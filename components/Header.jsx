@@ -21,7 +21,7 @@ const Header = () => {
             }
         }
     useEffect(()=>{
-        console.log(Location[Location.length-1]);
+        //console.log(Location[Location.length-1]);
     })
     const styles = StyleSheet.create({
         header:{

@@ -262,8 +262,8 @@ const Scanner = () => {
         const result = await sendBase64ToServer(response,uid)
         ////console.log("result",result["data"])
         if(result.status === "success"){
-          console.log("allergens:",result["allergens"])
-          console.log("safe:",result["safe"])
+          //console.log("allergens:",result["allergens"])
+          //console.log("safe:",result["safe"])
           //const response = calcScore(result);
           //result["score"] = response 
           setInfo(result)
@@ -298,7 +298,7 @@ const Scanner = () => {
              <CameraView 
                   ref={cameraRef} 
                   style={[StyleSheet.absoluteFillObject ,{height:870}]}
-                  onCameraReady={() => console.log("Camera ready")} 
+                  //onCameraReady={() => console.log("Camera ready")} 
                   animateShutter={false} 
                   enableTorch={Torch}
                   autofocus={'on'}

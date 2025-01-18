@@ -5,10 +5,10 @@ const history = async(user,result) => {
     
     const uid = user.uid
     const response = await handlePull(user,"History");
-    console.log("response",response)
-    console.log("code",result.code)
+    // console.log("response",response)
+    // console.log("code",result.code)
     for(const item of response){
-        console.log("item:",item)
+        //console.log("item:",item)
         if(result.code==item.code){
             console.log("NOT UNIQUE")
             return

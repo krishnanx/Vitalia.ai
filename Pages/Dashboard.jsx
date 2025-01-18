@@ -74,7 +74,7 @@ const Dashboard = () => {
 
       }, [info]);
     useEffect(()=>{
-        console.log("height:",info.allergens?.length)
+        //console.log("height:",info.allergens?.length)
     },[click,info])
     
     const styles = StyleSheet.create({
@@ -349,7 +349,7 @@ const Dashboard = () => {
 }
     const handleFav = async() => {
         const response = click?(setClicked(false),await onDelete(user,info.code,info)):(setClicked(true),await onSave(user,info));
-        console.log("info",response)
+        //console.log("info",response)
         setInfo(response)
     };
     const [page, setPage] = useState(0);
@@ -713,7 +713,7 @@ const Dashboard = () => {
                     >
                         {info.allergens && Array.isArray(info.allergens) && info.allergens.length>0?(
                             info.allergens.map((item,index)=>{
-                            console.log(item)
+                            //console.log(item)
                             return(
                                 <View
                                     key={index}
@@ -759,7 +759,7 @@ const Dashboard = () => {
                 >
                         {info.allergens && Array.isArray(info.allergens) && info.allergens.length>0?(
                             info.allergens.map((item,index)=>{
-                            console.log(item)
+                            //console.log(item)
                             return(
                                
                                 <View

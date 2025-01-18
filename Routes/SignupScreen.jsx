@@ -25,7 +25,7 @@ const SignupScreen = ({navigation}) => {
     useEffect(() => {
         if (navigation) {
             const state = navigation.getState();
-            ////console.log("navigation state:", state.routes[0].name);
+            //console.log("navigation state:", state.routes[0].name);
             const Index = state.index;
             const location = state.routes[Index].name;
            
@@ -59,7 +59,7 @@ const SignupScreen = ({navigation}) => {
                   fname: fname,
                   lname: lname,
                 })
-                console.log(userDetailsState);
+                //console.log(userDetailsState);
                 navigation.navigate("Details");
 
                 

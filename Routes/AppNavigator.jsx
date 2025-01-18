@@ -58,13 +58,13 @@ const AppNavigator = () => {
        
       </>:
       <>
-      <Stack.Screen name="Details"
-        component={DetailsCollection}
-        options={{animation:'fade' }}
+        <Stack.Screen name="Details"
+          component={DetailsCollection}
+          options={{animation:'fade' }}
         />
         <Stack.Screen name="AddHealthInfo"
-        component={AddHealth}
-        options={{animation:'fade_from_bottom' }}
+          component={AddHealth}
+          options={{animation:'fade_from_bottom' }}
         />
         <Stack.Screen 
           name="GetStarted"
@@ -79,11 +79,11 @@ const AppNavigator = () => {
         <Stack.Screen name="jane"
           component={Jane} 
           options={{animation:'fade' }}
-       />
+        />
         <Stack.Screen name="Scan"
           component={Scanner}
           options={{animation:'fade' }} 
-       />
+        />
         <Stack.Screen name="Saved"
           component={Saved}
           options={{animation:'fade' }} 

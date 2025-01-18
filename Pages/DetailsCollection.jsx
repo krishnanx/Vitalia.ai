@@ -39,7 +39,7 @@ const DetailsCollection = ({route,navigation}) => {
     }
     
     const handleSubmit = () => {
-      console.log(userDetails)
+      //console.log(userDetails)
         if( !userDetails.gender || !userDetails.height || !userDetails.weight || !userDetails.activity || !userDetails.age){
             setDialogMessage("Please Input all field");
             setIsDialogVisible(true);

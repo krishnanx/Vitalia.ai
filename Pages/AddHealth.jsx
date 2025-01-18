@@ -22,7 +22,7 @@ const AddHealth = ({ route, navigation }) => {
   const {updateUserDetails, userDetailsState} = useAuth();
 
   useEffect(() => {
-    console.log("Updated userDetailsState:", userDetailsState);
+    //console.log("Updated userDetailsState:", userDetailsState);
   }, [userDetailsState]); // Runs whenever userDetailsState changes
 
   const styles = StyleSheet.create({
@@ -98,7 +98,7 @@ const AddHealth = ({ route, navigation }) => {
       lifestyle: details.lifestyle,
       ...userDetailsState //userDetailsState will have the previous data like fname, lname , age, activity etc
     })
-    console.log(response);
+    //console.log(response);
     //the details contains all the health data
     //add the supabse logic here
     navigation.navigate("GetStarted");

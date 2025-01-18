@@ -13,25 +13,24 @@ import Card from '../components/Card';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Saved = () => {
   const {user} = useContext(AuthContext)
-
   const Navigation = useNavigation();
   const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned] = useContext(bgContext);
   const [bgcolor,setBackgroundColor] = useState('#ADE2FF');
-  const route = useRoute();
-  console.log("Route Object in Saved:", route);
-  const { bookmarks: routeBookmarks } = route.params || {};
-  const object = routeBookmarks["_j"]
-  const [bookmarkss, setBookmarkss] = useState(object);
-  useEffect(()=>{
-    console.log(bookmarkss)
-  },[bookmarkss])
-  console.log("Route Bookmarks:", routeBookmarks['_j']);
-  const toggleBookmark = async (item) => {
-    await onDelete(user, item.code, []);
-    check();
+  //const route = useRoute();
+  //console.log("Route Object in Saved:", route);
+  // const { bookmarks: routeBookmarks } = route.params || {};
+  // const object = routeBookmarks["_j"]
+  // const [bookmarkss, setBookmarkss] = useState(object);
+  // useEffect(()=>{
+  //   //console.log(bookmarkss)
+  // },[bookmarkss])
+  //console.log("Route Bookmarks:", routeBookmarks['_j']);
+  // const toggleBookmark = async (item) => {
+  //   await onDelete(user, item.code, []);
+  //   check();
     
     
-  };
+  // };
   
   useEffect(() => {
       if (Navigation) {
@@ -54,17 +53,11 @@ const Saved = () => {
     checkK()
   
 },[fav])*/
-
-  const check = async() => {
-    const response = await handlePull(user,"Saved");
-    console.log("footer response:",response);
-    setValue(response);
-  }
   useEffect(()=>{
     //console.log("HOME HISTORY:",scanned)
     const check = async() => {
         const response = await handlePull(user,"saved")
-        console.log("response???:",response)
+        //console.log("response???:",response)
         setValue(response)
         return response;
     }
@@ -77,10 +70,7 @@ const Saved = () => {
     setInfo(item);
     Navigation.navigate("Dashboard")
   }
-  /*useEffect(()=>{
-    console.log("saved value:",value)
 
-  },[value])*/
   const styles = StyleSheet.create({
       Main:{
         flex:1,
@@ -281,7 +271,7 @@ const Saved = () => {
       >
       {value && Array.isArray(value) && value.length>0?(
         value.map((item,index)=>{
-          console.log(item)
+          //console.log(item)
           return(
               <Card
                 key = {item.code}

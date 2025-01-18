@@ -35,7 +35,7 @@ const addSupaDetails = async(user,details) => {
                 return
               } else {
                 // Handle the data (e.g., show success message or process the inserted data)
-                console.log('Data inserted successfully:',Value);
+                //console.log('Data inserted successfully:',Value);
                 return
               }
               

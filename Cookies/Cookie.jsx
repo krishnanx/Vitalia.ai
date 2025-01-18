@@ -29,7 +29,7 @@ export const checkLoginStatus = async () => {
     const cookieName = await getDeviceCookieName(); 
     if (cookies && cookies[cookieName]) {
         const jsonObject = JSON.parse(cookies[cookieName].value);
-        console.log("user:",jsonObject)
+        //console.log("user:",jsonObject)
         // User is logged in
         console.log('User is logged in');
         //console.log(cookies[cookieName])

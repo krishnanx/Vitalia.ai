@@ -40,7 +40,7 @@ const Home = () => {
     useEffect(()=>{
         //console.log("HOME HISTORY:",scanned)
         const check = async() => {
-            console.log("user in home",user)
+            //console.log("user in home",user)
             const response = await handlePull(user,"History")
             const value = await handlePull(user,"Users")
             // console.log("response???:",response)

@@ -15,15 +15,15 @@ const onSave = async(user,result) => {
         ])
         .select()
         if(error){
-            console.log(error)
+            //console.log(error)
             return data
         }
         else{
-            console.log("saved!!!",value)
+            //console.log("saved!!!",value)
             return data
         }
     }catch(e){
-        console.log("error:",e);
+        //console.log("error:",e);
         return data
     }
 }

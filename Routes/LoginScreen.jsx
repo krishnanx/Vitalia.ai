@@ -63,7 +63,7 @@ export default function LoginScreen({ navigation }) {
         try {
           const user = await login(email , password);
           if(user){
-            console.log("logged in",user)
+            //console.log("logged in",user)
             const response = setLoginCookie(user)
             navigation.navigate("Home");
           }

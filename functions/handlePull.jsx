@@ -13,7 +13,7 @@ const handlePull = async(user,table) => {
             return;
         }
         else{
-            console.log("pulled data:",data);
+            //console.log("pulled data:",data);
             return data;
         }
     }
