@@ -9,11 +9,13 @@ import { bgContext } from '../Context/StateContext';
 import GoPro from '../components/svgs/GoPro';
 import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
 import CustomDialog from '../components/CustomDialog';
+import { AuthContext } from '../Context/AuthProvider';
 
 const Account = () => {
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned,name,setName] = useContext(bgContext);
     const [dialogMessage ,setDialogMessage] = useState("");
     const [isDialogOpen , setIsDialogOpen] = useState(false);
+    const {user,setUser} = useContext(AuthContext);
     const styles = StyleSheet.create({
         mainContainer:{
             flex: 1,
@@ -88,6 +90,7 @@ const Account = () => {
     const {logout , loading , error} = useLogOut();
     const handleLogOut = async()=>{
         try{
+            setUser(false)
             await logout()
         }catch(error){
             setDialogMessage(error.message);
@@ -222,7 +225,7 @@ const Account = () => {
         <TouchableHighlight 
             style={styles.dashboardButton}
             underlayColor="#1c1d1f" // Color when the button is pressed
-            onPress={handleLogOut}
+            onPress={()=>handleLogOut()}
         >  
             <View style={styles.touchView}>
                 <View style={{flexDirection:"row" , gap:10}}>

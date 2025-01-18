@@ -74,23 +74,20 @@ const Dashboard = () => {
 
       }, [info]);
     useEffect(()=>{
-        console.log("click",click)
-        console.log("")
-        console.log("mydataaa",info)
-        console.log("")
-        console.log("value:",value)
+        console.log("height:",info.allergens?.length)
     },[click,info])
+    
     const styles = StyleSheet.create({
         Main:{
             flex:1,
             backgroundColor: '#141414',
             width:'100%',
-            height:'700',
+            
             //justifyContent:'space-around',
             //marginVertical:10,
             paddingTop:30,
             //alignItems:'center'
-
+           
         },
         product:{
             width:340,
@@ -313,6 +310,25 @@ const Dashboard = () => {
 
 
         },
+        hazard:{
+            width:"95%",
+            //borderRadius:25
+            marginVertical:30,
+            
+        },
+        linearG:{
+            height:500,
+            borderRadius:30,
+            //justifyContent:"center",
+            alignItems:'center'
+        },
+        Allergens:{
+            
+            width:"95%",
+            backgroundColor:"#FF444433",
+            marginTop:70,
+            borderRadius:30
+        },
     });
     const handleIngredients = () => { 
         setNutrientsColor("#1d1d1e")
@@ -376,10 +392,17 @@ const Dashboard = () => {
         useEffect(() => {
          setPage(0);
        }, [itemsPerPage]);
+         // Define base height and height increment per allergen
+        const baseHeight = 400; // Base height for the view
+        const heightPerItem = 20; // Height increment for each allergen
+        const Height = 200
+        // Calculate dynamic height
+        const dynamicHeight = baseHeight + heightPerItem * (info.allergens?.length || 0);
+        const allergensHeight = Height + heightPerItem + (info.allergens?.length || 0)
     return (
     <ScrollView
         style={styles.Main}
-        contentContainerStyle={{ alignItems: 'center' }} // Optional for centered content
+        contentContainerStyle={{ alignItems: 'center', paddingBottom:100 }} // Optional for centered content
     >
         <View
             style={styles.navigator}
@@ -457,42 +480,40 @@ const Dashboard = () => {
                 >
                     
                     <View style={[styles.corner, styles.topLeft,{ backgroundColor:
-                                                                    info.score === 'A' ? "#355e3b" :
-                                                                    info.score === 'B' ? "#32cd32" :
-                                                                    info.score === 'C' ? "#fdf718" :
-                                                                    info.score === 'D' ? "#ED7014" :
-                                                                    info.score === 'D'? "#AA0000":
-                                                                    "transparent"}]} />
+                                                                    info.score > 90 ? "#FF5733" : // good green for score greater than 90
+                                                                    info.score >= 60 && info.score <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                                    info.score >= 40 && info.score < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                                    info.score < 40 ? "#AA0000" : // red for score less than 40
+                                                                    "transparent"
+                                                                    
+                                                                    }]} />
                     <View style={[styles.corner, styles.topRight,{ backgroundColor:
-                                                                    info.score === 'A' ? "#355e3b" :
-                                                                    info.score === 'B' ? "#32cd32" :
-                                                                    info.score === 'C' ? "#fdf718" :
-                                                                    info.score === 'D' ? "#ED7014" :
-                                                                    info.score === 'D'? "#AA0000":
-                                                                    "transparent"}]} />
+                                                                   info.score > 90 ? "#FF5733" : // good green for score greater than 90
+                                                                   info.score >= 60 && info.score <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                                   info.score >= 40 && info.score < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                                   info.score < 40 ? "#AA0000" : // red for score less than 40
+                                                                   "transparent"}]} />
                     <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
-                                                                   info.score === 'A' ? "#355e3b" :
-                                                                   info.score === 'B' ? "#32cd32" :
-                                                                   info.score === 'C' ? "#fdf718" :
-                                                                   info.score === 'D' ? "#ED7014" :
-                                                                   info.score === 'D'? "#AA0000":
+                                                                   info.score > 90 ? "#FF5733" : // good green for score greater than 90
+                                                                   info.score >= 60 && info.score <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                                   info.score >= 40 && info.score < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                                   info.score < 40 ? "#AA0000" : // red for score less than 40
                                                                    "transparent"}]} />
                     <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
-                                                                    info.score === 'A' ? "#355e3b" :
-                                                                    info.score === 'B' ? "#32cd32" :
-                                                                    info.score === 'C' ? "#fdf718" :
-                                                                    info.score === 'D' ? "#ED7014" :
-                                                                    info.score === 'D'? "#AA0000":
-                                                                    "transparent"}]} />
+                                                                     info.score > 90 ? "#FF5733" : // good green for score greater than 90
+                                                                     info.score >= 60 && info.score <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                                     info.score >= 40 && info.score < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                                     info.score < 40 ? "#AA0000" : // red for score less than 40
+                                                                     "transparent"}]} />
                     <View style={styles.viewSquare}>
                         
                         <Text
                             style={{fontSize:30,fontWeight:'400',color:
-                            info.score === 'A' ? "#355e3b" :
-                            info.score === 'B' ? "#32cd32" :
-                            info.score === 'C' ? "#fdf718" :
-                            info.score === 'D' ? "#ED7014" : 
-                            "#AA0000",}}
+                                info.score > 90 ? "#FF5733" : // good green for score greater than 90
+                                info.score >= 60 && info.score <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                info.score >= 40 && info.score < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                info.score < 40 ? "#AA0000" : // red for score less than 40
+                                "transparent"}}
                         >
                             {info.score}
                         </Text>
@@ -671,6 +692,99 @@ const Dashboard = () => {
 
 
             </View>}
+            <View
+                style={[styles.hazard,{height:dynamicHeight}]}
+            >
+               <LinearGradient
+                    colors={['#5D4BBE', '#473A9233']}
+                    style={styles.linearG}
+                >
+                    <View
+                        style={{width:300,height:50,marginTop:30}}
+                    >
+                        <Text
+                            style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',}}
+                        >
+                            Hazardous Ingredients
+                        </Text>
+                    </View>
+                    <View
+                        style={{width:"95%",height:(dynamicHeight-10),alignItems:'center'}}
+                    >
+                        {info.allergens && Array.isArray(info.allergens) && info.allergens.length>0?(
+                            info.allergens.map((item,index)=>{
+                            console.log(item)
+                            return(
+                                <View
+                                    key={index}
+                                    style={{backgroundColor:"#9B8FE794",width:"90%",height:150,marginTop:20,borderRadius:20}}
+                                >
+                                    <View
+                                        style={{width:310,paddingLeft:20,paddingTop:10}}
+                                    >
+                                        <Text
+                                            style={{fontSize:20,color:'white',fontFamily:'Poppins-SemiBold',}}
+                                        >
+                                            {item.charAt(0).toUpperCase() + item.slice(1)}
+                                        </Text>
+                                    </View>
+                                    <View style={{width:250,borderBottomWidth:1.5,borderColor:"white",marginLeft:20}}/>
+                                </View>
+                            )
+                            })
+                            ):(
+                            <View
+                                style={{width:380,height:200,justifyContent:'center',alignItems:'center',}}
+                            >
+
+                            </View>
+                            )}
+                   </View>
+                </LinearGradient>
+            </View>
+            <View
+                style={[styles.Allergens,{height:allergensHeight}]}
+            >
+                <View
+                    style={{width:310,paddingLeft:30,paddingTop:20}}
+                >
+                    <Text
+                        style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',}}
+                    >
+                        Allergens
+                    </Text>
+                </View>
+                <View
+                    style={{width:"95%",height:(allergensHeight-10),alignItems:'center'}}
+                >
+                        {info.allergens && Array.isArray(info.allergens) && info.allergens.length>0?(
+                            info.allergens.map((item,index)=>{
+                            console.log(item)
+                            return(
+                               
+                                <View
+                                    style={{width:310,paddingLeft:20,paddingTop:10}}
+                                    key={index}
+                                >
+                                    <Text
+                                        style={{fontSize:20,color:'white',fontFamily:'Poppins-SemiBold',}}
+                                    >
+                                        •  {item.charAt(0).toUpperCase() + item.slice(1)}
+                                    </Text>
+                                </View>
+                                
+                               
+                            )
+                            })
+                            ):(
+                            <View
+                                style={{width:380,height:200,justifyContent:'center',alignItems:'center',}}
+                            >
+
+                            </View>
+                        )}
+                </View>
+            </View>
         </View>
     </ScrollView>
   )

@@ -258,13 +258,14 @@ const Scanner = () => {
         //console.log(photo.uri); // Log photo details
         const response = await convertToBase64(photo.uri);
         ////console.log("response",response)
-        const result = await sendBase64ToServer(response)
+        const uid = user.uid
+        const result = await sendBase64ToServer(response,uid)
         ////console.log("result",result["data"])
         if(result.status === "success"){
-          console.log("allergens:",result["allergens_detected"])
+          console.log("allergens:",result["allergens"])
           console.log("safe:",result["safe"])
-          const response = calcScore(result);
-          result["score"] = response 
+          //const response = calcScore(result);
+          //result["score"] = response 
           setInfo(result)
           await history(user,result)
           Navigation.navigate("Dashboard")

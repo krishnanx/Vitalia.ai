@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import CustomDialog from '../components/CustomDialog';
 import { useChangePassword } from '../firebaseHooks/useChangePassword';
 
-const changePasswordData = () => {
+const ChangePasswordData = () => {
     const [dialogMessage , setDialogMessage] = useState("");
     const [isDialogOpen , setIsDialogOpen] = useState(false);
     const [changePasswordData , setchangePasswordData] = useState({
@@ -137,4 +137,4 @@ const changePasswordData = () => {
   )
 }
 
-export default changePasswordData
+export default ChangePasswordData
