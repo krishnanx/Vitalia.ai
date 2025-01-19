@@ -145,6 +145,7 @@ export default function LoginScreen({ navigation }) {
             value={email}
             placeholderTextColor={"#686868"}
             onChangeText={(text)=>setEmail(text)}
+            keyboardType="email-address"
           />
 
         <TextInput 

@@ -167,6 +167,7 @@ const SignupScreen = ({navigation}) => {
           <TextInput 
             style={styles.input}
             placeholder='Email'
+            keyboardType="email-address"
             placeholderTextColor={"#686868"}
             value={email}
             onChangeText={(text)=>setEmail(text)}

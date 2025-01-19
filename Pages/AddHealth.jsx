@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TextInput } from 'react-native';
 import { RadioButton, IconButton, Button } from 'react-native-paper';
 import AllergyButton from '../components/AllergyButton';
 import React, { useContext, useEffect, useState } from 'react';
@@ -14,7 +14,11 @@ const AddHealth = ({ route, navigation }) => {
   const [details, setDetails] = useState({
     diet:"",
     lifestyle:"",
-    disease:[]
+    disease:[],
+    sugar:"",
+    bp:"",
+    cholestrol:"",
+    heartrate:""
   });
   const [dialogMessage , setDialogMessage] = useState("");
   const [isDialogVisible , setIsDialogVisible] = useState(false);
@@ -33,7 +37,7 @@ const AddHealth = ({ route, navigation }) => {
     title: {
       fontSize: 20,
       fontWeight: 'bold',
-      marginTop: 20,
+      marginTop: 30,
       color: 'white',
       textAlign: 'center',
     },
@@ -58,7 +62,8 @@ const AddHealth = ({ route, navigation }) => {
       flexWrap: 'wrap',
       width: '100%',
       flexDirection: 'row',
-      marginLeft:30
+      marginLeft:30,
+      gap:10
     },
     button: {
       borderRadius: 10,
@@ -73,7 +78,14 @@ const AddHealth = ({ route, navigation }) => {
     },
     button2:{
       borderRadius:3
-    }
+    },
+    input: {
+      height: 60, // Adjust height as needed
+      backgroundColor:"#252930",
+      borderRadius: 22, // Change the border radius here
+      paddingHorizontal: 10, // Inner padding for text
+      color:"white"
+    },
   });
   const handleNext = async()=>{
     if(!details.diet){
@@ -86,21 +98,34 @@ const AddHealth = ({ route, navigation }) => {
       setIsDialogVisible(true)
       return
     }
+    if(!details.bp || !details.cholestrol || !details.heartrate || !details.sugar){
+      setDialogMessage("Please fill all inputs");
+      setIsDialogVisible(true);
+      return;
+    }
+    
     
     updateUserDetails({
       diet:details.diet,
       lifestyle: details.lifestyle,
-      disease: details.disease
+      disease: details.disease,
+      bp: details.bp,
+      cholesterol: details.cholestrol,
+      sugar: details.sugar,
+      heartrate: details.heartrate
     });
+    console.log("Add Health" , userDetailsState);
     const response = await addSupaDetails(user,{
       diet: details.diet,
       disease: details.disease, // disease is now a list
       lifestyle: details.lifestyle,
+      sugar: details.sugar,
+      bp: details.bp,
+      cholestrol: details.cholestrol,
+      heartrate: details.heartrate,
       ...userDetailsState //userDetailsState will have the previous data like fname, lname , age, activity etc
     })
-    //console.log(response);
-    //the details contains all the health data
-    //add the supabse logic here
+    
     navigation.navigate("GetStarted");
   }
 
@@ -147,6 +172,40 @@ const AddHealth = ({ route, navigation }) => {
           <StyledRadioButton text='Strength Training' selected={details.lifestyle=="Strength Training"} onPress={()=>setDetails({...details , lifestyle:"Strength Training"})}/>
           <StyledRadioButton text='Healthy Heart' selected={details.lifestyle=="Healthy Heart"} onPress={()=>setDetails({...details , lifestyle:"Healthy Heart"})}/>
         </View>
+      </View>
+
+      <View style={{width:"95%" , gap:5, marginTop:10, marginLeft:5}}>
+        <TextInput style={styles.input}
+          placeholder='Blood Sugar (mg/dL)'
+          keyboardType="numeric"
+          placeholderTextColor={"#686868"}
+          value={details.sugar}
+          onChangeText={(text)=>setDetails({...details , sugar:text})} //onChangeText={(text) => setUserDetails({ ...userDetails, height: text })}
+          />
+
+        <TextInput style={styles.input}
+          placeholder='Blood Pressure (mmHg)'
+          placeholderTextColor={"#686868"}
+          keyboardType="numeric"
+          value={details.bp}
+          onChangeText={(text)=>setDetails({...details , bp:text})} //onChangeText={(text) => setUserDetails({ ...userDetails, height: text })}
+          />
+
+        <TextInput style={styles.input}
+          placeholder='Cholestrol (mg/dL)'
+          placeholderTextColor={"#686868"}
+          keyboardType="numeric"
+          value={details.cholestrol}
+          onChangeText={(text)=>setDetails({...details , cholestrol:text})} //onChangeText={(text) => setUserDetails({ ...userDetails, height: text })}
+          />
+
+        <TextInput style={styles.input}
+          placeholder='Heart Rate(bpm)'
+          placeholderTextColor={"#686868"}
+          keyboardType="numeric"
+          value={details.heartrate}
+          onChangeText={(text)=>setDetails({...details , heartrate:text})} //onChangeText={(text) => setUserDetails({ ...userDetails, height: text })}
+          />
       </View>
 
       <View style={styles.subContainer}>

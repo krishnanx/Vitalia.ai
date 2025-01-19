@@ -6,7 +6,7 @@ import useLogOut from '../firebaseHooks/useLogOut';
 import { useNavigation } from '@react-navigation/native';
 import Card from '../components/Card';
 import { useRoute } from '@react-navigation/native';
-import { AuthContext } from '../Context/AuthProvider';
+import { AuthContext, useAuth } from '../Context/AuthProvider';
 import handlePull from '../functions/handlePull';
 import { Searchbar } from 'react-native-paper';
 import Search from "../assets/icons/search.svg"
@@ -15,13 +15,15 @@ import { font } from '../Context/fontContext'
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Home = () => {
     const route = useRoute();
+    const {updateUserDetails, userDetailsState} = useAuth();
+    console.log("IGU", userDetailsState)
     
     const {fontsLoaded} = useContext(font)
     const [searchQuery, setSearchQuery] = React.useState('');
     const {history: his } = route.params || {};
     const {user} = useContext(AuthContext)
     //console.log("his:",his["_j"]);
-    const {logout , loading , error} = useLogOut();
+    //const {logout , loading , error} = useLogOut();
     //const navigation = useNavigation();
     const Navigation = useNavigation();
     const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned,name,setName] = useContext(bgContext);
@@ -140,7 +142,7 @@ const Home = () => {
         
     });
 
-   
+   const loading = false;
     
     
 
@@ -230,7 +232,7 @@ const Home = () => {
                         <ScrollView
                             horizontal={true}
                         >
-                            {scanned && Array.isArray(scanned) && scanned.length>0?(
+                            {scanned && !loading && Array.isArray(scanned) && scanned.length>0?(
                                 scanned.map((item,index)=>{
                                     return(
                                         <Card
@@ -247,7 +249,7 @@ const Home = () => {
                                 <View
                                     style={{width:380,height:200,justifyContent:'center',alignItems:'center'}}
                                 >
-                                    <ActivityIndicator animating={true} color={MD2Colors.white} style={{zIndex:6,justifyContent:'center',alignItems:'center',paddingLeft:5}} size={50}/>
+                                    <ActivityIndicator animating={true} color={MD2Colors.white} style={{zIndex:6,justifyContent:'center',alignItems:'center',paddingLeft:5}} size={50}/> 
                                 </View>
                             )}
                         </ScrollView>
