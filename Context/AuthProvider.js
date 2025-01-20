@@ -19,6 +19,11 @@ export const AuthProvider = ({ children }) => {
     diet: "",
     lifestyle: "",
     disease: [],
+    bmi:"",
+    sugar:"",
+    cholesterol:"",
+    bp:"",
+    heartrate:""
   });
   const[signedIn,dispatchSignedIn] = useReducer(SignInReducer,{
     userToken:null,

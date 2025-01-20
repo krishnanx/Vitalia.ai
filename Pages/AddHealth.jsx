@@ -104,27 +104,52 @@ const AddHealth = ({ route, navigation }) => {
       return;
     }
     
-    
     updateUserDetails({
       diet:details.diet,
       lifestyle: details.lifestyle,
       disease: details.disease,
       bp: details.bp,
-      cholesterol: details.cholestrol,
-      sugar: details.sugar,
+      cholesterol:details.cholestrol,
+      sugar:details.sugar,
       heartrate: details.heartrate
     });
-    console.log("Add Health" , userDetailsState);
-    const response = await addSupaDetails(user,{
-      diet: details.diet,
-      disease: details.disease, // disease is now a list
+    console.log("\nAdd Health\n" , {
+      diet:details.diet,
       lifestyle: details.lifestyle,
-      sugar: details.sugar,
+      disease: details.disease,
       bp: details.bp,
-      cholestrol: details.cholestrol,
+      cholesterol:details.cholestrol,
+      sugar:details.sugar,
       heartrate: details.heartrate,
-      ...userDetailsState //userDetailsState will have the previous data like fname, lname , age, activity etc
-    })
+      fname: userDetailsState.fname,
+      lname: userDetailsState.lname,
+      gender: userDetailsState.gender,
+      age: userDetailsState.age,
+      activity: userDetailsState.activity,
+      height: userDetailsState.height,
+      weight: userDetailsState.weight,
+      bmi: userDetailsState.bmi
+      });
+    
+    const response = await addSupaDetails(user,
+      {
+      diet:details.diet,
+      lifestyle: details.lifestyle,
+      disease: details.disease,
+      bp: details.bp,
+      cholesterol:details.cholestrol,
+      sugar:details.sugar,
+      heartrate: details.heartrate,
+      fname: userDetailsState.fname,
+      lname: userDetailsState.lname,
+      gender: userDetailsState.gender,
+      age: userDetailsState.age,
+      activity: userDetailsState.activity,
+      height: userDetailsState.height,
+      weight: userDetailsState.weight,
+      bmi: userDetailsState.bmi
+      }
+    )
     
     navigation.navigate("GetStarted");
   }
