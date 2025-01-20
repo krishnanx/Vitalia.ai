@@ -38,18 +38,24 @@ const AddHealth = ({ route, navigation }) => {
       fontSize: 20,
       fontWeight: 'bold',
       marginTop: 30,
+      paddingTop:10,
       color: 'white',
       textAlign: 'center',
+      // borderWidth:1.5,
+      // borderColor:'white'
     },
     subContainer: {
       width: '100%',
       alignItems: 'center',
+      // borderWidth:1.5,
+      // borderColor:'white'
+      paddingLeft:10
     },
     subTitle: {
       fontSize: 16,
       color: 'white',
       alignSelf: 'flex-start',
-      marginTop: 25,
+      marginTop:20,
       marginLeft: 10,
     },
     options: {
@@ -176,7 +182,7 @@ const AddHealth = ({ route, navigation }) => {
   
 
   return (
-    <ScrollView style={styles.mainContainer} >
+    <ScrollView style={styles.mainContainer} contentContainerStyle={{ alignItems: 'center', paddingBottom:50,flexGrow:1}} >
       <CustomDialog visible={isDialogVisible} onClose={()=>setIsDialogVisible(false)} message={dialogMessage} />
       <Text style={styles.title}>Add Health Info</Text>
       <View style={styles.subContainer}>
@@ -199,7 +205,7 @@ const AddHealth = ({ route, navigation }) => {
         </View>
       </View>
 
-      <View style={{width:"95%" , gap:5, marginTop:10, marginLeft:5}}>
+      <View style={{width:"95%" , gap:5, marginTop:15,paddingHorizontal:10}}>
         <TextInput style={styles.input}
           placeholder='Blood Sugar (mg/dL)'
           keyboardType="numeric"
@@ -235,7 +241,7 @@ const AddHealth = ({ route, navigation }) => {
 
       <View style={styles.subContainer}>
         <Text style={styles.subTitle}>Allergies and Aversions</Text>
-        <View style={styles.icons}>
+        <View style={[styles.icons,{marginTop:10}]}>
           <AllergyButton buttonIcon="barley" text="Gluten" selected={isDiseasePresent("Gluten")} onPress={() => addDisease("Gluten")}/>
           <AllergyButton buttonIcon="corn" text="Corn" selected={isDiseasePresent("Corn")} onPress={() => addDisease("Corn")}/>
           <AllergyButton buttonIcon="egg-outline" text="Egg" selected={isDiseasePresent("Egg")} onPress={() => addDisease("Egg")}/>
@@ -252,7 +258,7 @@ const AddHealth = ({ route, navigation }) => {
           <AllergyButton buttonIcon="liquor" text="Alcohol" selected={isDiseasePresent("Alcohol")} onPress={() => addDisease("Alcohol")}/>
           <AllergyButton buttonIcon="close" text="Clear Selection" selected={false} onPress={() => clearDiseases()}/>
         </View>
-        <View style={{width:"85%" , flexDirection:"row" ,justifyContent:"space-between",alignItems:"center", marginTop:15}}>
+        <View style={{width:"85%" , flexDirection:"row" ,justifyContent:"space-between",alignItems:"center", marginTop:40}}>
           <TouchableHighlight onPress={()=>navigation.navigate("Details")}>
             <Text style={{fontSize:16 , fontWeight:400 , color:"#5F6061"}}>Back</Text>
           </TouchableHighlight>

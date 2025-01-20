@@ -5,7 +5,7 @@ const addSupaDetails = async(user,details) => {
     try{
         if (user) {
             console.log("add supa details")
-            
+            console.log("details:",details)
             // If the user is logged in, get their UID
             ////console.log("user",user)
             const userId = user.uid;
@@ -29,7 +29,7 @@ const addSupaDetails = async(user,details) => {
                 .from('Users')
                 .insert([{user_Id: userId, Gmail: email,Fname:details.fname,Lname: details.lname,age:details.age,height:details.height,weight:details.weight,
                           activity:details.activity,diet:details.diet,lifestyle:details.lifestyle,disease:details.disease,image:details.img,
-                          sugar:details.sugar,bp:details.bp,cholestrol:details.cholestrol,heartrate:details.heartrate,bmi:details.bmi}])
+                          sugar:details.sugar,bp:details.bp,cholestrol:details.cholesterol,heartrate:details.heartrate,bmi:details.bmi}])
                 .select();
           
               if (error) {

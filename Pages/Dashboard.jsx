@@ -12,7 +12,7 @@ import { AuthContext } from '../Context/AuthProvider';
 import checkSave from '../functions/checkSave';
 import onDelete from '../functions/onDelete';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Svg, Mask, Rect, G, Path } from 'react-native-svg';
+import { Svg, Mask, Rect, G, Path,Text as SvgText } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
 const Dashboard = () => {
     const Navigation = useNavigation();
@@ -82,7 +82,7 @@ const Dashboard = () => {
             flex:1,
             backgroundColor: '#141414',
             width:'100%',
-            
+            flexGrow:1,
             //justifyContent:'space-around',
             //marginVertical:10,
             paddingTop:30,
@@ -124,6 +124,7 @@ const Dashboard = () => {
             justifyContent:'space-between',
             alignItems:'center',
             padding:10,
+            marginTop:10
         },
         save:{
             alignItems:'center',
@@ -216,7 +217,7 @@ const Dashboard = () => {
             marginVertical:20,
             borderRadius:20,
             flexDirection: "column",
-           
+            marginBottom:60
         },
         ingredientsView: {
             width: "100%",
@@ -254,7 +255,7 @@ const Dashboard = () => {
             width: 100,
             height:100,
             marginLeft:10,
-            margintop:0,
+            //margintop:30,
             flexDirection:'row',
             borderTopLeftRadius:20,
             
@@ -313,11 +314,12 @@ const Dashboard = () => {
         hazard:{
             width:"95%",
             //borderRadius:25
-            marginVertical:30,
+            marginTop:50,
+            marginBottom:20
             
         },
         linearG:{
-            height:500,
+           
             borderRadius:30,
             //justifyContent:"center",
             alignItems:'center'
@@ -326,9 +328,18 @@ const Dashboard = () => {
             
             width:"95%",
             backgroundColor:"#FF444433",
-            marginTop:70,
+            marginTop:10,
             borderRadius:30
         },
+        Long:{
+            width:"95%",
+            backgroundColor:'#6D3D3D',
+            height:300,
+            marginTop:30,
+            borderRadius:30,
+            position:'relative'
+        }
+   
     });
     const handleIngredients = () => { 
         setNutrientsColor("#1d1d1e")
@@ -358,51 +369,19 @@ const Dashboard = () => {
     numberOfItemsPerPageList[0]
   );
 
-    const [items] = useState([
-        {
-          key: 1,
-          name: 'Cupcake',
-          calories: 356,
-          fat: 16,
-        },
-        {
-          key: 2,
-          name: 'Eclair',
-          calories: 262,
-          fat: 16,
-        },
-        {
-          key: 3,
-          name: 'Frozen yogurt',
-          calories: 159,
-          fat: 6,
-        },
-        {
-          key: 4,
-          name: 'Gingerbread',
-          calories: 305,
-          fat: 3.7,
-        },
-
-       ]);
-     
-       const from = page * itemsPerPage;
-       const to = Math.min((page + 1) * itemsPerPage, items.length);
-     
-        useEffect(() => {
-         setPage(0);
-       }, [itemsPerPage]);
+    
          // Define base height and height increment per allergen
         const baseHeight = 400; // Base height for the view
-        const heightPerItem = 20; // Height increment for each allergen
+        const heightPerItem = 140; // Height increment for each allergen
         const Height = 200
+        const heightper = 50
         // Calculate dynamic height
-        const dynamicHeight = baseHeight + heightPerItem * (info.allergens?.length || 0);
-        const allergensHeight = Height + heightPerItem + (info.allergens?.length || 0)
+        const dynamicHeight = baseHeight + heightPerItem * (info.hazard?info.hazard["value"]?.length || 0 : 0);
+        const allergensHeight = Height + heightper + (info.allergens?.length || 0)
     return (
     <ScrollView
         style={styles.Main}
-        contentContainerStyle={{ alignItems: 'center', paddingBottom:100 }} // Optional for centered content
+        contentContainerStyle={{ alignItems: 'center', paddingBottom:100,flexGrow:1,height:7000}} // Optional for centered content
     >
         <View
             style={styles.navigator}
@@ -697,7 +676,7 @@ const Dashboard = () => {
             >
                <LinearGradient
                     colors={['#5D4BBE', '#473A9233']}
-                    style={styles.linearG}
+                    style={[styles.linearG,{height:dynamicHeight}]}
                 >
                     <View
                         style={{width:300,height:50,marginTop:30}}
@@ -711,13 +690,13 @@ const Dashboard = () => {
                     <View
                         style={{width:"95%",height:(dynamicHeight-10),alignItems:'center'}}
                     >
-                        {info.allergens && Array.isArray(info.allergens) && info.allergens.length>0?(
-                            info.allergens.map((item,index)=>{
+                        {info.hazard && Array.isArray(info.hazard["value"]) && info.hazard["value"].length>0?(
+                            info.hazard["value"].map((item,index)=>{
                             //console.log(item)
                             return(
                                 <View
                                     key={index}
-                                    style={{backgroundColor:"#9B8FE794",width:"90%",height:150,marginTop:20,borderRadius:20}}
+                                    style={{backgroundColor:"#9B8FE794",width:"90%",height:170,marginTop:20,borderRadius:20}}
                                 >
                                     <View
                                         style={{width:310,paddingLeft:20,paddingTop:10}}
@@ -725,10 +704,19 @@ const Dashboard = () => {
                                         <Text
                                             style={{fontSize:20,color:'white',fontFamily:'Poppins-SemiBold',}}
                                         >
-                                            {item.charAt(0).toUpperCase() + item.slice(1)}
+                                            {item.name}
                                         </Text>
                                     </View>
                                     <View style={{width:250,borderBottomWidth:1.5,borderColor:"white",marginLeft:20}}/>
+                                    <View
+                                         style={{width:310,paddingHorizontal:5,paddingTop:5}}
+                                    >
+                                        <Text
+                                            style={{fontSize:10,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'justify'}}
+                                        >
+                                            {item.value}
+                                        </Text>
+                                    </View>
                                 </View>
                             )
                             })
@@ -785,6 +773,62 @@ const Dashboard = () => {
                         )}
                 </View>
             </View>
+            
+            <View
+                style={styles.Long}
+            >
+                <View
+                    style={{width:"90%",height:50}}
+                >
+                    <Text
+                        style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',paddingLeft:30,paddingTop:15}}
+                    >
+                        Long Term Effects
+                    </Text>
+                </View>
+                <View
+                    style={{width:364,height:228,position:'absolute',bottom:-5}}
+                >
+                    <Svg width="364" height="228" viewBox="0 0 376 228" fill="none">
+                        <Path
+                            d="M0 32C0 14.3269 14.3269 0 32 0H344C361.673 0 376 14.3269 376 32V126.451C376 143.947 361.948 158.2 344.454 158.448L161.046 161.052C143.551 161.3 129.5 175.553 129.5 193.049V196C129.5 213.673 115.173 228 97.5 228H32C14.3269 228 0 213.673 0 196V32Z"
+                            fill="#242424"
+                        />
+                    </Svg>
+                    <View
+                        style={{width:360,height:140,position:'absolute',bottom:80,borderWidth:1.5,color:'white',paddingLeft:15,borderColor:'transparent'}}
+                    >
+                        <Text
+                            style={{fontSize:12,color:'white',fontFamily:'Poppins-Light',marginBottom:5}}
+                        >
+                            {info.Long && info.Long.value && info.Long.value[0] && info.Long.value[0].key1}
+
+                        </Text>
+                        <Text
+                            style={{fontSize:12,color:'white',fontFamily:'Poppins-Light',}}
+                        >
+                           {info.Long && info.Long.value && info.Long.value[0] && info.Long.value[0].key2}
+
+                        </Text>
+                   </View>
+                </View>
+                <View
+                    style={{width:250,height:70,position:'absolute',bottom:0,color:'white',left:115}}
+                >
+                    <Text
+                        style={{fontSize:12,color:'white',fontFamily:'Poppins-medium',paddingLeft:30,paddingTop:13}}
+                    >
+                        Recommened Consumption :
+                    </Text>
+                    <Text
+                         style={{fontSize:16,color:'white',fontFamily:'Poppins-SemiBold',paddingLeft:30,paddingTop:5}}
+                    >
+                        {info.Long && info.Long.value && info.Long.value[1] && info.Long.value[1].Recommend}
+
+                    </Text>
+                </View>
+            </View>
+            
         </View>
     </ScrollView>
   )

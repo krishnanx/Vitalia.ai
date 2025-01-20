@@ -99,7 +99,7 @@ const DetailsCollection = ({route,navigation}) => {
         </View>
         <View style={styles.subContainerBottom}>
 
-          <View style={{width:"95%"}}>
+          <View style={{width:"95%",paddingHorizontal:10}}>
             <Text style={{color:"white"}}>Select Gender</Text>
             <View style={{ gap:10,marginTop:5}}>
               <StyledRadioButton text="Male" selected={userDetails.gender=="male"} onPress={() => handleGenderChange("male")}/>
@@ -109,7 +109,7 @@ const DetailsCollection = ({route,navigation}) => {
             
           </View>
 
-          <View style={{width:"99%" , gap:5}}>
+          <View style={{width:"99%" , gap:5,paddingHorizontal:10}}>
             <TextInput style={styles.input}
               placeholder='Height (cm)'
               keyboardType="numeric"
@@ -131,7 +131,7 @@ const DetailsCollection = ({route,navigation}) => {
               />
           </View>
 
-          <View style={{width:"99%" , flexDirection:"row" , justifyContent:"space-around"}}>
+          <View style={{width:"99%" , flexDirection:"row" , justifyContent:"space-around",paddingHorizontal:10}}>
             
             <View style={{width:"99%"}}>
               <Text style={{color:"white" , marginBottom:5}}>Set Activity level</Text>
@@ -144,7 +144,7 @@ const DetailsCollection = ({route,navigation}) => {
             </View>
 
           </View>
-          <View style={{width:"94%" , alignItems:"flex-end", marginTop:20}}>
+          <View style={{width:"94%" , alignItems:"flex-end", marginTop:20,marginRight:10}}>
             <StyledButton title={"Next"} width={100} height={40} onPress={handleSubmit} />
           </View>
 
