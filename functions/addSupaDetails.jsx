@@ -1,5 +1,6 @@
 import { supabase } from "../Supabase/supabase";
 const addSupaDetails = async(user,details) => {
+  console.log("\nAddSupa\n",details)
     // console.log("hi bye hi bye")
     try{
         if (user) {

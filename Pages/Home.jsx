@@ -15,8 +15,6 @@ import { font } from '../Context/fontContext'
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Home = () => {
     const route = useRoute();
-    const {updateUserDetails, userDetailsState} = useAuth();
-    console.log("IGU", userDetailsState)
     
     const {fontsLoaded} = useContext(font)
     const [searchQuery, setSearchQuery] = React.useState('');
