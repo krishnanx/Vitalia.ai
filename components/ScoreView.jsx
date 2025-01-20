@@ -75,37 +75,37 @@ const ScoreView = ({HealthScore}) => {
           style={styles.Level}
         >
           <View style={[styles.corner, styles.topLeft,{ backgroundColor:
-                                                         HealthScore === 'A' ? "#355e3b" :
-                                                         HealthScore === 'B' ? "#32cd32" :
-                                                         HealthScore === 'C' ? "#fdf718" :
-                                                         HealthScore === 'D' ? "#ED7014" : 
-                                                         "#AA0000",}]} />
+                                                       HealthScore > 90 ? "#FF5733" : // good green for score greater than 90
+                                                       HealthScore >= 60 && HealthScore <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                       HealthScore >= 40 && HealthScore < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                       HealthScore < 40 ? "#AA0000" : // red for score less than 40
+                                                       "transparent"}]} />
           <View style={[styles.corner, styles.topRight,{ backgroundColor:
-                                                           HealthScore === 'A' ? "#355e3b" :
-                                                           HealthScore === 'B' ? "#32cd32" :
-                                                           HealthScore === 'C' ? "#fdf718" :
-                                                           HealthScore === 'D' ? "#ED7014" : 
-                                                           "#AA0000",}]} />
+                                                           HealthScore > 90 ? "#FF5733" : // good green for score greater than 90
+                                                           HealthScore >= 60 && HealthScore <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                           HealthScore >= 40 && HealthScore < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                           HealthScore < 40 ? "#AA0000" : // red for score less than 40
+                                                           "transparent"}]} />
           <View style={[styles.corner, styles.bottomLeft,{ backgroundColor:
-                                                          HealthScore === 'A' ? "#355e3b" :
-                                                          HealthScore === 'B' ? "#32cd32" :
-                                                          HealthScore === 'C' ? "#fdf718" :
-                                                          HealthScore === 'D' ? "#ED7014" : 
-                                                          "#AA0000",}]} />
+                                                          HealthScore > 90 ? "#FF5733" : // good green for score greater than 90
+                                                          HealthScore >= 60 && HealthScore <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                          HealthScore >= 40 && HealthScore < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                          HealthScore < 40 ? "#AA0000" : // red for score less than 40
+                                                          "transparent"}]} />
           <View style={[styles.corner, styles.bottomRight,{ backgroundColor:
-                                                           HealthScore === 'A' ? "#355e3b" :
-                                                           HealthScore === 'B' ? "#32cd32" :
-                                                           HealthScore === 'C' ? "#fdf718" :
-                                                           HealthScore === 'D' ? "#ED7014" : 
-                                                           "#AA0000",}]} />
+                                                          HealthScore > 90 ? "#FF5733" : // good green for score greater than 90
+                                                          HealthScore >= 60 && HealthScore <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                                                          HealthScore >= 40 && HealthScore < 60 ? "#ED7014" : // orange for score between 40 and 60
+                                                          HealthScore < 40 ? "#AA0000" : // red for score less than 40
+                                                          "transparent"}]} />
           <View style={styles.viewSquare}>
               <Text
                   style={{fontSize:30,fontWeight:'400',color:
-                    HealthScore === 'A' ? "#355e3b" :
-                    HealthScore === 'B' ? "#32cd32" :
-                    HealthScore === 'C' ? "#fdf718" :
-                    HealthScore === 'D' ? "#ED7014" : 
-                    "#AA0000",}}
+                    HealthScore > 90 ? "#FF5733" : // good green for score greater than 90
+                    HealthScore >= 60 && HealthScore <= 90 ? "#32cd32" : // light green for score between 60 and 90
+                    HealthScore >= 40 && HealthScore < 60 ? "#ED7014" : // orange for score between 40 and 60
+                    HealthScore < 40 ? "#AA0000" : // red for score less than 40
+                    "transparent"}}
               >
                   {HealthScore}
               </Text>

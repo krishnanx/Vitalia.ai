@@ -23,11 +23,11 @@ const Anipage = () => {
                 //console.log(value)
                 if(value){
                     setUser(user);
-                    //console.log("bro")
+                    console.log("bro")
                     navigation.navigate("Home");
                 }
                 else{
-                    //console.log("nah bro")
+                    console.log("nah bro")
                     navigation.navigate("Login");
                 }
             }

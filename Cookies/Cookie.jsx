@@ -37,6 +37,22 @@ export const checkLoginStatus = async () => {
     } else {
         // User is not logged in
         console.log('User is not logged in');
-        return false
+        return [false,false]
+    }
+};
+export const deleteDeviceCookie = async () => {
+    try {
+        const cookieName = await getDeviceCookieName(); // Get the dynamic cookie name
+        // Overwrite the cookie with an expired date
+        await Cookies.set('https://nutrigen.myprojects.studio', {
+            name: cookieName,
+            value: '', // Set the value to an empty string
+            path: '/',
+            expires: new Date(0).toISOString(), // Set an expiration date in the past
+        });
+
+        console.log(`Cookie '${cookieName}' has been deleted.`);
+    } catch (error) {
+        console.error('Error deleting device cookie:', error);
     }
 };
