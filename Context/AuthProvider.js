@@ -61,6 +61,11 @@ export const AuthProvider = ({ children }) => {
       diet: "",
       lifestyle: "",
       disease: [],
+      bmi:"",
+      sugar:"",
+      cholesterol:"",
+      bp:"",
+      heartrate:""
     });
     setNewUser(false);
   };

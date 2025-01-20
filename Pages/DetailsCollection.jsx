@@ -21,6 +21,7 @@ const DetailsCollection = ({route,navigation}) => {
       weight: "",
       activity: "",
       img: "",
+      bmi:""
     });
 
     //for avatar
@@ -51,12 +52,24 @@ const DetailsCollection = ({route,navigation}) => {
           setIsDialogVisible(true)
           return
         }
+        userDetails.bmi = calculateBMI(userDetails.height , userDetails.weight)
         updateUserDetails(
           userDetails
         )
        // console.log(userDetailsState)
-        navigation.navigate('AddHealthInfo' , {userDetails});
+        navigation.navigate('AddHealthInfo');
 
+    }
+
+    function calculateBMI(heightCm, weightKg) {
+    
+      // Convert height from cm to meters
+      const heightM = heightCm / 100;
+    
+      // Calculate BMI
+      const bmi = weightKg / (heightM * heightM);
+    
+      return bmi.toFixed(2); // Return BMI rounded to 2 decimal places
     }
   return (
     <ScrollView style={styles.container} contentContainerStyle={{alignItems: 'center',justifyContent: "space-around"}}>
@@ -99,17 +112,20 @@ const DetailsCollection = ({route,navigation}) => {
           <View style={{width:"99%" , gap:5}}>
             <TextInput style={styles.input}
               placeholder='Height (cm)'
+              keyboardType="numeric"
               placeholderTextColor={"#686868"}
               value={userDetails.height}
               onChangeText={(text)=>setUserDetails({...userDetails , height:text})} //onChangeText={(text) => setUserDetails({ ...userDetails, height: text })}
               />
             <TextInput style={styles.input}
               placeholder='Weight (KG)'
+              keyboardType="numeric"
               placeholderTextColor={"#686868"}
               onChangeText={(text)=>setUserDetails({...userDetails , weight:text})}
               />
             <TextInput style={styles.input}
               placeholder='Age'
+              keyboardType='numeric'
               placeholderTextColor={"#686868"}
               onChangeText={(text)=>setUserDetails({...userDetails , age: text})}
               />
