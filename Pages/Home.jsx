@@ -1,6 +1,6 @@
 import React,{useEffect,useContext,useState} from 'react'
 import { bgContext } from '../Context/StateContext';
-import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity,SafeAreaView} from 'react-native';
 import Burger from "../assets/burger.png"
 import useLogOut from '../firebaseHooks/useLogOut';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +12,7 @@ import { Searchbar } from 'react-native-paper';
 import Search from "../assets/icons/search.svg"
 import Svg, { Path } from "react-native-svg";
 import { font } from '../Context/fontContext'
+import { SafeAreaProvider,useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 const Home = () => {
     const route = useRoute();
@@ -64,13 +65,12 @@ const Home = () => {
         container: {
             flex: 1,
             flexDirection: 'column', // Main axis is vertical
-            paddingTop:10,
             backgroundColor: '#141414',
             justifyContent:"space-between",
+            alignItems:"center",
             width:'100%',
             height:700,
-            paddingHorizontal:10,
-            paddingVertical:20,
+            paddingTop:10
         },
         header:{
             //marginTop:40,
@@ -140,14 +140,22 @@ const Home = () => {
         
     });
 
-   const loading = false;
-    
+    const loading = false;
+    const insets = useSafeAreaInsets();
     
 
       
   return (
-       <View style={styles.container}>
-                <View style={styles.HeroTop}>
+       <SafeAreaProvider>
+            <View
+                style={[
+                    styles.container,
+                    {
+                     
+                    },
+                  ]}
+            >
+            <View style={styles.HeroTop}>
                     <Searchbar
                         style={{padding:0,margin:0,width:350}}
                         icon={()=>(
@@ -168,7 +176,7 @@ const Home = () => {
                     />
                    
                     <View
-                        style={{width:350,height:100,marginTop:50,justifyContent:'center',padding:0}}
+                        style={{width:"90%",height:100,marginTop:50,justifyContent:'center',padding:10}}
                     >
                         <Text
                             style={{fontSize:40,color:'white',fontFamily:'Poppins-Medium',textAlign:'left'}}
@@ -220,15 +228,16 @@ const Home = () => {
                        
                     </ScrollView>*/}
                     <View
-                        style={{width:'100%',/*borderWidth:1.5,borderColor:"white"*/}}
+                        style={{width:'95%',/*borderWidth:1.5,borderColor:"white"*/justifyContent:'center'}}
                     >
                         <Text
-                            style={{color:'white',fontSize:25,fontFamily:'Poppins-SemiBold',paddingLeft:10}}
+                            style={{color:'white',fontSize:25,fontFamily:'Poppins-SemiBold',paddingLeft:20}}
                         >
                             Scanned History
                         </Text>
                         <ScrollView
                             horizontal={true}
+                            contentContainerStyle={{alignItems:'center',justifyContent:'center'}}
                         >
                             {scanned && !loading && Array.isArray(scanned) && scanned.length>0?(
                                 scanned.map((item,index)=>{
@@ -291,8 +300,8 @@ const Home = () => {
                         />
                     </ScrollView>
                 </View> */}
-          
-        </View>
+            </View>
+        </SafeAreaProvider>
        
   )
 }

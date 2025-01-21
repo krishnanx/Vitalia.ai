@@ -15,7 +15,7 @@ const Card = ({ title, image, imageURL, score, onPress }) => {
           elevation: 4,
           margin: 10,
           overflow: 'hidden',
-          width:350,
+          width:"90%",
           height:250
         },
         middleContainer:{

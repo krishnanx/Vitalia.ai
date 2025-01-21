@@ -80,7 +80,8 @@ const Profile = () => {
           alignItems:'center',
           // borderWidth:1.5,
           // borderColor:'white'
-          flexDirection:'row'
+          flexDirection:'row',
+          marginBottom:30
           
       },
 
