@@ -1,5 +1,5 @@
 import React, { useState,useEffect,useContext } from 'react'
-import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,ScrollView ,Image,TouchableOpacity,SafeAreaView} from 'react-native';
 import HomeIcon from "../assets/house.png";
 import Fav from "../assets/bookmark.png";
 //import Scan from "../assets/Scan.png";
@@ -46,7 +46,8 @@ const Footer = () => {
 
     const styles = StyleSheet.create({
         footer:{
-            //height:60,
+            
+            height:60,
             //paddingHorizontal:30,
             backgroundColor: currentPage === "Scan" ? "transparent" : "#141414",
             flexDirection:"row",
@@ -54,30 +55,34 @@ const Footer = () => {
             justifyContent:"space-evenly",
             borderTopWidth:currentPage === "Scan" ?0:1,
             borderTopColor:'#282828',
-            width:400,
+            width:"100%",
             position:currentPage === "Scan" ? "absolute" : "static",
             bottom:currentPage === "Scan" ? 0: "none",
+            
         },
         leftFooter:{
             flexDirection:'row',
-            justifyContent:'space-between',
-            width:140,
+            justifyContent:'center',
+            alignItems:'center',
+            width:"35%",
             height:40,
             paddingLeft:30,
-            
+            // backgroundColor:'white'
             
         },
         middleFooter:{
             flexDirection:'row',
             justifyContent:'center',
             height:40,
-            width:120,
+            width:"30%",
+            
+            // backgroundColor:'white'
             
         },
         rightFooter:{
             flexDirection:'row',
             justifyContent:'space-between',
-            width:140,
+            width:"35%",
             height:40,
             paddingRight:30,
         },
@@ -155,12 +160,12 @@ const Footer = () => {
    
     
   return (
-    <View style={[styles.footer, { height:size}]}>
+    <SafeAreaView style={[styles.footer, { height:size}]}>
               
                 <View
                     style={styles.leftFooter}
                 >
-                    <TouchableOpacity onPress={()=>handlePress('Home')} activeOpacity={0.5} style={styles.Touchable}>
+                    <TouchableOpacity onPress={()=>handlePress('Home')} activeOpacity={0.5} style={[styles.Touchable,{marginRight:15}]}>
                         {/*Location[Location.length-1]==="Home"?<Icon name="home" size={35} color="white" />:<Icon name="home-outline" size={35} color="white" />*/}
                         <Svg width={35} height={35} viewBox="0 -960 960 960">
                             <Path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" fill="white" />
@@ -199,7 +204,7 @@ const Footer = () => {
                         </Svg>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=>handlePress('Profile')} activeOpacity={0.5} style={styles.Touchable}>
+                    <TouchableOpacity onPress={()=>handlePress('Profile')} activeOpacity={0.5} style={[styles.Touchable,{marginLeft:15}]}>
                         {/* {Location[Location.length-1]==="Profile"?<Icon name="account" size={35} color="white" />:<Icon name="account-outline" size={35} color="white" />} */}
                         <Svg width={35} height={35} viewBox="0 -960 960 960">
                             <Path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z" fill="white" />
@@ -207,7 +212,7 @@ const Footer = () => {
                     </TouchableOpacity>
                    
                 </View>
-    </View>
+    </SafeAreaView>
 )
 }
 
