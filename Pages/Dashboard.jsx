@@ -381,12 +381,14 @@ const Dashboard = () => {
 return (
     <ScrollView
         style={styles.Main}
-        contentContainerStyle={{ alignItems: 'center', paddingBottom:100,flexGrow:1,height:7000}} // Optional for centered content
+        contentContainerStyle={{ alignItems: 'center', paddingBottom:100,flexGrow:1,height:3000}} // Optional for centered content
     >
         <View
             style={styles.navigator}
         >
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=>Navigation.goBack()}
+            >
                 <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
                     {/* Define the mask */}
                     <Mask

@@ -99,7 +99,9 @@ const Profile = () => {
           <View
             style={{width:150,height:50,justifyContent:"flex-start",alignItems:'center',flexDirection:'row'}}
           >
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={()=>Navigation.goBack()}
+            >
                 <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
                     {/* Define the mask */}
                     <Mask

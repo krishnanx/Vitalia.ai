@@ -46,7 +46,9 @@ const Jane = () => {
       <View
         style={styles.navigator}
       >
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={()=>Navigation.goBack()}
+        >
             <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
                 {/* Define the mask */}
                 <Mask
@@ -73,7 +75,7 @@ const Jane = () => {
         <Text
           style={{fontSize:25,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'center',marginLeft:20}}
         >
-          Account
+          Search
         </Text>
       </View>
    </View>

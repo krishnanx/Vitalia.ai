@@ -273,7 +273,7 @@ const Home = () => {
                         horizontal={true}
                         contentContainerStyle={{alignItems:'center',justifyContent:'center'}}
                     >
-                        {scanned && !loading && Array.isArray(scanned) && scanned.length>0?(
+                        {/* {scanned && !loading && Array.isArray(scanned) && scanned.length>0?(
                             scanned.map((item,index)=>{
                                 return(
                                     <Card
@@ -292,7 +292,7 @@ const Home = () => {
                             >
                                 <ActivityIndicator animating={true} color={MD2Colors.white} style={{zIndex:6,justifyContent:'center',alignItems:'center',paddingLeft:5}} size={50}/> 
                             </View>
-                        )}
+                        )} */}
                     </ScrollView>
                 </View>
                 {/* <View  style={styles.HeroBottom}>
