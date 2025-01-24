@@ -72,7 +72,7 @@ const Anipage = () => {
                             y="50"
                             textAnchor="middle"
                             >
-                            NUTRIGEN
+                            VITALIA
                         </SvgText>
                 </Svg>
             </Animatable.View> 

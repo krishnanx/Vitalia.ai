@@ -192,7 +192,7 @@ const GetStarted = () => {
                 <Text
                     style={{ color: 'white', textAlign: 'center' ,fontSize:20,fontFamily: 'Poppins-ExtraBold',}}
                 >
-                    Nutrigen
+                    Vitalia.ai
                 </Text>
             </View>
         </View>   

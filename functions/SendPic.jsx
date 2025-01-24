@@ -3,7 +3,7 @@ const sendBase64ToServer = async (base64,uid) => {
   //'http://192.168.1.40:5000/upload-base64/'
   try {
     console.log("gug",Constants.expoConfig.extra.SERVER)
-    const response = await fetch(`${Constants.expoConfig.extra.SERVER}`, {
+    const response = await fetch('http://192.168.10.221:5000/upload-base64/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

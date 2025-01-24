@@ -201,19 +201,14 @@ const Scanner = () => {
     
     })
   const [bgcolor,setBackgroundColor] = useState('black');
-  
+  const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  
-  const [text,setText] = useState("");
   const [work,setWork] = useState(0);
-  
   useEffect(() => {
     const getCameraPermissions = async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     };
-
     getCameraPermissions();
   },[]);
   useEffect(()=>{
@@ -229,12 +224,8 @@ const Scanner = () => {
       setState(1);
       setBackgroundColor("transparent")
     }
-    
-    
   },[hasPermission])
-  useEffect(()=>{
-    //console.log(flash)
-  })
+ 
   ////console.log('Hello')
   const cameraRef = useRef(null);
   const [photoUri, setPhotoUri] = useState(null);
@@ -311,15 +302,29 @@ const Scanner = () => {
             >
 
               <View
-                style={styles.torchView}
+                style={{width:320,height:100,justifyContent:'space-between',flexDirection:'row',alignItems:'center'}}
               >
-                <TouchableOpacity
-                  style={styles.torchFeedback}
-                  onPress={handleTorch}
+                <View
+                  style={styles.torchView}
                 >
-                  {Torch?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
-                </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.torchFeedback}
+                    onPress={handleTorch}
+                  >
+                    {Torch?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
+                  </TouchableOpacity>
+                  
+                </View>
+                <TouchableOpacity
+                    style={{width:40,height:40,paddingRight:30}}
+                    onPress={()=>navigation.pop()}
+                  >
+                    <Svg xmlns="http://www.w3.org/2000/svg" height="35" width="35" viewBox="0 -960 960 960" fill="white">
+                      <Path d="M256-200l-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </Svg>
+                  </TouchableOpacity>
               </View>
+
               {/* <Svg
                 width="200"
                 height="200"

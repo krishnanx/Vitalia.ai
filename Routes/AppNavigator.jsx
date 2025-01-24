@@ -111,9 +111,10 @@ const AppNavigator = () => {
           component={ChangePassword}
           options={{animation:'fade' }}
        />
+
       </>
-     
-      }
+
+}
     </Stack.Navigator>
   )
 }

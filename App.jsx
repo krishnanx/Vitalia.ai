@@ -14,13 +14,10 @@ import { StatusBar } from 'expo-status-bar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { bgContext } from './Context/StateContext';
-import LoginScreen from './Routes/LoginScreen';
-import SignupScreen from './Routes/SignupScreen';
-import Welcome from './Routes/Welcome';
 import { Provider as PaperProvider , DefaultTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import Header from './components/Header';
-import React,{useRef, useState} from 'react';
+import React,{useContext, useRef, useState} from 'react';
 import { AuthProvider, useAuth } from './Context/AuthProvider';
 import AppNavigator from './Routes/AppNavigator';
 import GetStarted from './Pages/getStarted';
@@ -50,7 +47,6 @@ const App = () => {
     },
   };
 
-  const [currentPage , setCurrentPage] = useState("");
   const handleStateChange = (state) => {
     setCurrentPage(state.routes[state.index].name);
     //console.log(state.routes[state.index].name)
@@ -58,7 +54,7 @@ const App = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: currentPage === "Scan" ? "transparent" : "#141414",
+      //backgroundColor: currentPage === "Scan" ? "transparent" : "#141414",
     },
   });
 
@@ -68,7 +64,30 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <StateContext>
         <FontContext>
-          <StatusBar style="light" backgroundColor={'#141414'} />
+          
+          <MainApp />     
+        </FontContext>
+        
+      </StateContext>
+    </SafeAreaView>
+    </PaperProvider>
+    </AuthProvider>
+  );
+};
+
+export default App;
+
+
+const MainApp =  () =>{
+  const [state,setState,Location,setLocation,size,setSize,opacity,setOpacity,routes,setRoutes,info,setInfo,code,
+    setCode,click,setClicked,value,setValue,bookmarks,setBookmarks,scanned,setScanned,name,setName,currentPage,setCurrentPage] = useContext(bgContext);
+    const handleStateChange = (state) => {
+      setCurrentPage(state.routes[state.index].name);
+      //console.log(state.routes[state.index].name)
+    };
+  return (
+    <>
+    <StatusBar style="light" backgroundColor={'#141414'} />
           <NavigationContainer onStateChange={handleStateChange}>
             
           {/* {currentPage=="Home" || currentPage=="jane" ||currentPage=="Account" || currentPage=="Scan" || currentPage=="Saved"||
@@ -81,14 +100,6 @@ const App = () => {
             <Footer/>:""
             }
           </NavigationContainer>
-       
-        </FontContext>
-        
-      </StateContext>
-    </SafeAreaView>
-    </PaperProvider>
-    </AuthProvider>
-  );
-};
-
-export default App;
+    </>
+  )
+}

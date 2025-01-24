@@ -29,11 +29,11 @@ const Home = () => {
     useEffect(() => {
         if (Navigation) {
             const state = Navigation.getState();
-            ////console.log("navigation state:", state.routes[0].name);
+            // console.log("navigation state:", state.routes[0]);
             const Index = state.index;
             const location = state.routes[Index].name;
             location==="Home"||location==="jane"||location==="Scan"||location==="Saved"||location==="Profile"? (setLocation((prev) => [...prev, location]),setSize(60),setOpacity(1)) : (setLocation((prev) => [...prev, location]),setSize(0),setOpacity(0));
-            ////console.log(state.routes[Index].name)
+            console.log(state.routes)
           } else {
             //console.log("Navigation context is undefined");
           }
@@ -64,12 +64,12 @@ const Home = () => {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
+            flexGrow:1,
             flexDirection: 'column', // Main axis is vertical
             backgroundColor: '#141414',
-            justifyContent:"space-between",
-            alignItems:"center",
+            //justifyContent:"space-between",
+            //alignItems:"center",
             width:'100%',
-            height:700,
             paddingTop:10
         },
         header:{
@@ -147,13 +147,11 @@ const Home = () => {
       
   return (
        <SafeAreaProvider>
-            <View
+            <ScrollView
                 style={[
                     styles.container,
-                    {
-                     
-                    },
                   ]}
+                contentContainerStyle={{alignItems:"center",height:1000}}               
             >
             <View style={styles.HeroTop}>
                     <Searchbar
@@ -263,7 +261,40 @@ const Home = () => {
                        
                     </View>
                 </View>
-               
+                <View
+                    style={{width:'95%',/*borderWidth:1.5,borderColor:"white"*/justifyContent:'center',marginTop:130}}
+                >
+                    <Text
+                        style={{color:'white',fontSize:25,fontFamily:'Poppins-SemiBold',paddingLeft:20}}
+                    >
+                       Recommended for you
+                    </Text>
+                    <ScrollView
+                        horizontal={true}
+                        contentContainerStyle={{alignItems:'center',justifyContent:'center'}}
+                    >
+                        {scanned && !loading && Array.isArray(scanned) && scanned.length>0?(
+                            scanned.map((item,index)=>{
+                                return(
+                                    <Card
+                                        key = {item.code}
+                                        title={item.name}
+                                        imageURL={item.image}
+                                        score={item.score}
+                                        onPress={() => handleHistory(item)}
+                                        
+                                    />
+                                )
+                            })
+                        ):(
+                            <View
+                                style={{width:380,height:200,justifyContent:'center',alignItems:'center'}}
+                            >
+                                <ActivityIndicator animating={true} color={MD2Colors.white} style={{zIndex:6,justifyContent:'center',alignItems:'center',paddingLeft:5}} size={50}/> 
+                            </View>
+                        )}
+                    </ScrollView>
+                </View>
                 {/* <View  style={styles.HeroBottom}>
                     <Text style={styles.textHero}>
                         RECOMMENDER FOR YOU
@@ -300,7 +331,7 @@ const Home = () => {
                         />
                     </ScrollView>
                 </View> */}
-            </View>
+            </ScrollView>
         </SafeAreaProvider>
        
   )
