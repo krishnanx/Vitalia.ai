@@ -146,7 +146,7 @@ const Home = () => {
 
       
   return (
-       <SafeAreaProvider>
+       
             <ScrollView
                 style={[
                     styles.container,
@@ -332,7 +332,7 @@ const Home = () => {
                     </ScrollView>
                 </View> */}
             </ScrollView>
-        </SafeAreaProvider>
+        
        
   )
 }

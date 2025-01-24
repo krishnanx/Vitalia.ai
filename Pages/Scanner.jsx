@@ -257,6 +257,10 @@ const Scanner = () => {
           //console.log("safe:",result["safe"])
           //const response = calcScore(result);
           //result["score"] = response 
+          // const check = JSON.parse(result.generated_text)
+          // console.log(check)
+          // result.hazard = check.hazard
+          // result.Long = check.long   
           setInfo(result)
           await history(user,result)
           Navigation.navigate("Dashboard")
@@ -293,7 +297,8 @@ const Scanner = () => {
                   animateShutter={false} 
                   enableTorch={Torch}
                   autofocus={'on'}
-                  
+                  shutterSound={false}
+
                   //flash={'on'}
                   
                 />
@@ -311,7 +316,7 @@ const Scanner = () => {
                     style={styles.torchFeedback}
                     onPress={handleTorch}
                   >
-                    {Torch?(<Image source={torch} style={styles.Torch} />):(<Image source={torchW} style={styles.Torch} />)}
+                    <Flash Torch={Torch}/>
                   </TouchableOpacity>
                   
                 </View>
@@ -476,8 +481,10 @@ const Scanner = () => {
               style={styles.TakePicView}
             >
               <TouchableOpacity
-                onPress={()=>takePicture()}
-                style={styles.TakePic}
+                
+
+                onPress={()=>{work!==1?takePicture():null}}
+                style={[styles.TakePic,{opacity:work===1?0.5:1}]}
                 activeOpacity={0.5}
               >
 
@@ -516,3 +523,18 @@ const Scanner = () => {
 }
 
 export default Scanner
+
+const Flash = (Torch) => {
+  console.log(Torch)
+  return(
+    <>
+     {Torch.Torch?<Svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 -960 960 960" fill="black">
+      <Path d="M320-80v-440l-80-120v-240h480v240l-80 120v440H320Zm160-260q-25 0-42.5-17.5T420-400q0-25 17.5-42.5T480-460q25 0 42.5 17.5T540-400q0 25-17.5 42.5T480-340ZM320-760h320v-40H320v40Zm320 80H320v16l80 120v384h160v-384l80-120v-16ZM480-480Z" />
+    </Svg>:
+    <Svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 -960 960 960" fill="white">
+      <Path d="M320-80v-440l-80-120v-240h480v240l-80 120v440H320Zm160-260q-25 0-42.5-17.5T420-400q0-25 17.5-42.5T480-460q25 0 42.5 17.5T540-400q0 25-17.5 42.5T480-340ZM320-760h320v-40H320v40Zm320 80H320v16l80 120v384h160v-384l80-120v-16ZM480-480Z" />
+    </Svg>}
+    </>
+   
+  )
+}

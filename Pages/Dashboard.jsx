@@ -198,9 +198,9 @@ const Dashboard = () => {
         Ingredients:{
             width:"95%",
             //backgroundColor:"#EBF8FF",
-            minHeight:500,
+            minHeight:200,
             //maxHeight:2000,
-            marginVertical:20,
+            marginTop:20,
             borderRadius:20,
             alignItems:"center",
             justifyContent:"flex-start",
@@ -369,16 +369,16 @@ const Dashboard = () => {
     numberOfItemsPerPageList[0]
   );
 
-    
-         // Define base height and height increment per allergen
-        const baseHeight = 400; // Base height for the view
-        const heightPerItem = 140; // Height increment for each allergen
-        const Height = 200
-        const heightper = 50
-        // Calculate dynamic height
-        const dynamicHeight = baseHeight + heightPerItem * (info.hazard?info.hazard["value"]?.length || 0 : 0);
-        const allergensHeight = Height + heightper + (info.allergens?.length || 0)
-    return (
+
+        // Define base height and height increment per allergen
+    const baseHeight = 250; // Base height for the view
+    const heightPerItem = 140; // Height increment for each allergen
+    const Height = 100
+    const heightper = 80
+    // Calculate dynamic height
+    const dynamicHeight = baseHeight + heightPerItem * (info.hazard?info.hazard["value"]?.length || 0 : 0);
+    const allergensHeight = Height + heightper + (info.allergens?.length || 0)
+return (
     <ScrollView
         style={styles.Main}
         contentContainerStyle={{ alignItems: 'center', paddingBottom:100,flexGrow:1,height:7000}} // Optional for centered content
@@ -696,7 +696,7 @@ const Dashboard = () => {
                             return(
                                 <View
                                     key={index}
-                                    style={{backgroundColor:"#9B8FE794",width:"90%",height:170,marginTop:20,borderRadius:20}}
+                                    style={{backgroundColor:"#9B8FE794",width:"90%",height:'auto',marginTop:20,borderRadius:20,paddingBottom:10}}
                                 >
                                     <View
                                         style={{width:310,paddingLeft:20,paddingTop:10}}
@@ -709,7 +709,7 @@ const Dashboard = () => {
                                     </View>
                                     <View style={{width:250,borderBottomWidth:1.5,borderColor:"white",marginLeft:20}}/>
                                     <View
-                                         style={{width:310,paddingHorizontal:5,paddingTop:5}}
+                                         style={{width:310,paddingHorizontal:20,paddingTop:5}}
                                     >
                                         <Text
                                             style={{fontSize:10,color:'white',fontFamily:'Poppins-SemiBold',textAlign:'justify'}}
@@ -823,7 +823,7 @@ const Dashboard = () => {
                     <Text
                          style={{fontSize:16,color:'white',fontFamily:'Poppins-SemiBold',paddingLeft:30,paddingTop:5}}
                     >
-                        {info.Long && info.Long.value && info.Long.value[1] && info.Long.value[1].Recommend}
+                        {info.Recommend}
 
                     </Text>
                 </View>
