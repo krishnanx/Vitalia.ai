@@ -152,7 +152,10 @@ android {
 }
 
 dependencies {
-    
+    implementation project(':react-native-firebase_app')
+    implementation project(':react-native-firebase_auth')
+    implementation project(':react-native-cookies_cookies')
+
     // Ensure you include Hermes if enabled
     if (hermesEnabled.toBoolean()) {
         implementation 'com.facebook.react:hermes-android'
