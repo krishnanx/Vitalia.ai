@@ -1,6 +1,6 @@
-# **Nutrigen**
+# **Vitalia.ai**
 
-**Nutrigen** is a mobile application designed to empower Indian consumers by providing transparency and personalized insights into food and cosmetic products. By leveraging advanced technologies like AI-driven analysis, barcode scanning, and multilingual support, Nutrigen helps users make informed and healthier product choices.
+**Vitalia.ai** is a mobile application designed to empower Indian consumers by providing transparency and personalized insights into food and cosmetic products. By leveraging advanced technologies like AI-driven analysis, barcode scanning, and multilingual support, Nutrigen helps users make informed and healthier product choices.
 
 ---
 
